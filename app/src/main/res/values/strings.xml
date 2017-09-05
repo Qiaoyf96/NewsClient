@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">newsClient</string>
+<string name="button_send">Say something</string>
+<string name="default_message">Click button below!</string>
+<string name="interact_message">You just clicked on the Button!</string>
+</resources>
