@@ -56,7 +56,7 @@ public class HttpGet {
                     in.close();
                 }
             } catch (Exception e2) {
-                e2.printStackTrace();
+                result = "Error, no news found, check your internet connection";
             }
         }
         return result;

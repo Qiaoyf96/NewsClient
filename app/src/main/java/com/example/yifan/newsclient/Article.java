@@ -22,17 +22,8 @@ public class Article extends Activity{
         setContentView(R.layout.activity_article);
         TextView tv = findViewById(R.id.textView2);
         Intent intent = getIntent();
-        String news_id = intent.getStringExtra("news_id");
-        String url = "http://166.111.68.66:2042/news/action/query/detail?newsId=" + news_id;
-        String json = HttpGet.sendGet(url);
-        JSONObject resultObj = null;
-        try {
-            resultObj = new JSONObject(json);
-            String txt = resultObj.getString("news_Content");
-            tv.setText(txt);
-        } catch (JSONException e) {
-            tv.setText(e.toString());
-        }
+        String txt = intent.getStringExtra("news_content");
+        tv.setText(txt);
         //获取数据项
     }
 }

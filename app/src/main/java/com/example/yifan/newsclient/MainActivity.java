@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.example.yifan.newsclient.HttpGet.sendGet;
-
 public class MainActivity extends Activity {
     /**
      * Called when the activity is first created.
