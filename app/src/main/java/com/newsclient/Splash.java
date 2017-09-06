@@ -1,4 +1,4 @@
-package com.example.yifan.newsclient;
+package com.newsclient;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;

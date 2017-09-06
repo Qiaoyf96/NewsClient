@@ -1,4 +1,4 @@
-package com.example.yifan.newsclient;
+package com.newsclient;
 
 /**
  * Created by Yifan on 2017/9/5.

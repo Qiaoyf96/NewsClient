@@ -1,8 +1,6 @@
-package com.example.yifan.newsclient;
+package com.newsclient;
 
 import android.os.StrictMode;
-
-import static com.example.yifan.newsclient.HttpGet.sendGet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Comparator;
 import java.util.Collections;
+
+import static com.newsclient.HttpGet.sendGet;
 
 /**
  * Created by xemboliu on 6/9/2017.
@@ -56,7 +56,7 @@ public class NewsList {
                     _news_list.add(_new);
                     newscnt = newscnt + 1;
                     String url = "http://166.111.68.66:2042/news/action/query/detail?newsId=" + _new.news_id;
-                    String json = HttpGet.sendGet(url);
+                    String json = sendGet(url);
                     JSONObject rresultObj = null;
                     rresultObj = new JSONObject(json);
                     try {
