@@ -14,16 +14,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.json.JSONException;
-
-import static com.example.yifan.newsclient.HttpGet.sendGet;
-import com.example.yifan.newsclient.NewsList;
-import com.example.yifan.newsclient.SingleNews;
-
-import java.util.List;
-
 public class RecentList extends Activity {
     protected NewsList newslist;
+    RecentList(){
+        super();
+        newslist = new NewsList();
+    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,14 +28,13 @@ public class RecentList extends Activity {
     public void onResume(){
         super.onResume();
 
-        //根据字符串生成JSON对象
+        newslist.teststring = "14";
+
         try {
             ListView lv = (ListView)findViewById(R.id.listView);
             TextView tv = (TextView)findViewById(R.id.textView3);
-            newslist.teststring = "14";
-            tv.setText(newslist.teststring);
             newslist.addNews("http://166.111.68.66:2042/news/action/query/latest");
-            tv.setText("5");
+            tv.setText(newslist.teststring);
 
             String[] strs = new String[newslist.newscnt];
 

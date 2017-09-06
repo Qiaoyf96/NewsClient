@@ -8,9 +8,9 @@ public class SingleNews {
     public String lang_type, newsclasstag, news_author,
             news_id, news_pictures, news_source, news_time,
             news_title, news_url, news_video, news_intro, content;
-    boolean readed;
+    public boolean readed;
     SingleNews(){
         content = "";
         readed = false;
-    };
+    }
 }
