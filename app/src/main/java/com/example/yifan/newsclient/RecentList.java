@@ -28,7 +28,6 @@ public class RecentList extends Activity {
         setContentView(R.layout.activity_recentlist);
 
         String str = sendGet("http://166.111.68.66:2042/news/action/query/latest");
-        TextView tv = (TextView)findViewById(R.id.textView);
 
         //根据字符串生成JSON对象
         try {
@@ -64,9 +63,7 @@ public class RecentList extends Activity {
             });
 
             lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, strs));
-            tv.setText(artList);
         } catch (JSONException e) {
-            tv.setText(e.toString());
         }
     }
 }
