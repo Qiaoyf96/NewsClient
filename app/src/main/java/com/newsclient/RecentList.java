@@ -16,13 +16,10 @@ import android.widget.TextView;
 
 public class RecentList extends Activity {
     protected NewsList newslist;
-    RecentList(){
-        super();
-        newslist = new NewsList();
-    }
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        newslist = new NewsList();
         setContentView(R.layout.activity_recentlist);
     }
     public void onResume(){
