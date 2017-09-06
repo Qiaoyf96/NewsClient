@@ -18,24 +18,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //得到按钮实例
-        Button hellobtn = (Button)findViewById(R.id.button);
-        //设置监听按钮点击事件
-        hellobtn.setOnClickListener(new View.OnClickListener() {
+        Button nxtbtn = (Button)findViewById(R.id.button_welcome);
+        nxtbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //弹出Toast提示按钮被点击了
-            Toast.makeText(MainActivity.this,"Clicked",Toast.LENGTH_SHORT).show();
-            }
-        });
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, RecentList.class);
                 startActivity(intent);
             }
         });
-
     }
 
 }
