@@ -1,4 +1,5 @@
-package com.newsclient;
+package com.newsclient.view;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,13 +7,9 @@ import android.os.Handler;
 import android.view.Window;
 import android.view.WindowManager;
 
-/**
- * Created by Yifan on 2017/9/6.
- */
+import com.newsclient.R;
 
-
-public class Splash extends Activity{
-
+public class VSplash extends Activity {
     private final int SPLASH_LENGTH = 2000;//表示延迟的时间，这里为4s
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +21,10 @@ public class Splash extends Activity{
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                Intent mainIntent = new Intent(Splash.this,
-                        MainActivity.class);
-                Splash.this.startActivity(mainIntent);
-                Splash.this.finish();
+                Intent mainIntent = new Intent(VSplash.this,
+                        VRecents.class);
+                VSplash.this.startActivity(mainIntent);
+                VSplash.this.finish();
             }
         }, SPLASH_LENGTH);
     }

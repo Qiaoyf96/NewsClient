@@ -1,8 +1,4 @@
-package com.newsclient;
-
-/**
- * Created by Yifan on 2017/9/5.
- */
+package com.newsclient.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,12 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class RecentList extends Activity {
-    protected NewsList newslist;
+import com.newsclient.data.DNewsList;
+import com.newsclient.R;
+
+public class VRecents extends Activity {
+    protected DNewsList newslist;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        newslist = new NewsList();
+        newslist = new DNewsList();
         setContentView(R.layout.activity_recentlist);
     }
     public void onResume(){
@@ -44,7 +43,7 @@ public class RecentList extends Activity {
                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                         long arg3) {
                     //点击后在标题上显示点击了第几行
-                    Intent intent = new Intent(RecentList.this, Article.class);
+                    Intent intent = new Intent(VRecents.this, VDetails.class);
                     try {
                         intent.putExtra("news_content", newslist._news_list.get(arg2).content);
                     } catch (Exception e) {

@@ -1,4 +1,4 @@
-package com.newsclient;
+package com.newsclient.data;
 
 import android.os.StrictMode;
 
@@ -7,23 +7,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Comparator;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 
-import static com.newsclient.HttpGet.sendGet;
+import static com.newsclient.tools.Http.sendGet;
 
-/**
- * Created by xemboliu on 6/9/2017.
- */
-
-public class NewsList {
-    public ArrayList<SingleNews> _news_list;
+public class DNewsList {
+    public ArrayList<DSingleNews> _news_list;
     public HashSet<String> _news_id_set;
     public int newscnt;
     public String teststring;
-    NewsList(){
-        _news_list = new ArrayList<SingleNews>();
+    public DNewsList(){
+        _news_list = new ArrayList<DSingleNews>();
         _news_id_set = new HashSet<String>();
         newscnt = 0;
     }
@@ -42,7 +38,7 @@ public class NewsList {
                 String _id = o.getString("news_ID");
                 if (!_news_id_set.contains(_id)){
                     _news_id_set.add(_id);
-                    SingleNews _new = new SingleNews();
+                    DSingleNews _new = new DSingleNews();
                     _new.lang_type = o.getString("lang_Type");
                     _new.news_author = o.getString("news_Author");
                     _new.news_id = o.getString("news_ID");
@@ -73,11 +69,11 @@ public class NewsList {
     }
 }
 
-class NewsSort implements Comparator{
+class NewsSort implements Comparator {
     @Override
     public int compare(Object A, Object B){
-        SingleNews _A = (SingleNews) A;
-        SingleNews _B = (SingleNews) B;
+        DSingleNews _A = (DSingleNews) A;
+        DSingleNews _B = (DSingleNews) B;
         return _A.news_id.compareTo(_B.news_id);
     }
 }

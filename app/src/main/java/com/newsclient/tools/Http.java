@@ -1,4 +1,4 @@
-package com.newsclient;
+package com.newsclient.tools;
 
 import android.os.StrictMode;
 
@@ -9,11 +9,7 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Yifan on 2017/9/5.
- */
-
-public class HttpGet {
+public class Http {
     public static String sendGet(String url) {
         String result = "";
         BufferedReader in = null;
