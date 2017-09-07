@@ -1,5 +1,7 @@
 package com.newsclient.data;
 
+import android.graphics.Bitmap;
+
 import com.newsclient.R;
 
 import java.util.ArrayList;

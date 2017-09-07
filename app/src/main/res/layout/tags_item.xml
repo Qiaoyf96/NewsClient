@@ -4,12 +4,11 @@
     android:layout_height="90dp">
 
     <ImageView
+        android:id="@+id/tags_item_ItemImage"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id = "@+id/tags_item_ItemImage"
-        android:scaleType="centerCrop"
         android:alpha="0.8"
-        />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:layout_width="wrap_content"
