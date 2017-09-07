@@ -48,6 +48,7 @@ public class DNewsList {
                     _new.news_url = o.getString("news_URL");
                     _new.news_video = o.getString("news_Video");
                     _new.news_intro = o.getString("news_Intro");
+                    _new.news_source = o.getString("news_Source");
                     teststring = _new.news_title;
                     _news_list.add(_new);
                     newscnt = newscnt + 1;
@@ -66,6 +67,10 @@ public class DNewsList {
         }
         NewsSort ns = new NewsSort();
         Collections.sort(_news_list, ns);
+    }
+
+    public ArrayList<DSingleNews> list(){
+        return _news_list;
     }
 }
 

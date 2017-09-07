@@ -9,4 +9,12 @@ public class DSingleNews {
         content = "";
         readed = false;
     }
+
+    public String displayTitle(int index){
+        return "[" + (index + 1) + "] " + news_title;
+    }
+
+    public String displaySource(){
+        return "来源： " + news_source;
+    }
 }

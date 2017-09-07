@@ -22,7 +22,7 @@ import java.util.List;
 
 public class VRecyclerView {
 
-    private DSingleNews[] news;
+    private List<DSingleNews> newsList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -31,8 +31,8 @@ public class VRecyclerView {
     private int sourceLayout;
     private int[] itemsId;
 
-    VRecyclerView(DSingleNews[] news, Activity activity, int sourceLayout, int targetLayout, int[] itemsId){
-        this.news = news;
+    VRecyclerView(List<DSingleNews> list, Activity activity, int sourceLayout, int targetLayout, int[] itemsId){
+        this.newsList = list;
         this.activity = activity;
         this.sourceLayout = sourceLayout;
         this.targetLayout = targetLayout;
@@ -46,7 +46,6 @@ public class VRecyclerView {
         mRecyclerView.setAdapter(mAdapter = new RecyclerAdapter());
     }
 
-
     class RecyclerShowItemGroup{
         TextView title;
         TextView source;
@@ -57,8 +56,8 @@ public class VRecyclerView {
         }
 
         void bindValue(int index){
-            title.setText(news[index].news_title);
-            source.setText(news[index].news_source);
+            title.setText(newsList.get(index).displayTitle(index));
+            source.setText(newsList.get(index).displaySource());
         }
     }
 
@@ -80,7 +79,7 @@ public class VRecyclerView {
 
         @Override
         public int getItemCount() {
-            return news.length;
+            return newsList.size();
         }
 
         class InnerViewHolder extends RecyclerView.ViewHolder
