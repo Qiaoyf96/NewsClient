@@ -24,6 +24,13 @@ public class VRecents extends Activity {
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(VRecents.this, VSearchRes.class);
+                try{
+                    intent.putExtra("search_info", query);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                startActivity(intent);
                 return true;
             }
             @Override
