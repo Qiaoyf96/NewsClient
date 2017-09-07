@@ -1,6 +1,32 @@
 package com.newsclient.view;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.widget.TabHost;
+import android.os.Bundle;
+import android.app.TabActivity;
+import android.support.annotation.Nullable;
 
-public class VNavigation extends Activity {
+import com.newsclient.R;
+
+public class VNavigation extends TabActivity {
+    private TabHost tabhost;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_navigation);
+
+            //从TabActivity上面获取放置Tab的TabHost
+        tabhost = getTabHost();
+
+        tabhost.addTab(tabhost
+                //创建新标签one
+                .newTabSpec("one")
+                //设置标签标题
+                .setIndicator("Recents")
+                //设置该标签的布局内容
+                .setContent(new Intent(this, VRecents.class)));
+        tabhost.addTab(tabhost.newTabSpec("two").setIndicator("Tags").setContent(R.id.widget_layout_yellow));
+        tabhost.addTab(tabhost.newTabSpec("three").setIndicator("Settings").setContent(R.id.widget_layout_blue));
+    }
 }

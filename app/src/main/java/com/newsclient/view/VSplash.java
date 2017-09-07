@@ -22,7 +22,7 @@ public class VSplash extends Activity {
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 Intent mainIntent = new Intent(VSplash.this,
-                        VRecents.class);
+                        VNavigation.class);
                 VSplash.this.startActivity(mainIntent);
                 VSplash.this.finish();
             }
