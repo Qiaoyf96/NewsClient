@@ -24,8 +24,6 @@ public class VRecents extends Activity {
     public void onResume(){
         super.onResume();
 
-        newslist.teststring = "14";
-
         try {
             ListView lv = (ListView)findViewById(R.id.listView);
             TextView tv = (TextView)findViewById(R.id.textView3);
