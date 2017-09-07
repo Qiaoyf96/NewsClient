@@ -1,45 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" android:gravity="center_horizontal">
 
     <TextView
-    android:id="@+id/textView"
-    android:layout_width="342dp"
-    android:layout_height="wrap_content"
-    android:text="" />
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="359dp"
-        android:layout_height="wrap_content"
-        android:text="           4G Mode" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="           When 4G mode is enabled, all the photos in recent
-        list will be disappear.
-" />
-
-    <TextView
-        android:id="@+id/textView"
         android:layout_width="342dp"
         android:layout_height="wrap_content"
         android:text="" />
 
     <Switch
-        android:id="@+id/switch1"
-        android:layout_width="359dp"
+        android:id="@+id/settings_switch1"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:text="           Night Shift" />
+        android:text="4G Mode"/>
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
+        android:layout_width="360dp"
         android:layout_height="wrap_content"
-        android:text="           For the night is dark and full of terrors, when the
-        night shift on, every thing will go dark and it will be less
-        harmful to your eyes." />
+        android:text="    When 4G mode is enabled, all the photos in recent list will be disappear." />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:text="" />
+
+    <Switch
+        android:id="@+id/settings_switch2"
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:text="Night Shift"/>
+
+    <TextView
+        android:layout_width="360dp"
+        android:layout_height="wrap_content"
+        android:text="    For the night is dark and full of terrors, when the night shift on, every thing will go dark and it will be less harmful to your eyes." />
+
 </LinearLayout>

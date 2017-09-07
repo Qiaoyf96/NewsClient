@@ -11,10 +11,6 @@
         android:orientation="vertical"
         >
 
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -33,14 +29,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/widget_layout_yellow"
-                android:background="#FCD209"
+                android:background="#f0f0f0"
                 android:orientation="vertical"
                 ></LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/widget_layout_blue"
-                android:background="#191970"
+                android:background="#f0f0f0"
                 android:orientation="vertical"
                 ></LinearLayout>
 

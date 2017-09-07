@@ -28,8 +28,7 @@ public class VNavigation extends TabActivity {
                 .setIndicator("Recents")
                 //设置该标签的布局内容
                 .setContent(new Intent(this, VRecents.class)));
-//        tabhost.addTab(tabhost.newTabSpec("One").setIndicator("Recents").setContent(R.id.widget_layout_yellow));
-        tabhost.addTab(tabhost.newTabSpec("two").setIndicator("Tags").setContent(R.id.widget_layout_yellow));
-        tabhost.addTab(tabhost.newTabSpec("three").setIndicator("Settings").setContent(R.id.widget_layout_blue));
+        tabhost.addTab(tabhost.newTabSpec("two").setIndicator("Tags").setContent(new Intent(this, VTags.class)));
+        tabhost.addTab(tabhost.newTabSpec("three").setIndicator("Settings").setContent(new Intent(this, VSettings.class)));
     }
 }
