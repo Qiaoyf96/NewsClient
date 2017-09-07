@@ -1,0 +1,7 @@
+#Thu Sep 07 01:10:58 CST 2017
+base.0=/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_468ad2a578489bf1b2b24b3ca1bd18ad28ee35ac
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_11e59466aef6fdd62f1cfbe34109e4ca60984b65/classes.dex
+base.1=/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_11e59466aef6fdd62f1cfbe34109e4ca60984b65
+file.0=/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_468ad2a578489bf1b2b24b3ca1bd18ad28ee35ac/classes.dex

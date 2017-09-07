@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/0e024a5223377db906199de03607c11433ea8c62/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b4a6c4f6ac7c46a8d4cfdab34be0be9886a4cd4e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-watcher/1.5/288101b16513158c2923ad3fb6161d1452b65e73/leakcanary-watcher-1.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="288101b16513158c2923ad3fb6161d1452b65e73">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/leakcanary-watcher-1.5_355f729fd2687d1a95ea093dcfd999e554dbb7b8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/0daeee3d9afd2c93a21313a0bb54f8f9f347552a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="7f2f348b830f292429db987f74ba3e67c6752322">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a0d30a4394305866b75a34c1fc2a9fa78f056604/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-analyzer/1.5/3277b0b0c2ace34a2edb5ddf9d1f67829561fb8f/leakcanary-analyzer-1.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3277b0b0c2ace34a2edb5ddf9d1f67829561fb8f">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/leakcanary-analyzer-1.5_88e01b7828c2d50fe05044661b31c6478bfbbf40/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/3c4cdf0005023ca751d8145691421053eee93a26/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="45f697922e6f072daa12f8a2995dc77ab03c11da">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a5373d0a20a6c564889101de1a1d034d69ac28d4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/a5575607d43e4a816f012689d111ce34355c6a10/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="47635644d0d5c103c1dd8360549eb9ba3225c7d3">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0ed310c62dc68815efbe7a61eebf19999d9d66a6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_11e59466aef6fdd62f1cfbe34109e4ca60984b65/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Applications/Android Studio.app/Contents/gradle/m2repository/com/android/databinding/baseLibrary/2.3.3/baseLibrary-2.3.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="eb3399988a52099b0127e27fb5bed666eca86ace">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/baseLibrary-2.3.3_a13c89973c1c8bce4f7e9a2f1b7ba7e93f86f6c7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/b65e4d7548b80b4c09b1f79004452f7177ed8816/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_13b63c3a805d2434246dc336fa54a82fe642a1b8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/ff511f130fa8d2e7efe296c23e4d0bc5efdca585/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c7a2672b3122b897a0751f327929ae405ea02bf7">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_3c3e4fd8dfe0f569afa77f5c393a12e645dd8a65/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/f394f3c70d239fe4d87e0e7c85100f5bd7c7cbef/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="efb8cb62d47d157c29d1521daac7eefd4cb881ee">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0c78b1c5b70132efdf1d09ec3eb2e2868fec616d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="28e5eea80532cc7277f51566f4c2ce7fdae9ae95">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_468ad2a578489bf1b2b24b3ca1bd18ad28ee35ac/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/14e04621763d2364463e52b61da1cf48a0eb59ee/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e298962e20a22514463ff5c5e2eb9b4794b373c5">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_ed08f0d20a11edaaac87395b3600f56891e6db62/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/dcc9d3cc07b7d46f47686529df5b2739f5434edc/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="95519720620b553f63afc789beba9ad582807f7c">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_73fa1f8b82986333e5192bde477aec3f07552484/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/0ae33d083b8eae7368c0b9f205e401233162511a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="d4cf6227dd6a2ceff0f7dcf0c324380b7abf2c28">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c14df074797568055817ceb8998a14adcfcf66b4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.3.1/support-annotations-25.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="bf8841d29fa39e077730e7a91222c2ce269fa7c9">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.3.1_ffd5b989773b1e460253c39d4f6605a1dd7d2509/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/c91d59a0f8f4c668213fe13f132caaf4d37d23f5/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="150252b33b00274cc868578ade018fda0d43a3eb">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4cd032319e8eded297319019ea45079355dbfdc2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/6d783b80c324324f0ceb92b1b2780b2fd954ad99/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="da27a32db6af8954ee8061537c7d476fcb1df46f">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_58dd7f24d3ba2fbe80d7eca8b19b38023c412747/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.gradle/caches/modules-2/files-2.1/com.squareup.haha/haha/2.0.3/640a438d2d415c056ca6a673ac26b183b044e160/haha-2.0.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="640a438d2d415c056ca6a673ac26b183b044e160">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/haha-2.0.3_808346cbd7bb9a1175bf1d24d0cc18807ce539a3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/66f64aed32d519cb90f4e533a507a5a25071da46/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_cf44306cd4d014641d1ad3d56829207163fb0da6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/18fa97a561de036ccbd845864cea86de999ae588/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="4a26a1154d053ab11aaf4c3967c42a4d66390991">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_34dbb2dd2ba37167f968d8e3fbbd8e913454ccf4/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/067bf34d8c90fe75da4420f9d78d721caa37c9b2/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="6ef31f1555bb4cc513ec8d52711365a8b89f3600">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5a1e7a8aef81795babc97fea20af519b6d26f126/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Yifan/.android/build-cache/af658d549b4d0f0db837c64becfeda909f05dfe4/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="68956f5ba1517b7a3d513ba540548e257741cbae">
+        <dex dex="/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_7928680a462bb1c00b525981301b103c143b3346/classes.dex" />
+    </item>
+
+</items>

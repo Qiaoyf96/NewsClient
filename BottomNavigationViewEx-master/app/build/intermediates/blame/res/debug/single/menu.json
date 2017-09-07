@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/res/merged/debug/menu/menu_navigation_with_view_pager.xml",
+        "source": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/src/main/res/menu/menu_navigation_with_view_pager.xml"
+    },
+    {
+        "merged": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/res/merged/debug/menu/menu_navigation.xml",
+        "source": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/src/main/res/menu/menu_navigation.xml"
+    },
+    {
+        "merged": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/res/merged/debug/menu/menu_navigation_selector.xml",
+        "source": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/src/main/res/menu/menu_navigation_selector.xml"
+    },
+    {
+        "merged": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/build/intermediates/res/merged/debug/menu/menu_navigation_center_icon_only.xml",
+        "source": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/app/src/main/res/menu/menu_navigation_center_icon_only.xml"
+    }
+]

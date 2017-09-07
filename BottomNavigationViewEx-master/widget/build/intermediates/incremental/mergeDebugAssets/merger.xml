@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/Yifan/Downloads/BottomNavigationViewEx-master/widget/src/main/assets"/><source path="/Users/Yifan/Downloads/BottomNavigationViewEx-master/widget/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/Users/Yifan/Downloads/BottomNavigationViewEx-master/widget/src/debug/assets"/></dataSet></merger>

@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/widget/build/intermediates/res/merged/debug/layout-v21/notification_template_icon_group.xml",
+        "source": "/Users/Yifan/.android/build-cache/c91d59a0f8f4c668213fe13f132caaf4d37d23f5/output/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/widget/build/intermediates/res/merged/debug/layout-v21/notification_template_custom_big.xml",
+        "source": "/Users/Yifan/.android/build-cache/c91d59a0f8f4c668213fe13f132caaf4d37d23f5/output/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/widget/build/intermediates/res/merged/debug/layout-v21/notification_action_tombstone.xml",
+        "source": "/Users/Yifan/.android/build-cache/c91d59a0f8f4c668213fe13f132caaf4d37d23f5/output/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/Yifan/Downloads/BottomNavigationViewEx-master/widget/build/intermediates/res/merged/debug/layout-v21/notification_action.xml",
+        "source": "/Users/Yifan/.android/build-cache/c91d59a0f8f4c668213fe13f132caaf4d37d23f5/output/res/layout-v21/notification_action.xml"
+    }
+]
