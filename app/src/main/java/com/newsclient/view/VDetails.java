@@ -22,8 +22,8 @@ public class VDetails extends Activity {
         DSingleNews news = DNewsList.getById(id);
         news.load();
 
-        TextView tv = findViewById(R.id.textView2);
+        TextView tv = (TextView)findViewById(R.id.textView2);
         tv.setText(news.content);
-        //获取数据项
+
     }
 }

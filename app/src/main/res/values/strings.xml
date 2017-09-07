@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<string name="app_name">INSTANT NEWS</string>
-<string name="button_send">Say something</string>
-<string name="default_message">Click button below!</string>
-<string name="interact_message">You just clicked on the Button!</string>
+    <string name="app_name">INSTANT NEWS</string>
+    <string name="button_send">Say something</string>
+    <string name="default_message">Click button below!</string>
+    <string name="interact_message">You just clicked on the Button!</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="menu_color_scheme">Color scheme</string>
+    <string name="menu_color_scheme_1">Scheme #1</string>
+    <string name="menu_color_scheme_2">Scheme #2</string>
+    <string name="menu_color_scheme_3">Scheme #3</string>
+    <string name="sample_show_log">Show Log</string>
+    <string name="sample_hide_log">Hide Log</string>
 </resources>

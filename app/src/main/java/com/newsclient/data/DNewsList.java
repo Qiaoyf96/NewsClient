@@ -5,13 +5,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Collections;
 
 import static com.newsclient.tools.Http.sendGet;
 
 public class DNewsList {
     public static ArrayList<DSingleNews> _news_list = new ArrayList<DSingleNews>();
-    public static HashSet<String> _news_id_set = new HashSet<String>();
     public static int _size;
 
     public static void load() {
@@ -23,7 +22,6 @@ public class DNewsList {
                 JSONObject art = artList.getJSONObject(i);
                 DSingleNews news = new DSingleNews(art);
                 _news_list.add(news);
-                _news_id_set.add(art.getString("news_ID"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -38,6 +36,15 @@ public class DNewsList {
         }
         return null;
     }
+
+    public static ArrayList<String> list() {
+        Collections.shuffle(_news_list);
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < _size; i++)
+            list.add(_news_list.get(i).news_title);
+        return list;
+    }
+
 }
 
 //class NewsSort implements Comparator {
