@@ -29,9 +29,9 @@
 
             <GridView
                 android:id="@+id/activity_tags_Gridview"
-                android:layout_width="375dp"
+                android:layout_width="370dp"
                 android:layout_height="495dp"
-                android:columnWidth="90dp"
+                android:columnWidth="120dp"
                 android:gravity="center_horizontal"
                 android:horizontalSpacing="5dp"
                 android:numColumns="auto_fit"

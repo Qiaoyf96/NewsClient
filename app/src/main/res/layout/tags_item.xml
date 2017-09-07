@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="90dp"
-    android:layout_height="90dp">
+    android:layout_width="120dp"
+    android:layout_height="120dp">
 
     <ImageView
         android:id="@+id/tags_item_ItemImage"
@@ -15,12 +15,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
         android:layout_gravity="center"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:padding="1dp"
         android:textColor="#ffffff"
-        android:id = "@+id/tags_item_ItemText"
-
-        android:text="Golden Gate" />
+        android:id = "@+id/tags_item_ItemText" />
 
 </FrameLayout>
 

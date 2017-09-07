@@ -58,5 +58,9 @@ public class DTagList {
         map.put("ItemImage", R.mipmap.health);
         map.put("ItemText", "健康");
         lstImageitem.add(map);
+        map = new HashMap<String, Object>();
+        map.put("ItemImage", R.mipmap.weather);
+        map.put("ItemText", "天气");
+        lstImageitem.add(map);
     }
 }
