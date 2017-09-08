@@ -27,6 +27,9 @@ public class VDetails extends Activity {
         String id = intent.getStringExtra("news_id");
 
         DSingleNews news = DNewsList.getById(id);
+        if (news == null) {
+            news = new DSingleNews(id);
+        }
         news.load();
 
         tv = (TextView)findViewById(R.id.textView2);

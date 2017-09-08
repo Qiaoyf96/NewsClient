@@ -29,6 +29,9 @@ public class DSingleNews {
         } catch (JSONException e) {
         }
     }
+    public DSingleNews(String id) {
+        news_id = id;
+    }
     public void load() {
         loaded = true;
         String url = "http://166.111.68.66:2042/news/action/query/detail?newsId=" + news_id;
