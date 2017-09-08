@@ -5,6 +5,8 @@ import org.json.JSONObject;
 
 import static com.newsclient.tools.Http.sendGet;
 
+import com.newsclient.tools.StringFormatTransfer;
+
 public class DSingleNews {
     public String lang_type, newsclasstag, news_author,
             news_id, news_pictures, news_source, news_time,
@@ -26,6 +28,8 @@ public class DSingleNews {
             news_url = o.getString("news_URL");
             news_video = o.getString("news_Video");
             news_intro = o.getString("news_Intro");
+            news_source = o.getString("news_Source");
+            news_time = o.getString("news_Time");
         } catch (JSONException e) {
         }
     }
@@ -42,5 +46,19 @@ public class DSingleNews {
         } catch (JSONException e) {
             content = e.toString();
         }
+    }
+
+    public String displayTitle(int index){
+        return news_title;
+    }
+
+    public String displaySource(){
+        return StringFormatTransfer.toDBC("来源： " + news_source);
+    }
+
+    public String displayTime(){
+        // time's format:
+        // 20160912000000
+        return Integer.parseInt(news_time.substring(4, 6)) + "月" + Integer.parseInt(news_time.substring(6, 8)) + "日";
     }
 }

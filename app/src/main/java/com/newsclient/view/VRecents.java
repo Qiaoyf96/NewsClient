@@ -48,13 +48,12 @@ public class VRecents extends FragmentActivity {
         SwipeRefresh.setList(new DNewsList());
         SwipeRefresh.setV(VRecents.this);
 
-        if (savedInstanceState == null) {
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            SwipeRefresh.SwipeRefreshListFragmentFragment fragment = new SwipeRefresh.SwipeRefreshListFragmentFragment();
-            transaction.replace(R.id.sample_content_fragment, fragment);
-            transaction.commit();
-
-        }
+//        if (savedInstanceState == null) {
+//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//            SwipeRefresh.SwipeRefreshListFragmentFragment fragment = new SwipeRefresh.SwipeRefreshListFragmentFragment();
+//            transaction.replace(R.id.sample_content_fragment, fragment);
+//            transaction.commit();
+//        }
 
 
 //        String[] titleList = new String[DNewsList._size];
@@ -82,5 +81,18 @@ public class VRecents extends FragmentActivity {
 //                startActivity(intent);
 //            }
 //        });
+
+        int[] itemsId = new int[3];
+        itemsId[0] = R.id.item_title;
+        itemsId[1] = R.id.item_source;
+        itemsId[2] = R.id.item_time;
+
+        VRecyclerView recycler = new VRecyclerView(
+                DNewsList._news_list,
+                VRecents.this,
+                R.layout.item_recycler_view_item,
+                R.id.recent_recycler_view,
+                itemsId);
+        recycler.generate();
     }
 }
