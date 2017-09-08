@@ -1,8 +1,10 @@
 package com.newsclient.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.SearchView;
 
 import com.newsclient.R;
 import com.newsclient.data.DNewsList;
@@ -20,6 +22,26 @@ public class VRecents extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recentlist);
+
+        SearchView searchview = (SearchView)findViewById(R.id.recentlist_searchview);
+
+        searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(VRecents.this, VSearchRes.class);
+                try{
+                    intent.putExtra("search_info", query);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                startActivity(intent);
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
 
         DNewsList.load();
 
