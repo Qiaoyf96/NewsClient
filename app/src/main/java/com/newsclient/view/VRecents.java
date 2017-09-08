@@ -30,9 +30,10 @@ public class VRecents extends Activity {
         newslist.teststring = "14";
         newslist.addNews("http://166.111.68.66:2042/news/action/query/latest");
 
-        int[] itemsId = new int[2];
+        int[] itemsId = new int[3];
         itemsId[0] = R.id.item_title;
         itemsId[1] = R.id.item_source;
+        itemsId[2] = R.id.item_time;
 
         VRecyclerView recycler = new VRecyclerView(
                 newslist.list(),

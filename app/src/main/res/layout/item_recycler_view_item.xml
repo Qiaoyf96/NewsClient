@@ -1,22 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="start"
 
-        android:id="@+id/item_title">
-    </TextView>
+        android:src="@mipmap/ic_launcher"
+        />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <RelativeLayout
 
-        android:layout_marginBottom="5dp"
-        android:id="@+id/item_source">
-    </TextView>
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="@dimen/recentTextHorizontalPadding"
+        android:layout_marginRight="@dimen/recentTextHorizontalPadding"
+        >
+
+        <com.newsclient.view.VAlignTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/alignTextViewVerticalMargin"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            app:textSize="@dimen/recentTitleTextSize"
+            app:maxDisplayLineCount="2"
+            android:textColor="@color/recentTitleTextColor"
+
+
+            android:id="@+id/item_title">
+
+        </com.newsclient.view.VAlignTextView>
+
+
+        <TextView
+            android:id="@+id/item_source"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="@dimen/alignTextViewVerticalMargin"
+            android:textColor="@color/recentSourceTextColor"
+            android:textSize="@dimen/recentTimeTextSize">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/alignTextViewVerticalMargin"
+            android:textColor="@color/recentTimeTextColor"
+            android:textSize="@dimen/recentTimeTextSize">
+
+        </TextView>
+    </RelativeLayout>
+
+
+
+
+
 
 </LinearLayout>
