@@ -7,7 +7,11 @@ package com.newsclient.view;
  */
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Rect;
+import android.support.v7.view.menu.ExpandedMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,21 +19,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.newsclient.R;
+import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.lang.Thread;
 
 public class VRecyclerView {
 
-    private List<DSingleNews> newsList;
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    List<DSingleNews> newsList;
+    RecyclerView mRecyclerView;
+    private RecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Activity activity;
-    private int targetLayout;
-    private int sourceLayout;
-    private int[] itemsId;
+    Activity activity;
+    int targetLayout;
+    int sourceLayout;
+    int[] itemsId;
 
     VRecyclerView(List<DSingleNews> list, Activity activity, int sourceLayout, int targetLayout, int[] itemsId){
         this.newsList = list;
@@ -47,7 +56,31 @@ public class VRecyclerView {
         //mLayoutManager = new GridLayoutManager(activity, 2);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter = new RecyclerAdapter());
+        mRecyclerView.setAdapter(mAdapter = new RecyclerAdapter(this));
+        setClickReflection();
+    }
+
+    void setClickReflection(){
+        mAdapter.setOnItemClickLitener(new RecyclerAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //Toast.makeText(activity,  position + " click", Toast.LENGTH_SHORT).show();
+
+
+                Intent intent = new Intent(activity, VDetails.class);
+                try {
+                    intent.putExtra("news_id", newsList.get(position).news_id);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                activity.startActivity(intent);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
     }
 
     class RecyclerShowItemGroup{
@@ -72,46 +105,10 @@ public class VRecyclerView {
         }
     }
 
-    class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHolder>{
-        @Override
-        public InnerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            InnerViewHolder holder = new InnerViewHolder(LayoutInflater.from(
-                    activity).inflate(sourceLayout, parent,
-                    false),
-                    itemsId);
-            return holder;
-        }
-
-        @Override
-        public void onBindViewHolder(InnerViewHolder holder, int position) {
-
-            holder.item.bindValue(position);
-        }
-
-        @Override
-        public int getItemCount() {
-            return newsList.size();
-        }
-
-        class InnerViewHolder extends RecyclerView.ViewHolder
-        {
-            RecyclerShowItemGroup item;
-
-            public InnerViewHolder(View view, int[] args)
-            {
-                super(view);
-                this.initContentList(view, args);
-            }
-
-            void initContentList(View parentView, int[] args){
-                View[] views = new View[args.length];
-                for (int i = 0; i < args.length; i++){
-                    views[i] = parentView.findViewById(args[i]);
-                }
-                item = new RecyclerShowItemGroup(views);
-            }
-        }
+    RecyclerShowItemGroup getGroup(View[] args){
+        return new RecyclerShowItemGroup(args);
     }
+
 
     class RecyclerLayoutManager extends RecyclerView.LayoutManager{
 
@@ -158,5 +155,104 @@ public class VRecyclerView {
         }
 
 
+    }
+}
+class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHolder>{
+
+    private Context activity;
+    private int sourceLayout;
+    private int[] itemsId;
+    private List<DSingleNews> newsList;
+    private VRecyclerView recyclerView;
+    private OnItemClickLitener mOnItemClickLitener;
+
+    // constructor
+    RecyclerAdapter(VRecyclerView view){
+        this.recyclerView = view;
+        this.activity = this.recyclerView.activity;
+        this.sourceLayout = this.recyclerView.sourceLayout;
+        this.itemsId = this.recyclerView.itemsId;
+        this.newsList = this.recyclerView.newsList;
+    }
+    // set click reflection
+    public interface OnItemClickLitener
+    {
+        void onItemClick(View view, int position);
+        void onItemLongClick(View view , int position);
+    }
+
+    public void setOnItemClickLitener(OnItemClickLitener listener)
+    {
+        this.mOnItemClickLitener = listener;
+    }
+
+    // holder
+    @Override
+    public InnerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        InnerViewHolder holder = new InnerViewHolder(LayoutInflater.from(
+                activity).inflate(sourceLayout, parent,
+                false),
+                itemsId);
+        return holder;
+    }
+
+    @Override
+    public void onBindViewHolder(final InnerViewHolder holder, final int position) {
+
+        holder.item.bindValue(position);
+
+        if (mOnItemClickLitener != null)
+        {
+            holder.itemView.setOnClickListener(new View.OnClickListener()
+            {
+
+                @Override
+                public void onClick(View v)
+                {
+                    VRecents.v = holder.itemView;
+                    VRecents.d = holder.itemView.getBackground();
+                    holder.itemView.setBackgroundColor(activity.getResources().getColor(R.color.pressedBackground));
+
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemClick(holder.itemView, pos);
+
+                }
+            });
+
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener()
+            {
+                @Override
+                public boolean onLongClick(View v)
+                {
+                    int pos = holder.getLayoutPosition();
+                    mOnItemClickLitener.onItemLongClick(holder.itemView, pos);
+                    return false;
+                }
+            });
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return newsList.size();
+    }
+
+    class InnerViewHolder extends RecyclerView.ViewHolder
+    {
+        VRecyclerView.RecyclerShowItemGroup item;
+
+        public InnerViewHolder(View view, int[] args)
+        {
+            super(view);
+            this.initContentList(view, args);
+        }
+
+        void initContentList(View parentView, int[] args){
+            View[] views = new View[args.length];
+            for (int i = 0; i < args.length; i++){
+                views[i] = parentView.findViewById(args[i]);
+            }
+            item = recyclerView.getGroup(views);
+        }
     }
 }

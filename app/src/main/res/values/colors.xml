@@ -12,5 +12,7 @@
     <color name="recentTitleTextColor">#080808</color>
     <color name="recentSourceTextColor">#444444</color>
     <color name="recentTimeTextColor">#444444</color>
+    <color name="pressedBackground">#aa999999</color>
+    <color name="normalBackground">#ffffff</color>
 
 </resources>
