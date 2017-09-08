@@ -63,4 +63,8 @@ public class DTagList {
         map.put("ItemText", "天气");
         lstImageitem.add(map);
     }
+
+    public void removetag(int i){
+        lstImageitem.remove(i);
+    }
 }
