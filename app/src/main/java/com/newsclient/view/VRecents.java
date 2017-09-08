@@ -1,9 +1,12 @@
 package com.newsclient.view;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.SearchView;
 
 import com.newsclient.R;
@@ -11,11 +14,19 @@ import com.newsclient.data.DNewsList;
 import com.newsclient.tools.SwipeRefresh;
 
 public class VRecents extends FragmentActivity {
+    static View v;
+    static Drawable d;
+
     @Override
     protected void onResume() {
         super.onResume();
         SwipeRefresh.setList(new DNewsList());
         SwipeRefresh.setV(VRecents.this);
+        if (v != null)
+            //v.setBackgroundColor(Color.parseColor(Integer.valueOf(R.attr.colorBackgroundFloating).toString()));
+            //v.setBackgroundColor(Color.RED);
+            //v.getBackground();
+            v.setBackground(d);
     }
 
     @Override
@@ -82,10 +93,11 @@ public class VRecents extends FragmentActivity {
 //            }
 //        });
 
-        int[] itemsId = new int[3];
-        itemsId[0] = R.id.item_title;
-        itemsId[1] = R.id.item_source;
-        itemsId[2] = R.id.item_time;
+        int[] itemsId = new int[]{
+            R.id.item_title,
+            R.id.item_source,
+            R.id.item_time
+        };
 
         VRecyclerView recycler = new VRecyclerView(
                 DNewsList._news_list,

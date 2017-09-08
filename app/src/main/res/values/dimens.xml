@@ -5,5 +5,5 @@
     <dimen name="recentSourceTextSize">14sp</dimen>
     <dimen name="recentTimeTextSize">14sp</dimen>
     <dimen name="alignTextViewVerticalMargin">5dp</dimen>
-    <dimen name="recentTextHorizontalPadding">5dp</dimen>
+    <dimen name="recentTextHorizontalMargin">10dp</dimen>
 </resources>

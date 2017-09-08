@@ -4,6 +4,8 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
     >
 
     <ImageView
@@ -19,8 +21,8 @@
 
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginLeft="@dimen/recentTextHorizontalPadding"
-        android:layout_marginRight="@dimen/recentTextHorizontalPadding"
+        android:layout_marginLeft="@dimen/recentTextHorizontalMargin"
+        android:layout_marginRight="@dimen/recentTextHorizontalMargin"
         >
 
         <com.newsclient.view.VAlignTextView
