@@ -3,6 +3,10 @@ package com.newsclient.view;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
+import android.view.ViewParent;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.CompoundButton;
@@ -85,6 +89,7 @@ public class VSettings extends Activity{
                         isselected.put(i, false);
                         displaytags.remove(i);
                         app.dtaglist.removetag(i);
+                        isselected.remove(isselected.size() - 1);
                     }
                 }
                 tags_lv.setAdapter(adapter);
@@ -93,6 +98,41 @@ public class VSettings extends Activity{
                 ViewGroup.LayoutParams params = tags_lv.getLayoutParams();
                 params.height = 195 * app.dtaglist.lstImageitem.size();
                 tags_lv.setLayoutParams(params);
+                adapter.notifyDataSetChanged();
+            }
+        });
+        Button add_sureBtn = (Button) findViewById(R.id.Settings_addbutton);
+        add_sureBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText input_tag = (EditText)findViewById(R.id.Settings_textinput);
+                String tag = input_tag.getText().toString();
+                TextInputLayout parent = (TextInputLayout)findViewById(R.id.settings_textinputlayout);
+                parent.setErrorEnabled(false);
+                if (tag.length() == 0){
+                    parent.setError("Tag cannot be empty");
+                }
+                else if (tag.length() > 6){
+                    parent.setError("Tag length must less than 6");
+                }
+                else{
+                    boolean success = app.dtaglist.addtag(tag);
+                    if (success == false){
+                        parent.setError("Existed Tag");
+                    }
+                    else{
+                        input_tag.setText("");
+                        isselected.put(app.dtaglist.lstImageitem.size() - 1, false);
+                        displaytags.add(tag);
+                        tags_lv.setAdapter(adapter);
+                        tags_lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+                        ViewGroup.LayoutParams params = tags_lv.getLayoutParams();
+                        params.height = 195 * app.dtaglist.lstImageitem.size();
+                        tags_lv.setLayoutParams(params);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
                 adapter.notifyDataSetChanged();
             }
         });
