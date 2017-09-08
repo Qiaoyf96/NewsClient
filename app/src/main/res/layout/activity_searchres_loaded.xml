@@ -16,5 +16,5 @@
         android:textAlignment="viewEnd"
         android:textAllCaps="false"
         android:textColor="#888888"
-        android:textSize="12sp" />
+        android:textSize="16sp" />
 </LinearLayout>
