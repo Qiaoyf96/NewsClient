@@ -1,16 +1,23 @@
 package com.newsclient.data;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import static com.newsclient.tools.Http.sendGet;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.newsclient.tools.StringFormatTransfer;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.net.URL;
+
+import static com.newsclient.tools.Http.sendGet;
+
 public class DSingleNews {
     public String lang_type, newsclasstag, news_author,
-            news_id, news_pictures, news_source, news_time,
+            news_id, news_source, news_time,
             news_title, news_url, news_video, news_intro, content;
+    public String[] news_pictures;
+    public Bitmap news_intropic;
     public boolean readed;
     public boolean loaded;
     DSingleNews(JSONObject o){
@@ -22,7 +29,7 @@ public class DSingleNews {
             lang_type = o.getString("lang_Type");
             news_author = o.getString("news_Author");
             news_id = o.getString("news_ID");
-            news_pictures = o.getString("news_Pictures");
+            news_pictures = o.getString("news_Pictures").split(";");
             news_time = o.getString("news_Time");
             news_title = o.getString("news_Title");
             news_url = o.getString("news_URL");
@@ -31,6 +38,18 @@ public class DSingleNews {
             news_source = o.getString("news_Source");
             news_time = o.getString("news_Time");
         } catch (JSONException e) {
+        }
+        if (!news_pictures.equals("")) {
+            try {
+                String Url = news_pictures[0];
+                URL url = new URL(Url);
+
+                String responseCode = url.openConnection().getHeaderField(0);
+
+                news_intropic = BitmapFactory.decodeStream(url.openStream());
+
+            } catch (Exception e) {
+            }
         }
     }
     public DSingleNews(String id) {
