@@ -9,9 +9,7 @@ package com.newsclient.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.support.v7.view.menu.ExpandedMenuView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,15 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.newsclient.R;
-import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.lang.Thread;
 
 public class VRecyclerView {
 
@@ -91,10 +85,10 @@ public class VRecyclerView {
         TextView time;
 
         RecyclerShowItemGroup(View[] args){
-            img = new ImageView(activity);
-            title = (VAlignTextView) args[0];
-            source = (TextView) args[1];
-            time = (TextView) args[2];
+            img = (ImageView) args[0];
+            title = (VAlignTextView) args[1];
+            source = (TextView) args[2];
+            time = (TextView) args[3];
         }
 
         void bindValue(int index){
@@ -102,6 +96,7 @@ public class VRecyclerView {
             title.setText(news.displayTitle(index));
             source.setText(news.displaySource());
             time.setText(news.displayTime());
+            img.setImageBitmap(news.news_intropic);
         }
     }
 

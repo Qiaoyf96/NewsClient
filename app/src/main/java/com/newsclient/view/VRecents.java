@@ -94,6 +94,7 @@ public class VRecents extends FragmentActivity {
 //        });
 
         int[] itemsId = new int[]{
+                R.id.imageView2,
             R.id.item_title,
             R.id.item_source,
             R.id.item_time
