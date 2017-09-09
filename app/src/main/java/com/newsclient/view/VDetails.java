@@ -16,11 +16,16 @@ import android.widget.TextView;
 import com.newsclient.R;
 import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
+import com.newsclient.data.DTagList;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class VDetails extends AppCompatActivity {
     TextToSpeech tts;
     FloatingActionButton btn;
     TextView tv;
+    String news_id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,11 +33,11 @@ public class VDetails extends AppCompatActivity {
         setContentView(R.layout.activity_article);
 
         Intent intent = getIntent();
-        String id = intent.getStringExtra("news_id");
+        news_id = intent.getStringExtra("news_id");
 
-        DSingleNews news = DNewsList.getById(id);
+        DSingleNews news = DNewsList.getById(news_id);
         if (news == null) {
-            news = new DSingleNews(id);
+            news = new DSingleNews(news_id);
         }
         news.load();
 
@@ -69,14 +74,22 @@ public class VDetails extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         SubMenu subMenu = menu.addSubMenu(1, 100, 100, "添加到tags");
-        subMenu.add(2, 101, 101, "科技");
-        subMenu.add(2, 102, 102, "娱乐");
+
+        ArrayList<HashMap<String, Object>> listItem =  DTagList.getListItem();
+
+        int i = 0;
+        for (HashMap<String, Object> item : listItem) {
+            i++;
+            subMenu.add(2, 100 + i, 100 + i, item.get("ItemText").toString());
+        }
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        int id;
+        switch (id = item.getItemId()) {
             case R.id.action_settings:
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
@@ -88,8 +101,7 @@ public class VDetails extends AppCompatActivity {
                 return true;
 
             default:
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
+//                DTagList.getList(id).addnews(news_id);
                 return super.onOptionsItemSelected(item);
         }
     }

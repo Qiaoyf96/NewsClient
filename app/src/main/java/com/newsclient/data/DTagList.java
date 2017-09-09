@@ -1,7 +1,5 @@
 package com.newsclient.data;
 
-import android.graphics.Bitmap;
-
 import com.newsclient.R;
 
 import java.util.ArrayList;
@@ -11,8 +9,12 @@ import java.util.Random;
 
 public class DTagList {
     public static ArrayList<HashMap<String, Object>> lstImageitem = new ArrayList<HashMap<String, Object>>();
-    public static HashSet<String> lstItem = new HashSet<String>();
+    static HashSet<String> lstItem = new HashSet<String>();
     static boolean is_initialized = false;
+
+    public static ArrayList<HashMap<String, Object>> getListItem() {
+        return lstImageitem;
+    }
 
     public void initialize(){
         if (is_initialized == true)
