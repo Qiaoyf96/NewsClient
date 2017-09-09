@@ -69,7 +69,7 @@ public class VSettings extends Activity{
         DTagList tl = app.dtaglist;
         final HashMap<Integer,Boolean> isselected = new HashMap<Integer,Boolean>();
         final ArrayList<String> displaytags = new ArrayList<String>();
-        for(int i = 0; i < app.dtaglist.lstImageitem.size(); i++){
+        for(int i = 1; i < app.dtaglist.lstImageitem.size(); i++){
             displaytags.add((String)app.dtaglist.lstImageitem.get(i).get("ItemText"));
             isselected.put(i, false);
         }
@@ -79,17 +79,17 @@ public class VSettings extends Activity{
         tags_lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         ViewGroup.LayoutParams params = tags_lv.getLayoutParams();
-        params.height = 195 * app.dtaglist.lstImageitem.size();
+        params.height = 195 * app.dtaglist.lstImageitem.size() - 195;
         tags_lv.setLayoutParams(params);
         Button delete_sureBtn = (Button) findViewById(R.id.Settings_deletebutton);
         delete_sureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = adapter.getIsSelected().size() - 1; i >= 0; i--) {
+                for (int i = adapter.getIsSelected().size() - 2; i >= 0; i--) {
                     if (adapter.getIsSelected().get(i).equals(true)) {
                         isselected.put(i, false);
                         displaytags.remove(i);
-                        app.dtaglist.removetag(i);
+                        app.dtaglist.removetag(i + 1);
                         isselected.remove(isselected.size() - 1);
                     }
                 }

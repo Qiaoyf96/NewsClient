@@ -22,6 +22,11 @@ public class DTagList {
         is_initialized = true;
         HashMap<String, Object> map = new HashMap<String, Object>();
         lstItem = new HashSet<String>();
+        map.put("ItemImage", R.mipmap.favoriteicon);
+        map.put("ItemText", "我最喜欢");
+        lstImageitem.add(map);
+        lstItem.add("我最喜欢");
+        map = new HashMap<String, Object>();
         map.put("ItemImage", R.mipmap.beijing);
         map.put("ItemText", "北京");
         lstImageitem.add(map);
