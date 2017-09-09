@@ -67,7 +67,7 @@ public class DSingleNews {
         }
     }
 
-    public String displayTitle(int index){
+    public String displayTitle(){
         return news_title;
     }
 

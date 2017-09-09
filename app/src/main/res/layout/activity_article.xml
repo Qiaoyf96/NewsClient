@@ -33,10 +33,34 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 
-            <TextView
-                android:id="@+id/textView2"
+            <!--intro picture-->
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:id="@+id/articleDetailIntroImg"
+                android:scaleType="centerInside"/>
+
+            <!--title-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/articleDetailTitleText"
+                android:textSize="@dimen/detailTitleTextSize"
+                android:textColor="@color/detailTitleTextColor"/>
+            <!--infomation(source && time)-->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/articleDetailSourceText"
+                android:textSize="@dimen/detailSourceTextSize"
+                android:textColor="@color/detailSourceTextColor"/>
+            <!--content-->
+            <TextView
+                android:id="@+id/articleDetailContentText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/detailContentTextSize"
+                android:textColor="@color/detailContentTextColor"/>
         </ScrollView>
 
     </LinearLayout>
