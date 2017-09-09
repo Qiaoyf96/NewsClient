@@ -83,6 +83,7 @@
                 android:id="@+id/Settings_deletebutton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 android:text="Delete Selected Tag" />
 
             <android.support.design.widget.TextInputLayout
@@ -101,7 +102,16 @@
                 android:id="@+id/Settings_addbutton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFF"
                 android:text="Add New Tag" />
+
+            <Button
+                android:id="@+id/settings_about"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="#FFFFFF"
+                android:text="About us" />
 
         </LinearLayout>
     </ScrollView>
