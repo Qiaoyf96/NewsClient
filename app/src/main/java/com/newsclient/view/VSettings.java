@@ -1,6 +1,7 @@
 package com.newsclient.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -134,6 +135,15 @@ public class VSettings extends Activity{
                     }
                 }
                 adapter.notifyDataSetChanged();
+            }
+        });
+        Button aboutBtn = (Button) findViewById(R.id.settings_about);
+        aboutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent aboutIntent = new Intent(VSettings.this,
+                        VAbout.class);
+                startActivity(aboutIntent);
             }
         });
     }

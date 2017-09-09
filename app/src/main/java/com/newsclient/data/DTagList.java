@@ -10,12 +10,9 @@ import java.util.HashSet;
 import java.util.Random;
 
 public class DTagList {
-    public ArrayList<HashMap<String, Object>> lstImageitem;
-    public HashSet<String> lstItem;
-    boolean is_initialized;
-    DTagList() {
-        lstImageitem = new ArrayList<HashMap<String, Object>>();
-    }
+    public static ArrayList<HashMap<String, Object>> lstImageitem = new ArrayList<HashMap<String, Object>>();
+    public static HashSet<String> lstItem = new HashSet<String>();
+    static boolean is_initialized = false;
 
     public void initialize(){
         if (is_initialized == true)
@@ -79,11 +76,11 @@ public class DTagList {
         lstItem.add("天气");
     }
 
-    public void removetag(int i){
+    public static void removetag(int i){
         lstImageitem.remove(i);
     }
 
-    public boolean addtag(String newtag){
+    public static boolean addtag(String newtag){
         if (lstItem.contains(newtag))
             return false;
         Random random = new Random();
