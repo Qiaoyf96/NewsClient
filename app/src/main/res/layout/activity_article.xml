@@ -96,6 +96,7 @@
                         android:id="@+id/articleDetailContentText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:lineSpacingMultiplier="1.6"
                         android:textSize="@dimen/detailContentTextSize"
                         android:textColor="@color/detailContentTextColor"/>
 
