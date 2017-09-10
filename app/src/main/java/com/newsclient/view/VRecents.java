@@ -15,6 +15,7 @@ import android.widget.SearchView;
 
 import com.newsclient.R;
 import com.newsclient.data.DNewsList;
+import com.newsclient.data.DSingleNews;
 import com.newsclient.tools.SwipeRefresh;
 
 import java.util.List;
@@ -157,8 +158,8 @@ public class VRecents extends FragmentActivity {
     public int cnt;
     public void push(){
         if (isBackground(this)){
-            cnt = cnt + 1;
-            sendNotification("Test" + cnt, "Testcontent" + cnt);
+            DSingleNews pushnew = DNewsList.getRandomNews();
+            sendNotification(pushnew.news_title, pushnew.news_intro.replace(" ", "").replace("\t", "").replace("　", ""));
         }
     }
     public static boolean isBackground(Context context) {
@@ -181,7 +182,7 @@ public class VRecents extends FragmentActivity {
             isthreadexist = true;
             while (true){
                 try {
-                    sleep(1000);
+                    sleep(60000);
                     push();
                 } catch (Exception e) {
                 }
