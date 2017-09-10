@@ -9,9 +9,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.SearchView;
+import android.os.Build.VERSION;
 
 import com.newsclient.R;
 import com.newsclient.data.DNewsList;
@@ -24,6 +24,7 @@ public class VRecents extends FragmentActivity {
     static View v;
     static Drawable d;
     static boolean isthreadexist = false;
+    static final int SDK_INT = VERSION.SDK_INT;
 
     @Override
     protected void onResume() {
@@ -43,8 +44,8 @@ public class VRecents extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recentlist);
-
-        noti = new NotificationHelper(this);
+        if (SDK_INT > 25)
+            noti = new NotificationHelper(this);
         if (isthreadexist == false) {
             isthreadexist = true;
             Thread pushthread = new mythread();
