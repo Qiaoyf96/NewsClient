@@ -101,7 +101,7 @@ public class VDetails extends AppCompatActivity {
                 return true;
 
             default:
-//                DTagList.getList(id).addnews(news_id);
+                DTagList.addNewsToTag(id, news_id);
                 return super.onOptionsItemSelected(item);
         }
     }
