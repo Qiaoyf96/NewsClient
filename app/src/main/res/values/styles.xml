@@ -38,6 +38,7 @@
         <attr name="lineSpacingExtra" format="dimension"/>
         <attr name="maxDisplayLineCount" format="integer"/>
 
+
     </declare-styleable>
 
 

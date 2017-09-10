@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class VDetails extends AppCompatActivity {
     DSingleNews news;
     ImageView intro;
-    TextView title;
+    VAlignTextView title;
     TextView info;
     TextView content;
 
@@ -133,7 +133,7 @@ public class VDetails extends AppCompatActivity {
 
     void setViewDisplay(){
         intro = (ImageView) findViewById(R.id.articleDetailIntroImg);
-        title = (TextView) findViewById(R.id.articleDetailTitleText);
+        title = (VAlignTextView) findViewById(R.id.articleDetailTitleText);
         info = (TextView) findViewById(R.id.articleDetailSourceText);
         content = (TextView) findViewById(R.id.articleDetailContentText);
 
@@ -144,6 +144,7 @@ public class VDetails extends AppCompatActivity {
         else{
             intro.setVisibility(View.GONE);
         }
+        title.setLineSpacing(1.4f);
         title.setText(news.displayTitle());
         info.setText(news.displaySource() + "     " + news.displayTime());
         content.setText(news.displayContent());
