@@ -85,7 +85,9 @@ public class VDetails extends AppCompatActivity {
         keywordlistview.setAdapter(adapter);
         keywordlistview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         ViewGroup.LayoutParams params = keywordlistview.getLayoutParams();
-        params.height = news.wordList.length * 195;
+        View listviewitem = adapter.getView(1, null, keywordlistview);
+        listviewitem.measure(0, 0);
+        params.height = news.wordList.length * listviewitem.getMeasuredHeight();
         keywordlistview.setLayoutParams(params);
         deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -78,8 +78,11 @@ public class VSettings extends Activity{
         tags_lv.setAdapter(adapter);
         tags_lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
+        View listviewitem = adapter.getView(1, null, tags_lv);
+        listviewitem.measure(0, 0);
+
         ViewGroup.LayoutParams params = tags_lv.getLayoutParams();
-        params.height = 195 * app.dtaglist.lstImageitem.size() - 195;
+        params.height = listviewitem.getMeasuredHeight() * app.dtaglist.lstImageitem.size() - listviewitem.getMeasuredHeight();
         tags_lv.setLayoutParams(params);
         Button delete_sureBtn = (Button) findViewById(R.id.Settings_deletebutton);
         delete_sureBtn.setOnClickListener(new View.OnClickListener() {
@@ -96,8 +99,11 @@ public class VSettings extends Activity{
                 tags_lv.setAdapter(adapter);
                 tags_lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
+                View listviewitem = adapter.getView(1, null, tags_lv);
+                listviewitem.measure(0, 0);
+
                 ViewGroup.LayoutParams params = tags_lv.getLayoutParams();
-                params.height = 195 * app.dtaglist.lstImageitem.size();
+                params.height = listviewitem.getMeasuredHeight() * app.dtaglist.lstImageitem.size() - listviewitem.getMeasuredHeight();
                 tags_lv.setLayoutParams(params);
                 adapter.notifyDataSetChanged();
             }
