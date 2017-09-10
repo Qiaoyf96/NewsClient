@@ -13,7 +13,7 @@
     <string name="sample_hide_log">Hide Log</string>
     <string name="action_settings">settings</string>
     <string name="action_favorite">actions</string>
-    <string name="menu_share">share</string>
+    <string name="action_share">share</string>
     <string name="btn1_description">Start foreground service</string>
     <string name="btn1_title" >Start</string>
     <string name="simple_service_title">Simple Service</string>

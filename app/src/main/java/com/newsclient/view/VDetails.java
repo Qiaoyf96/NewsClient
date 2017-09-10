@@ -26,6 +26,7 @@ public class VDetails extends AppCompatActivity {
     FloatingActionButton btn;
     TextView tv;
     String news_id;
+    DSingleNews news;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class VDetails extends AppCompatActivity {
         news_id = intent.getStringExtra("news_id");
         DTagList.addNewsToTag(-1, news_id);
 
-        DSingleNews news = DNewsList.getById(news_id);
+        news = DNewsList.getById(news_id);
         news.readed = true;
         if (news == null) {
             news = new DSingleNews(news_id);
@@ -75,6 +76,7 @@ public class VDetails extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+
         SubMenu subMenu = menu.addSubMenu(1, 100, 100, "添加到tags");
 
         ArrayList<HashMap<String, Object>> listItem =  DTagList.getListItem();
@@ -106,9 +108,17 @@ public class VDetails extends AppCompatActivity {
                 // User chose the "Settings" item, show the app settings UI...
                 return true;
 
-            case R.id.action_favorite:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
+            case R.id.action_share:
+                Intent intent=new Intent(Intent.ACTION_SEND);
+                intent.setType("image/*");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
+                intent.putExtra(Intent.EXTRA_TEXT, news.news_url);
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(Intent.createChooser(intent, getTitle()));
+                return true;
+
+        case R.id.action_favorite:
                 if (DTagList.addNewsToTag(0, news_id))
                     item.setIcon(android.R.drawable.btn_star_big_on);
                 else item.setIcon(android.R.drawable.btn_star_big_off);

@@ -2,12 +2,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:support="http://schemas.android.com/tools">
     <item
-        android:id="@+id/menu_share"
-        android:title="@string/menu_share"
-        support:actionProviderClass="android.support.v7.widget.ShareActionProvider"
-        support:showAsAction="ifRoom" />
+        android:id="@+id/action_share"
+        android:title="@string/action_share"
+        android:icon="@android:drawable/ic_menu_share"
+        app:showAsAction="ifRoom" />
 
-     "Mark Favorite", should appear as action button if possible
     <item
         android:id="@+id/action_favorite"
         android:icon="@android:drawable/btn_star_big_off"
