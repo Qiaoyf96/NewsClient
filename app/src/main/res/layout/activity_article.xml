@@ -42,6 +42,7 @@
 
 
                 <!--intro picture-->
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -97,7 +98,33 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/detailContentTextSize"
                         android:textColor="@color/detailContentTextColor"/>
+
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:
+                    android:text="Does the above news harass you? Here to select dislike topics!" />
+
+                <ListView
+                    android:id="@+id/details_keywordlistview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:id="@+id/details_deletebtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#FFFFFF"
+                    android:text="Dislike Selected Topics" />
             </LinearLayout>
         </ScrollView>
 

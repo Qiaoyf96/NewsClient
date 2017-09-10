@@ -11,13 +11,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
+import android.widget.ListView;
 
 import com.newsclient.R;
 import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.data.DTagList;
+import com.newsclient.data.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +37,8 @@ public class VDetails extends AppCompatActivity {
     FloatingActionButton btn;
     //TextView tv;
     String news_id;
+
+    VSingleItemSelected adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -66,6 +72,41 @@ public class VDetails extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        Button deletebtn = (Button)findViewById(R.id.details_deletebtn);
+        final ListView keywordlistview = (ListView)findViewById(R.id.details_keywordlistview);
+        final ArrayList<String> displaykeywords = new ArrayList<String>();
+        final Data app = (Data)getApplication();
+        final HashMap<Integer,Boolean> isselected = new HashMap<Integer,Boolean>();
+        for(int i = 0; i < news.wordList.length; i++){
+            displaykeywords.add(news.wordList[i]);
+            isselected.put(i, false);
+        }
+        adapter = new VSingleItemSelected(this, displaykeywords, isselected);
+        keywordlistview.setAdapter(adapter);
+        keywordlistview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        ViewGroup.LayoutParams params = keywordlistview.getLayoutParams();
+        params.height = news.wordList.length * 195;
+        keywordlistview.setLayoutParams(params);
+        deletebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (int i = adapter.getIsSelected().size() - 2; i >= 0; i--) {
+                    if (adapter.getIsSelected().get(i).equals(true)) {
+                        isselected.put(i, false);
+                        app.blockwordlist.add(displaykeywords.get(i));
+                        displaykeywords.remove(i);
+                        isselected.remove(isselected.size() - 1);
+                    }
+                }
+                keywordlistview.setAdapter(adapter);
+                keywordlistview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+                ViewGroup.LayoutParams params = keywordlistview.getLayoutParams();
+                params.height = 195 * displaykeywords.size();
+                keywordlistview.setLayoutParams(params);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
 //    @Override
