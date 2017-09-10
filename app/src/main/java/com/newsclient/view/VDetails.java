@@ -60,7 +60,7 @@ public class VDetails extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                tts.speak(content.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                tts.speak(news.content, TextToSpeech.QUEUE_FLUSH, null);
                 //语音输出
             }});
 
@@ -138,7 +138,7 @@ public class VDetails extends AppCompatActivity {
                 Intent intent=new Intent(Intent.ACTION_SEND);
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
-                intent.putExtra(Intent.EXTRA_TEXT, news.news_url);
+                intent.putExtra(Intent.EXTRA_TEXT, news.news_intro + news.news_url);
 
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(Intent.createChooser(intent, getTitle()));
@@ -151,6 +151,7 @@ public class VDetails extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
             case android.R.id.home:
+                tts.stop();
                 finish();
                 return true;
 
