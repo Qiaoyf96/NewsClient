@@ -67,6 +67,7 @@ public class VRecyclerView {
                 //Toast.makeText(activity,  position + " click", Toast.LENGTH_SHORT).show();
 
 
+
                 Intent intent = new Intent(activity, VDetails.class);
                 try {
                     intent.putExtra("news_id", newsList.get(position).news_id);
@@ -102,7 +103,12 @@ public class VRecyclerView {
             title.setText(news.displayTitle());
             source.setText(news.displaySource());
             time.setText(news.displayTime());
-            img.setImageBitmap(news.news_intropic);
+            if (news.news_intropic != null){
+                img.setImageBitmap(news.news_intropic);
+            }
+            else{
+                img.setVisibility(View.GONE);
+            }
         }
     }
 

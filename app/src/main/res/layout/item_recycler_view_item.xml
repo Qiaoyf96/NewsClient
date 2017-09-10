@@ -13,17 +13,21 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="start"
+        android:scaleType="centerCrop"
+        android:layout_marginLeft="@dimen/recentTextHorizontalMargin"
 
-        android:src="@mipmap/ic_launcher"
         />
 
     <RelativeLayout
 
         android:layout_width="match_parent"
         android:layout_height="80dp"
+
         android:layout_marginLeft="@dimen/recentTextHorizontalMargin"
         android:layout_marginRight="@dimen/recentTextHorizontalMargin"
-        >
+
+    >
+
 
         <com.newsclient.view.VAlignTextView
             android:layout_width="match_parent"

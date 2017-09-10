@@ -42,7 +42,7 @@ public class VDetails extends AppCompatActivity {
         Intent intent = getIntent();
         news_id = intent.getStringExtra("news_id");
 
-        DSingleNews news = DNewsList.getById(news_id);
+        news = DNewsList.getById(news_id);
         if (news == null) {
             news = new DSingleNews(news_id);
         }
@@ -78,7 +78,7 @@ public class VDetails extends AppCompatActivity {
         info = (TextView) findViewById(R.id.articleDetailSourceText);
         content = (TextView) findViewById(R.id.articleDetailContentText);
 
-        if (news.news_intro != null){
+        if (news.news_intropic != null){
 
             intro.setImageBitmap(news.news_intropic);
         }
@@ -87,7 +87,7 @@ public class VDetails extends AppCompatActivity {
         }
         title.setText(news.displayTitle());
         info.setText(news.displaySource() + "     " + news.displayTime());
-        content.setText(news.content);
+        content.setText(news.displayContent());
 
     }
 

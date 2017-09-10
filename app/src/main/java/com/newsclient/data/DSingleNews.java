@@ -80,4 +80,8 @@ public class DSingleNews {
         // 20160912000000
         return Integer.parseInt(news_time.substring(4, 6)) + "月" + Integer.parseInt(news_time.substring(6, 8)) + "日";
     }
+
+    public String displayContent(){
+        return content.replaceAll("  ", "\n");
+    }
 }
