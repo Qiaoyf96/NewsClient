@@ -42,7 +42,7 @@ public class DSingleNews {
             news_time = o.getString("news_Time");
         } catch (JSONException e) {
         }
-        if (!news_pictures.equals("")) {
+        if (!news_pictures[0].equals("")) {
             try {
                 String Url = news_pictures[0];
                 URL url = new URL(Url);
@@ -65,6 +65,23 @@ public class DSingleNews {
         try {
             JSONObject art = new JSONObject(txt);
             content = art.getString("news_Content");
+            news_title = art.getString("news_Title");
+            news_time = art.getString("news_Time");
+            news_source = art.getString("news_Source");
+            news_pictures = art.getString("news_Pictures").split(";");
+            if (!news_pictures[0].equals("")) {
+                try {
+                    String Url = news_pictures[0];
+                    URL pic_url = new URL(Url);
+
+                    String responseCode = pic_url.openConnection().getHeaderField(0);
+
+                    news_intropic = BitmapFactory.decodeStream(pic_url.openStream());
+
+                } catch (Exception e) {
+                }
+            }
+
             JSONArray wordsList = art.getJSONArray("Keywords");
             int length = wordsList.length();
             length = min(5, length);

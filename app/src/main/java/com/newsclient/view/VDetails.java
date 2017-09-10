@@ -116,14 +116,17 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
 
         Intent intent = getIntent();
         news_id = intent.getStringExtra("news_id");
-        DTagList.addNewsToTag(-1, news_id);
 
         news = DNewsList.getById(news_id);
         if (news == null) {
             news = new DSingleNews(news_id);
+            DNewsList._news_list.add(news);
+            DNewsList._size++;
         }
         news.readed = true;
         news.load();
+
+        DTagList.addNewsToTag(-1, news_id);
 
         setViewDisplay();
 

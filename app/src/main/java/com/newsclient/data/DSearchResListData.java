@@ -5,8 +5,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Comparator;
 
 import static com.newsclient.tools.Http.sendGet;
 
@@ -32,7 +30,6 @@ public class DSearchResListData {
             _size = artList.length();
             for (int i = 0; i < _size; i++) {
                 JSONObject art = artList.getJSONObject(i);
-                DSingleNews news = new DSingleNews(art);
                 _news_id_set.add(art.getString("news_ID"));
                 _news_title_list.add(art.getString("news_Title"));
             }
