@@ -1,9 +1,13 @@
 package com.newsclient.view;
 
+import android.app.ActivityManager;
+import android.app.Notification;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -13,9 +17,12 @@ import com.newsclient.R;
 import com.newsclient.data.DNewsList;
 import com.newsclient.tools.SwipeRefresh;
 
+import java.util.List;
+
 public class VRecents extends FragmentActivity {
     static View v;
     static Drawable d;
+    static boolean isthreadexist = false;
 
     @Override
     protected void onResume() {
@@ -29,10 +36,19 @@ public class VRecents extends FragmentActivity {
             v.setBackground(d);
     }
 
+    private NotificationHelper noti;
+    private static final String TAG = VRecents.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recentlist);
+
+        noti = new NotificationHelper(this);
+        if (isthreadexist == false) {
+            isthreadexist = true;
+            Thread pushthread = new mythread();
+            pushthread.start();
+        }
 
         SearchView searchview = (SearchView)findViewById(R.id.recentlist_searchview);
 
@@ -107,5 +123,69 @@ public class VRecents extends FragmentActivity {
                 R.id.recent_recycler_view,
                 itemsId);
         recycler.generate();
+    }
+
+    public void sendNotification(String title, String content) {
+        Notification.Builder nb = null;
+        nb = noti.getNotification2(title, content);
+
+        if (nb != null) {
+            noti.notify(1200, nb);
+        }
+    }
+
+    /**
+     * Send Intent to load system Notification Settings for this app.
+     */
+    public void goToNotificationSettings() {
+        Intent i = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+        i.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+        startActivity(i);
+    }
+
+    /**
+     * Send intent to load system Notification Settings UI for a particular channel.
+     *
+     * @param channel Name of channel to configure
+     */
+    public void goToNotificationSettings(String channel) {
+        Intent i = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
+        i.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+        i.putExtra(Settings.EXTRA_CHANNEL_ID, channel);
+        startActivity(i);
+    }
+    public int cnt;
+    public void push(){
+        if (isBackground(this)){
+            cnt = cnt + 1;
+            sendNotification("Test" + cnt, "Testcontent" + cnt);
+        }
+    }
+    public static boolean isBackground(Context context) {
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        List<ActivityManager.RunningAppProcessInfo> appProcesses = activityManager.getRunningAppProcesses();
+        for (ActivityManager.RunningAppProcessInfo appProcess : appProcesses) {
+            if (appProcess.processName.equals(context.getPackageName())) {
+                if (appProcess.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        }
+        return true;
+    }
+    class mythread extends Thread {
+        @Override
+        public void run() {
+            isthreadexist = true;
+            while (true){
+                try {
+                    sleep(1000);
+                    push();
+                } catch (Exception e) {
+                }
+            }
+        }
     }
 }
