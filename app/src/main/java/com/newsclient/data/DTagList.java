@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class DTagList {
     public static ArrayList<HashMap<String, Object>> lstImageitem = new ArrayList<HashMap<String, Object>>();
-    static HashSet<String> lstItem = new HashSet<String>();
+    static ArrayList<String> lstItem = new ArrayList<String>();
     static ArrayList<ArrayList<String>> lstdetail = new ArrayList<ArrayList<String>>();
     static ArrayList<String> readedlist = new ArrayList<String>();
     static boolean is_initialized = false;
@@ -82,15 +82,20 @@ public class DTagList {
         map.put("ItemText", "天气");
         lstImageitem.add(map);
         lstItem.add("天气");
+        for(int i = 0; i < 12; i++) {
+            ArrayList<String> as = new ArrayList<String>();
+            lstdetail.add(as);
+        }
     }
 
     public static void removetag(int i){
         lstdetail.remove(i);
         lstImageitem.remove(i);
+        lstItem.remove(i);
     }
 
     public static boolean addtag(String newtag){
-        if (lstItem.contains(newtag))
+        if (lstItem.indexOf(newtag) != -1)
             return false;
         Random random = new Random();
         HashMap<String, Object> map = new HashMap<String, Object>();
@@ -105,6 +110,8 @@ public class DTagList {
 
         lstImageitem.add(map);
         lstItem.add(newtag);
+        ArrayList<String> as = new ArrayList<String>();
+        lstdetail.add(as);
         return true;
     }
 
@@ -116,6 +123,9 @@ public class DTagList {
             int idx = lstdetail.get(tagidx).indexOf(news_id);
             if (idx == -1){
                 lstdetail.get(tagidx).add(news_id);
+            }
+            else{
+                lstdetail.get(tagidx).remove(idx);
             }
         }
     }
