@@ -108,7 +108,8 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginRight="5dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="30dp"
+                    android:textSize="14sp"
                     android:text="Does the above news harass you? Here to select dislike topics!" />
 
                 <ListView
