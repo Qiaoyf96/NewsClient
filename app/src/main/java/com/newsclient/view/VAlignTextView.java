@@ -14,7 +14,11 @@ import android.support.v7.widget.AppCompatTextView;
 
 import com.newsclient.R;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by lenovo on 2017/9/7.
@@ -34,7 +38,9 @@ import android.widget.TextView;
 public class VAlignTextView extends AppCompatTextView{
 
     private final String namespace = "rong.android.TextView";
+    private List<Integer> highlightIndexs;
     private String text;
+    private String keyword;
     private float textSize;
     private float paddingLeft;
     private float paddingRight;
@@ -61,9 +67,10 @@ public class VAlignTextView extends AppCompatTextView{
 
         textSize = typedArray.getDimension(R.styleable.VAlignTextView_textSize, 20);
         textColor = typedArray.getColor(R.styleable.VAlignTextView_textColor, Color.BLACK);
-        textHighlightedColor = Color.BLUE;
+        textHighlightedColor = typedArray.getColor(R.styleable.VAlignTextView_textHighlightedColor, Color.RED);
         textFont = Typeface.DEFAULT;
         maxLineCount = typedArray.getInteger(R.styleable.VAlignTextView_maxDisplayLineCount, 10);
+        keyword = typedArray.getString(R.styleable.VAlignTextView_keyword);
 
         paddingLeft = attrs.getAttributeIntValue(namespace, "paddingLeft", 0);
         paddingRight = attrs.getAttributeIntValue(namespace, "paddingRight", 0);
@@ -100,6 +107,29 @@ public class VAlignTextView extends AppCompatTextView{
         paintColor.setColor(this.textColor);
     }
 
+    public void setKeyword(String keyword){
+        this.keyword = keyword;
+
+
+
+    }
+
+    public void setTextHighlightedColor(int id){
+        this.textHighlightedColor = getResources().getColor(id);
+        this.paintColor.setColor(this.textHighlightedColor);
+    }
+
+    public void keywordCheck(){
+        highlightIndexs = new ArrayList<>();
+        if (keyword == null || keyword == "" || text == null || text == ""){
+            return;
+        }
+        Pattern p = Pattern.compile(this.keyword);
+        Matcher m = p.matcher(this.text);
+        while(m.find()){
+            highlightIndexs.add(m.start());
+        }
+    }
 
     public JSONArray getColorIndex() {
         return colorIndex;
@@ -129,6 +159,18 @@ public class VAlignTextView extends AppCompatTextView{
         return false;
     }
 
+    public boolean isHighlighted(int index){
+        if (highlightIndexs.size() == 0){
+            return false;
+        }
+        for (int i : highlightIndexs){
+            if (i <= index && index < i + keyword.length()){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -138,6 +180,9 @@ public class VAlignTextView extends AppCompatTextView{
         int lineCount = 0;
 
         text = this.getText().toString();//.replaceAll("\n", "\r\n");
+
+        keywordCheck();
+
         if(text==null)return;
         char[] textCharArray = text.toCharArray();
         // 已绘的宽度
@@ -185,13 +230,8 @@ public class VAlignTextView extends AppCompatTextView{
         setHeight((int) ((lineCount + 1) * (int) textSize * LineSpacing + 10));
     }
     private Paint choosePaint(int i){
-        boolean color = false;
-        try {
-            color = isColor(i);
-        } catch (JSONException e1) {
-            e1.printStackTrace();
-        }
-        return (color ? paintColor : paint1);
+
+        return (isHighlighted(i) ? paintColor : paint1);
     }
     public float getSpacing() {
         return Spacing;
