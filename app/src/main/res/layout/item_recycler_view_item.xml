@@ -39,8 +39,7 @@
             android:layout_marginTop="@dimen/alignTextViewVerticalMargin"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:lineSpacingExtra="5dp"
-            app:textSize="16sp"
+            app:textSize="20sp"
             app:maxDisplayLineCount="1"
             android:textColor="@color/recentTitleTextColor"
 
@@ -56,9 +55,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="@dimen/alignTextViewVerticalMargin"
+            android:layout_marginBottom="3dp"
             android:textColor="@color/recentSourceTextColor"
-            android:textSize="@dimen/recentTimeTextSize">
+            android:textSize="16sp">
 
         </TextView>
 
@@ -68,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/alignTextViewVerticalMargin"
+            android:layout_marginBottom="3dp"
             android:textColor="@color/recentTimeTextColor"
             android:textSize="@dimen/recentTimeTextSize">
 
