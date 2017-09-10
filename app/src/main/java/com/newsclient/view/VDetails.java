@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.newsclient.R;
@@ -22,11 +23,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class VDetails extends AppCompatActivity {
+    DSingleNews news;
+    ImageView intro;
+    TextView title;
+    TextView info;
+    TextView content;
+
     TextToSpeech tts;
     FloatingActionButton btn;
-    TextView tv;
+    //TextView tv;
     String news_id;
-    DSingleNews news;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,14 +44,15 @@ public class VDetails extends AppCompatActivity {
         DTagList.addNewsToTag(-1, news_id);
 
         news = DNewsList.getById(news_id);
-        news.readed = true;
         if (news == null) {
             news = new DSingleNews(news_id);
         }
+        news.readed = true;
         news.load();
 
-        tv = (TextView)findViewById(R.id.textView2);
-        tv.setText(news.content);
+        //tv = (TextView)findViewById(R.id.textView2);
+        //tv.setText(news.content);
+        setViewDisplay();
 
         tts = new TextToSpeech(this, null);
         btn = (FloatingActionButton)findViewById(R.id.floatingActionButton);
@@ -53,7 +60,7 @@ public class VDetails extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                tts.speak(tv.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
+                tts.speak(content.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
                 //语音输出
             }});
 
@@ -66,6 +73,25 @@ public class VDetails extends AppCompatActivity {
 //        finish();
 //        return super.onSupportNavigateUp();
 //    }
+
+    void setViewDisplay(){
+        intro = (ImageView) findViewById(R.id.articleDetailIntroImg);
+        title = (TextView) findViewById(R.id.articleDetailTitleText);
+        info = (TextView) findViewById(R.id.articleDetailSourceText);
+        content = (TextView) findViewById(R.id.articleDetailContentText);
+
+        if (news.news_intropic != null){
+
+            intro.setImageBitmap(news.news_intropic);
+        }
+        else{
+            intro.setVisibility(View.GONE);
+        }
+        title.setText(news.displayTitle());
+        info.setText(news.displaySource() + "     " + news.displayTime());
+        content.setText(news.displayContent());
+
+    }
 
     @Override
     protected void onDestroy() {

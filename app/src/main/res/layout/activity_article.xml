@@ -21,24 +21,86 @@
         app:rippleColor="@android:color/background_light"
         app:srcCompat="@mipmap/button_read" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
 
         <ScrollView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
 
-            <TextView
-                android:id="@+id/textView2"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+
+
+                <!--intro picture-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/articleDetailIntroImg"
+                    android:scaleType="centerCrop"
+                    android:maxHeight="@dimen/detailImgMaxHight"
+                    android:adjustViewBounds="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp">
+
+
+
+                    <!--title-->
+                    <!--<TextView-->
+
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/articleDetailTitleText"-->
+                    <!--android:textSize="@dimen/detailTitleTextSize"-->
+                    <!--android:textColor="@color/detailTitleTextColor"/>-->
+
+                    <com.newsclient.view.VAlignTextView
+                        android:id="@+id/articleDetailTitleText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        app:textSize="@dimen/detailTitleTextSize"
+                        app:maxDisplayLineCount="5"
+                        android:textColor="@color/detailTitleTextColor"/>
+                    <!--infomation(source && time)-->
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/articleDetailSourceText"
+                        android:textSize="@dimen/detailSourceTextSize"
+                        android:textColor="@color/detailSourceTextColor"/>
+                    <!--content-->
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/articleDetailContentText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/detailContentTextSize"
+                        android:textColor="@color/detailContentTextColor"/>
+                </LinearLayout>
+            </LinearLayout>
         </ScrollView>
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </RelativeLayout>

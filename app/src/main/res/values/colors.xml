@@ -15,4 +15,9 @@
     <color name="pressedBackground">#aa999999</color>
     <color name="normalBackground">#ffffff</color>
 
+    <!--detail page-->
+    <color name="detailTitleTextColor">#000000</color>
+    <color name="detailSourceTextColor">#aa999999</color>
+    <color name="detailContentTextColor">#000000</color>
+
 </resources>
