@@ -9,23 +9,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.newsclient.R;
-import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleTag;
 import com.newsclient.data.DTagList;
 
 public class VTagList extends Activity {
+    int tagId;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_taglist);
-
-        Intent intent = getIntent();
-        int tagId = intent.getIntExtra("tag_id", -1);
-
+    protected void onResume() {
         final DSingleTag dt = DTagList.getNewsById(tagId);
 
-        String[] titleList = new String[DNewsList._size];
+        String[] titleList = new String[dt.size];
 
         for (int i = 0; i < dt.size; i++) {
             titleList[i] = dt.news_list.get(i).news_title;
@@ -48,5 +42,17 @@ public class VTagList extends Activity {
                 startActivity(intent);
             }
         });
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_taglist);
+
+        Intent intent = getIntent();
+        tagId = intent.getIntExtra("tag_id", -1);
+
     }
 }

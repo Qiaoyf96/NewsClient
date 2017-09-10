@@ -17,10 +17,13 @@ import com.newsclient.data.Data;
 import java.util.HashMap;
 
 public class VTags extends Activity {
+    static VTags v;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tags);
+        v = VTags.this;
     }
 
     @Override
@@ -49,7 +52,7 @@ public class VTags extends Activity {
             //在本例中arg2=arg3
             HashMap<String, Object> item = (HashMap<String, Object>) arg0.getItemAtPosition(arg2);
             //显示所选Item的ItemText
-            Intent intent = new Intent(VTags.this, VTagList.class);
+            Intent intent = new Intent(v, VTagList.class);
             try {
                 intent.putExtra("tag_id", arg2);
             } catch (Exception e) {

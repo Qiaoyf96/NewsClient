@@ -58,16 +58,16 @@ public class VDetails extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return super.onSupportNavigateUp();
-    }
+//    @Override
+//    public boolean onSupportNavigateUp() {
+//        finish();
+//        return super.onSupportNavigateUp();
+//    }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         tts.stop();
+        super.onDestroy();
     }
 
     @Override
@@ -81,6 +81,12 @@ public class VDetails extends AppCompatActivity {
         for (HashMap<String, Object> item : listItem) {
             i++;
             subMenu.add(2, 100 + i, 100 + i, item.get("ItemText").toString());
+        }
+
+        if (DTagList.isInFavourite(news_id)) {
+            MenuItem mi = (MenuItem) findViewById(R.id.action_favorite);
+            menu.findItem(R.id.action_favorite).setIcon(android.R.drawable.btn_star_big_on);
+
         }
 
         return true;
@@ -97,12 +103,18 @@ public class VDetails extends AppCompatActivity {
             case R.id.action_favorite:
                 // User chose the "Favorite" action, mark the current item
                 // as a favorite...
-                item.setIcon(android.R.drawable.btn_star_big_on);
+                if (DTagList.addNewsToTag(0, news_id))
+                    item.setIcon(android.R.drawable.btn_star_big_on);
+                else item.setIcon(android.R.drawable.btn_star_big_off);
+                return super.onOptionsItemSelected(item);
+
+            case android.R.id.home:
+                finish();
                 return true;
 
             default:
                 if (id > 100) {
-                    DTagList.addNewsToTag(id - 100, news_id);
+                    DTagList.addNewsToTag(id - 101, news_id);
                 }
                 return super.onOptionsItemSelected(item);
         }

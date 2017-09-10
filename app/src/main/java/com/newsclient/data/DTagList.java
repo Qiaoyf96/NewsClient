@@ -4,7 +4,6 @@ import com.newsclient.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Random;
 
 public class DTagList {
@@ -115,17 +114,20 @@ public class DTagList {
         return true;
     }
 
-    public static void addNewsToTag(int tagidx, String news_id){
+    public static boolean addNewsToTag(int tagidx, String news_id){
         if (tagidx == -1){
             readedlist.add(news_id);
+            return true;
         }
         else{
             int idx = lstdetail.get(tagidx).indexOf(news_id);
             if (idx == -1){
                 lstdetail.get(tagidx).add(news_id);
+                return true;
             }
             else{
                 lstdetail.get(tagidx).remove(idx);
+                return false;
             }
         }
     }
@@ -134,5 +136,12 @@ public class DTagList {
         DSingleTag current_tag = new DSingleTag();
         current_tag.set(lstdetail.get(id));
         return current_tag;
+    }
+
+    public static boolean isInFavourite(String news_id) {
+        int idx = lstdetail.get(0).indexOf(news_id);
+        if (idx == -1)
+            return false;
+        return true;
     }
 }
