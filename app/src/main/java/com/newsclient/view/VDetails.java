@@ -2,7 +2,6 @@ package com.newsclient.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
@@ -12,11 +11,17 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.iflytek.cloud.InitListener;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechError;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SpeechUtility;
+import com.iflytek.cloud.SynthesizerListener;
 import com.newsclient.R;
 import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
@@ -26,24 +31,88 @@ import com.newsclient.data.Data;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class VDetails extends AppCompatActivity {
+public class VDetails extends AppCompatActivity implements View.OnClickListener {
     DSingleNews news;
     ImageView intro;
     TextView title;
     TextView info;
     TextView content;
 
-    TextToSpeech tts;
     FloatingActionButton btn;
     //TextView tv;
     String news_id;
 
     VSingleItemSelected adapter;
 
+    private SpeechSynthesizer mySynthesizer;
+
+    private InitListener myInitListener = new InitListener() {
+        @Override
+        public void onInit(int i) {
+        }
+    };
+
+    private SynthesizerListener mTtsListener = new SynthesizerListener() {
+        @Override
+        public void onSpeakBegin() {
+
+        }
+
+        @Override
+        public void onBufferProgress(int i, int i1, int i2, String s) {
+
+        }
+
+        @Override
+        public void onSpeakPaused() {
+
+        }
+
+        @Override
+        public void onSpeakResumed() {
+
+        }
+
+        @Override
+        public void onSpeakProgress(int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onCompleted(SpeechError speechError) {
+
+        }
+
+        @Override
+        public void onEvent(int i, int i1, int i2, Bundle bundle) {
+
+        }
+    };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.floatingActionButton:
+                //设置发音人
+                mySynthesizer.setParameter(SpeechConstant.VOICE_NAME,"xiaoyan");
+                //设置音调
+                mySynthesizer.setParameter(SpeechConstant.PITCH,"50");
+                //设置音量
+                mySynthesizer.setParameter(SpeechConstant.VOLUME,"50");
+                int code = mySynthesizer.startSpeaking(news.content, mTtsListener);
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
+
+        SpeechUtility.createUtility(VDetails.this, "appid=59b53f3d");
+        mySynthesizer = SpeechSynthesizer.createSynthesizer(this, myInitListener);
 
         Intent intent = getIntent();
         news_id = intent.getStringExtra("news_id");
@@ -56,19 +125,10 @@ public class VDetails extends AppCompatActivity {
         news.readed = true;
         news.load();
 
-        //tv = (TextView)findViewById(R.id.textView2);
-        //tv.setText(news.content);
         setViewDisplay();
 
-        tts = new TextToSpeech(this, null);
         btn = (FloatingActionButton)findViewById(R.id.floatingActionButton);
-        //实例化
-        btn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                tts.speak(news.content, TextToSpeech.QUEUE_FLUSH, null);
-                //语音输出
-            }});
+        btn.setOnClickListener(this);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -125,12 +185,6 @@ public class VDetails extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    public boolean onSupportNavigateUp() {
-//        finish();
-//        return super.onSupportNavigateUp();
-//    }
-
     void setViewDisplay(){
         intro = (ImageView) findViewById(R.id.articleDetailIntroImg);
         title = (TextView) findViewById(R.id.articleDetailTitleText);
@@ -151,9 +205,9 @@ public class VDetails extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        tts.stop();
-        super.onDestroy();
+    public void onBackPressed() {
+        mySynthesizer.stopSpeaking();
+        super.onBackPressed();
     }
 
     @Override
@@ -208,7 +262,7 @@ public class VDetails extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
             case android.R.id.home:
-                tts.stop();
+                mySynthesizer.stopSpeaking();
                 finish();
                 return true;
 

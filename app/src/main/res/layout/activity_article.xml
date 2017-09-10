@@ -15,6 +15,7 @@
         android:layout_marginRight="16dp"
         android:clickable="true"
         android:tint="@android:color/white"
+        android:visibility="visible"
         app:backgroundTint="@color/colorPrimaryDark"
         app:elevation="6dp"
         app:fabSize="normal"
