@@ -34,8 +34,10 @@ public class VDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         news_id = intent.getStringExtra("news_id");
+        DTagList.addNewsToTag(-1, news_id);
 
         DSingleNews news = DNewsList.getById(news_id);
+        news.readed = true;
         if (news == null) {
             news = new DSingleNews(news_id);
         }
@@ -79,11 +81,15 @@ public class VDetails extends AppCompatActivity {
 
         int i = 0;
         for (HashMap<String, Object> item : listItem) {
-            i++;
+            if (i == 0) {
+                i++;
+                continue;
+            }
             subMenu.add(2, 100 + i, 100 + i, item.get("ItemText").toString());
+            i++;
         }
 
-        if (DTagList.isInFavourite(news_id)) {
+        if (DTagList.isInTagList(0, news_id)) {
             MenuItem mi = (MenuItem) findViewById(R.id.action_favorite);
             menu.findItem(R.id.action_favorite).setIcon(android.R.drawable.btn_star_big_on);
 
@@ -114,7 +120,7 @@ public class VDetails extends AppCompatActivity {
 
             default:
                 if (id > 100) {
-                    DTagList.addNewsToTag(id - 101, news_id);
+                    DTagList.addNewsToTag(id - 100, news_id);
                 }
                 return super.onOptionsItemSelected(item);
         }

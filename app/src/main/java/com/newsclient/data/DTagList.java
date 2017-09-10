@@ -138,8 +138,8 @@ public class DTagList {
         return current_tag;
     }
 
-    public static boolean isInFavourite(String news_id) {
-        int idx = lstdetail.get(0).indexOf(news_id);
+    public static boolean isInTagList(int id, String news_id) {
+        int idx = lstdetail.get(id).indexOf(news_id);
         if (idx == -1)
             return false;
         return true;
