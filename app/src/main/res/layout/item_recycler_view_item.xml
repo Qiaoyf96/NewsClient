@@ -13,10 +13,11 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="start"
         android:scaleType="centerCrop"
+        android:alpha="0.8"
         android:layout_marginLeft="@dimen/recentTextHorizontalMargin"
 
         />
@@ -24,7 +25,7 @@
     <RelativeLayout
 
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
 
         android:layout_marginLeft="@dimen/recentTextHorizontalMargin"
         android:layout_marginRight="@dimen/recentTextHorizontalMargin"
@@ -38,8 +39,9 @@
             android:layout_marginTop="@dimen/alignTextViewVerticalMargin"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            app:textSize="@dimen/recentTitleTextSize"
-            app:maxDisplayLineCount="2"
+            android:lineSpacingExtra="5dp"
+            app:textSize="16sp"
+            app:maxDisplayLineCount="1"
             android:textColor="@color/recentTitleTextColor"
 
 

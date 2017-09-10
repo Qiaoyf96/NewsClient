@@ -34,7 +34,6 @@ import com.newsclient.R;
  */
 public class NotificationHelper extends ContextWrapper {
     private NotificationManager manager;
-    public static final String PRIMARY_CHANNEL = "default";
     public static final String SECONDARY_CHANNEL = "second";
 
     /**
