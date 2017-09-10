@@ -77,18 +77,20 @@ public class VSettings extends Activity{
         adapter = new VSingleItemSelected(this, displaytags, isselected);
         tags_lv.setAdapter(adapter);
         tags_lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-        View listviewitem = adapter.getView(1, null, tags_lv);
-        listviewitem.measure(0, 0);
-
         ViewGroup.LayoutParams params = tags_lv.getLayoutParams();
-        params.height = listviewitem.getMeasuredHeight() * app.dtaglist.lstImageitem.size() - listviewitem.getMeasuredHeight();
+        try {
+            View listviewitem = adapter.getView(0, null, tags_lv);
+            listviewitem.measure(0, 0);
+            params.height = listviewitem.getMeasuredHeight() * app.dtaglist.lstImageitem.size() - listviewitem.getMeasuredHeight();
+        }catch (Exception e){
+            params.height = 0;
+        }
         tags_lv.setLayoutParams(params);
         Button delete_sureBtn = (Button) findViewById(R.id.Settings_deletebutton);
         delete_sureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = adapter.getIsSelected().size() - 2; i >= 0; i--) {
+                for (int i = adapter.getIsSelected().size() - 1; i >= 0; i--) {
                     if (adapter.getIsSelected().get(i).equals(true)) {
                         isselected.put(i, false);
                         displaytags.remove(i);
@@ -98,12 +100,14 @@ public class VSettings extends Activity{
                 }
                 tags_lv.setAdapter(adapter);
                 tags_lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-                View listviewitem = adapter.getView(1, null, tags_lv);
-                listviewitem.measure(0, 0);
-
                 ViewGroup.LayoutParams params = tags_lv.getLayoutParams();
-                params.height = listviewitem.getMeasuredHeight() * app.dtaglist.lstImageitem.size() - listviewitem.getMeasuredHeight();
+                try {
+                    View listviewitem = adapter.getView(1, null, tags_lv);
+                    listviewitem.measure(0, 0);
+                    params.height = listviewitem.getMeasuredHeight() * app.dtaglist.lstImageitem.size() - listviewitem.getMeasuredHeight();
+                }catch (Exception e){
+                    params.height = 0;
+                }
                 tags_lv.setLayoutParams(params);
                 adapter.notifyDataSetChanged();
             }
