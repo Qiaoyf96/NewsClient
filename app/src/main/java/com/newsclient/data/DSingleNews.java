@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 
 import com.newsclient.tools.StringFormatTransfer;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,6 +21,8 @@ public class DSingleNews {
     public Bitmap news_intropic;
     public boolean readed;
     public boolean loaded;
+    public String[] wordList;
+    public double[] scoreList;
     DSingleNews(JSONObject o){
         news_id = "";
         content = "";
@@ -62,9 +65,24 @@ public class DSingleNews {
         try {
             JSONObject art = new JSONObject(txt);
             content = art.getString("news_Content");
+            JSONArray wordsList = art.getJSONArray("Keywords");
+            int length = wordsList.length();
+            length = max(5, length);
+            wordList = new String [length];
+            scoreList = new double [length];
+            for (int i = 0; i < length; i++) {
+                JSONObject word = wordsList.getJSONObject(i);
+                wordList[i] = word.getString("word");
+                scoreList[i] = word.getDouble("score");
+            }
         } catch (JSONException e) {
             content = e.toString();
         }
+    }
+
+    private int max(int a, int b) {
+        if (a > b) return a;
+        return b;
     }
 
     public String displayTitle(){
