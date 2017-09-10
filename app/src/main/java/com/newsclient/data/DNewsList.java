@@ -45,6 +45,11 @@ public class DNewsList {
         return list;
     }
 
+    public static DSingleNews getRandomNews() {
+        Collections.shuffle(_news_list);
+        _news_list.get(0).load();
+        return _news_list.get(0);
+    }
 }
 
 //class NewsSort implements Comparator {
