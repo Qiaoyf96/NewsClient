@@ -4,28 +4,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"
-        android:clickable="true"
-        android:tint="@android:color/white"
-        android:visibility="visible"
-        app:backgroundTint="@color/colorPrimaryDark"
-        app:elevation="6dp"
-        app:fabSize="normal"
-        app:rippleColor="@android:color/background_light"
-        app:srcCompat="@mipmap/button_read" />
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical">-->
 
         <ScrollView
             android:layout_width="match_parent"
@@ -130,6 +108,22 @@
             </LinearLayout>
         </ScrollView>
 
-    <!--</LinearLayout>-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        android:tint="@android:color/white"
+        android:visibility="visible"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:elevation="6dp"
+        app:fabSize="normal"
+        app:rippleColor="@android:color/background_light"
+        app:srcCompat="@mipmap/button_read" />
 
 </RelativeLayout>
