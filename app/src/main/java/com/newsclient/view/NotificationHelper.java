@@ -22,6 +22,10 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.PixelFormat;
+import android.graphics.Canvas;
 
 import com.newsclient.R;
 
@@ -41,35 +45,11 @@ public class NotificationHelper extends ContextWrapper {
     public NotificationHelper(Context ctx) {
         super(ctx);
 
-        NotificationChannel chan1 = new NotificationChannel(PRIMARY_CHANNEL,
-                getString(R.string.noti_channel_default), NotificationManager.IMPORTANCE_DEFAULT);
-        chan1.setLightColor(Color.GREEN);
-        chan1.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-        getManager().createNotificationChannel(chan1);
-
         NotificationChannel chan2 = new NotificationChannel(SECONDARY_CHANNEL,
                 getString(R.string.noti_channel_second), NotificationManager.IMPORTANCE_HIGH);
         chan2.setLightColor(Color.BLUE);
         chan2.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
         getManager().createNotificationChannel(chan2);
-    }
-
-    /**
-     * Get a notification of type 1
-     *
-     * Provide the builder rather than the notification it's self as useful for making notification
-     * changes.
-     *
-     * @param title the title of the notification
-     * @param body the body text for the notification
-     * @return the builder as it keeps a reference to the notification (since API 24)
-    */
-    public Notification.Builder getNotification1(String title, String body) {
-        return new Notification.Builder(getApplicationContext(), PRIMARY_CHANNEL)
-                 .setContentTitle(title)
-                 .setContentText(body)
-                 .setSmallIcon(getSmallIcon())
-                 .setAutoCancel(true);
     }
 
     /**
@@ -80,39 +60,28 @@ public class NotificationHelper extends ContextWrapper {
      * @return A Notification.Builder configured with the selected channel and details
      */
     public Notification.Builder getNotification2(String title, String body) {
+        Drawable drawable = getResources().getDrawable(R.mipmap.ic_launcher);
+        int width = drawable.getIntrinsicWidth();// 取drawable的长宽
+        int height = drawable.getIntrinsicHeight();
+        Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ?Bitmap.Config.ARGB_8888:Bitmap.Config.RGB_565;// 取drawable的颜色格式
+        Bitmap bitmap = Bitmap.createBitmap(width, height, config);// 建立对应bitmap
+        Canvas canvas = new Canvas(bitmap);// 建立对应bitmap的画布
+        drawable.setBounds(0, 0, width, height);
+        drawable.draw(canvas);// 把drawable内容画到画布中
+
         return new Notification.Builder(getApplicationContext(), SECONDARY_CHANNEL)
                  .setContentTitle(title)
                  .setContentText(body)
-                 .setSmallIcon(getSmallIcon())
+                 .setSmallIcon(android.R.drawable.stat_notify_chat)
+                 .setLargeIcon(bitmap)
                  .setAutoCancel(true);
     }
 
-    /**
-     * Send a notification.
-     *
-     * @param id The ID of the notification
-     * @param notification The notification object
-     */
     public void notify(int id, Notification.Builder notification) {
         getManager().notify(id, notification.build());
     }
 
-    /**
-     * Get the small icon for this app
-     *
-     * @return The small icon resource id
-     */
-    private int getSmallIcon() {
-        return android.R.drawable.stat_notify_chat;
-    }
 
-    /**
-     * Get the notification manager.
-     *
-     * Utility method as this helper works with it a lot.
-     *
-     * @return The system service NotificationManager
-     */
     private NotificationManager getManager() {
         if (manager == null) {
             manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
