@@ -10,6 +10,8 @@ import java.util.Random;
 public class DTagList {
     public static ArrayList<HashMap<String, Object>> lstImageitem = new ArrayList<HashMap<String, Object>>();
     static HashSet<String> lstItem = new HashSet<String>();
+    static ArrayList<ArrayList<String>> lstdetail = new ArrayList<ArrayList<String>>();
+    static ArrayList<String> readedlist = new ArrayList<String>();
     static boolean is_initialized = false;
 
     public static ArrayList<HashMap<String, Object>> getListItem() {
@@ -21,7 +23,6 @@ public class DTagList {
                 return;
         is_initialized = true;
         HashMap<String, Object> map = new HashMap<String, Object>();
-        lstItem = new HashSet<String>();
         map.put("ItemImage", R.mipmap.favoriteicon);
         map.put("ItemText", "我最喜欢");
         lstImageitem.add(map);
@@ -84,6 +85,7 @@ public class DTagList {
     }
 
     public static void removetag(int i){
+        lstdetail.remove(i);
         lstImageitem.remove(i);
     }
 
@@ -104,5 +106,23 @@ public class DTagList {
         lstImageitem.add(map);
         lstItem.add(newtag);
         return true;
+    }
+
+    public static void addNewsToTag(int tagidx, String news_id){
+        if (tagidx == -1){
+            readedlist.add(news_id);
+        }
+        else{
+            int idx = lstdetail.get(tagidx).indexOf(news_id);
+            if (idx == -1){
+                lstdetail.get(tagidx).add(news_id);
+            }
+        }
+    }
+
+    public static DSingleTag getNewsById(int id){
+        DSingleTag current_tag = new DSingleTag();
+        current_tag.set(lstdetail.get(id));
+        return current_tag;
     }
 }
