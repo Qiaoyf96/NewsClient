@@ -85,34 +85,42 @@ public class VDetails extends AppCompatActivity {
         keywordlistview.setAdapter(adapter);
         keywordlistview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         ViewGroup.LayoutParams params = keywordlistview.getLayoutParams();
-
-        View listviewitem = adapter.getView(0, null, keywordlistview);
-        listviewitem.measure(0, 0);
-        params.height = news.wordList.length * listviewitem.getMeasuredHeight();
+        try {
+            View listviewitem = adapter.getView(0, null, keywordlistview);
+            listviewitem.measure(0, 0);
+            params.height = news.wordList.length * listviewitem.getMeasuredHeight();
+        }catch (Exception e){
+            params.height = 0;
+        }
         keywordlistview.setLayoutParams(params);
 
         deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = adapter.getIsSelected().size() - 1; i >= 0; i--) {
-                    if (adapter.getIsSelected().get(i).equals(true)) {
-                        isselected.put(i, false);
-                        app.blockwordlist.add(displaykeywords.get(i));
-                        displaykeywords.remove(i);
-                        isselected.remove(isselected.size() - 1);
+                if (adapter.getIsSelected().size() > 0){
+                    for (int i = adapter.getIsSelected().size() - 1; i >= 0; i--) {
+                        if (adapter.getIsSelected().get(i).equals(true)) {
+                            isselected.put(i, false);
+                            app.blockwordlist.add(displaykeywords.get(i));
+                            displaykeywords.remove(i);
+                            isselected.remove(isselected.size() - 1);
+                        }
                     }
+                    keywordlistview.setAdapter(adapter);
+                    keywordlistview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+                    ViewGroup.LayoutParams params = keywordlistview.getLayoutParams();
+                    try {
+                        View listviewitem = adapter.getView(0, null, keywordlistview);
+                        listviewitem.measure(0, 0);
+                        params.height = displaykeywords.size() * listviewitem.getMeasuredHeight();
+                    }catch (Exception e){
+                        params.height = 0;
+                    }
+
+                    keywordlistview.setLayoutParams(params);
+                    adapter.notifyDataSetChanged();
                 }
-                keywordlistview.setAdapter(adapter);
-                keywordlistview.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
-                ViewGroup.LayoutParams params = keywordlistview.getLayoutParams();
-
-                View listviewitem = adapter.getView(0, null, keywordlistview);
-                listviewitem.measure(0, 0);
-                params.height = displaykeywords.size() * listviewitem.getMeasuredHeight();
-
-                keywordlistview.setLayoutParams(params);
-                adapter.notifyDataSetChanged();
             }
         });
     }
