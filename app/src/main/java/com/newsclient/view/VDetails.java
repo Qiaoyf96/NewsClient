@@ -94,7 +94,7 @@ public class VDetails extends AppCompatActivity {
         deletebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = adapter.getIsSelected().size() - 2; i >= 0; i--) {
+                for (int i = adapter.getIsSelected().size() - 1; i >= 0; i--) {
                     if (adapter.getIsSelected().get(i).equals(true)) {
                         isselected.put(i, false);
                         app.blockwordlist.add(displaykeywords.get(i));

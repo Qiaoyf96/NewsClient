@@ -4,18 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.view.ViewParent;
-import android.widget.EditText;
-import android.widget.Switch;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.CompoundButton;
-import android.widget.ListView;
-import android.widget.ListAdapter;
-import android.widget.Button;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Switch;
 
 import com.newsclient.R;
 import com.newsclient.data.DTagList;
@@ -88,7 +85,7 @@ public class VSettings extends Activity{
         delete_sureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = adapter.getIsSelected().size() - 2; i >= 0; i--) {
+                for (int i = adapter.getIsSelected().size() - 1; i >= 0; i--) {
                     if (adapter.getIsSelected().get(i).equals(true)) {
                         isselected.put(i, false);
                         displaytags.remove(i);
