@@ -67,7 +67,7 @@ public class DSingleNews {
             content = art.getString("news_Content");
             JSONArray wordsList = art.getJSONArray("Keywords");
             int length = wordsList.length();
-            length = max(5, length);
+            length = min(5, length);
             wordList = new String [length];
             scoreList = new double [length];
             for (int i = 0; i < length; i++) {
@@ -80,8 +80,8 @@ public class DSingleNews {
         }
     }
 
-    private int max(int a, int b) {
-        if (a > b) return a;
+    private int min(int a, int b) {
+        if (a < b) return a;
         return b;
     }
 
