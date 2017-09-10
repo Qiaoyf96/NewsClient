@@ -1,20 +1,19 @@
 package com.newsclient.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
-import android.widget.AdapterView.OnItemClickListener;
-import android.view.View;
-import android.widget.TextView;
 
 import com.newsclient.R;
 import com.newsclient.data.DTagList;
 import com.newsclient.data.Data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class VTags extends Activity {
@@ -50,6 +49,13 @@ public class VTags extends Activity {
             //在本例中arg2=arg3
             HashMap<String, Object> item = (HashMap<String, Object>) arg0.getItemAtPosition(arg2);
             //显示所选Item的ItemText
+            Intent intent = new Intent(VTags.this, VTagList.class);
+            try {
+                intent.putExtra("tag_id", arg2);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            startActivity(intent);
         }
     }
 }
