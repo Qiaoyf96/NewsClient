@@ -42,7 +42,7 @@ public class DSingleNews {
             news_time = o.getString("news_Time");
         } catch (JSONException e) {
         }
-        if (!news_pictures[0].equals("")) {
+        if (news_pictures.length > 0) {
             try {
                 String Url = news_pictures[0];
                 URL url = new URL(Url);
@@ -68,8 +68,9 @@ public class DSingleNews {
             news_title = art.getString("news_Title");
             news_time = art.getString("news_Time");
             news_source = art.getString("news_Source");
+            news_intro = "";
             news_pictures = art.getString("news_Pictures").split(";");
-            if (!news_pictures[0].equals("")) {
+            if (news_pictures.length > 0) {
                 try {
                     String Url = news_pictures[0];
                     URL pic_url = new URL(Url);

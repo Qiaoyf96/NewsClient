@@ -254,7 +254,22 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
                 intent.putExtra(Intent.EXTRA_TEXT, news.news_intro + news.news_url);
-
+//                if (news.news_intropic != null) {
+//                    File file = new File("/sdcard/temp.jpeg");
+//                    try {
+//                        file.createNewFile();
+//                    } catch (IOException e) {
+//                    }
+//                    OutputStream os = null;
+//                    try {
+//                        os = new BufferedOutputStream(new FileOutputStream(file));
+//                        news.news_intropic.compress(Bitmap.CompressFormat.JPEG, 100, os);
+//                        os.close();
+//                    } catch (Exception e) {
+//                        String str = e.toString();
+//                    }
+//                    intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+//                }
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(Intent.createChooser(intent, getTitle()));
                 return true;
