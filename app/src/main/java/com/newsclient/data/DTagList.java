@@ -2,13 +2,8 @@ package com.newsclient.data;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
 
 import com.newsclient.R;
-
 import com.newsclient.tools.ImageFinder;
 
 import java.net.URL;
@@ -19,10 +14,10 @@ import java.util.Random;
 
 public class DTagList {
     public static ArrayList<HashMap<String, Object>> lstImageitem = new ArrayList<HashMap<String, Object>>();
-    static ArrayList<String> lstItem = new ArrayList<String>();
-    static ArrayList<ArrayList<String>> lstdetail = new ArrayList<ArrayList<String>>();
-    static ArrayList<String> readedlist = new ArrayList<String>();
-    static boolean is_initialized = false;
+    public static ArrayList<String> lstItem = new ArrayList<String>();
+    public static ArrayList<ArrayList<String>> lstdetail = new ArrayList<ArrayList<String>>();
+    public static ArrayList<String> readedlist = new ArrayList<String>();
+    public static boolean is_initialized = false;
 
     public static ArrayList<HashMap<String, Object>> getListItem() {
         return lstImageitem;

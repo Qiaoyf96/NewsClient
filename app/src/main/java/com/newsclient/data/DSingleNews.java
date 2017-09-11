@@ -99,7 +99,7 @@ public class DSingleNews implements java.io.Serializable{
                 wordList[i] = word.getString("word");
                 scoreList[i] = word.getDouble("score");
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             content = e.toString();
         }
     }

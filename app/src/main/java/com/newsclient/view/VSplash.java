@@ -11,9 +11,11 @@ import android.view.WindowManager;
 import com.newsclient.R;
 import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
+import com.newsclient.data.DTagList;
 import com.newsclient.tools.FileHelper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 class MyThread extends Thread {
     Context c;
@@ -23,9 +25,18 @@ class MyThread extends Thread {
 //            throw new Exception();
             DNewsList._news_list = (ArrayList<DSingleNews>) f.read("newslist.ser");
             DNewsList._size = (int) f.read("newssize.ser");
+
             if (DNewsList._news_list == null || DNewsList._news_list.size() == 0) throw new Exception();
         } catch (Exception e) {
             DNewsList.load();
+        }
+        try {
+            DTagList.lstImageitem = (ArrayList<HashMap<String, Object>>) f.read("lstImageitem.ser");
+            DTagList.lstItem = (ArrayList<String>) f.read("lstItem.ser");
+            DTagList.lstdetail = (ArrayList<ArrayList<String>>) f.read("lstdetail.ser");
+            DTagList.readedlist = (ArrayList<String>) f.read("readedlist.ser");
+            DTagList.is_initialized = (boolean) f.read("isinitialized.ser");
+        } catch (Exception e) {
         }
     }
 }

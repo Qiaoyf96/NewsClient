@@ -16,6 +16,7 @@ import android.os.Build.VERSION;
 import com.newsclient.R;
 import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
+import com.newsclient.data.DTagList;
 import com.newsclient.tools.FileHelper;
 import com.newsclient.tools.SwipeRefresh;
 
@@ -23,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 class SaveData extends Thread {
@@ -34,6 +36,11 @@ class SaveData extends Thread {
             try {
                 f.save("newslist.ser", DNewsList._news_list);
                 f.save("newssize.ser", DNewsList._size);
+                f.save("lstImageitem.ser", DTagList.lstImageitem);
+                f.save("lstItem.ser", DTagList.lstItem);
+                f.save("lstdetail.ser", DTagList.lstdetail);
+                f.save("readedlist.ser", DTagList.readedlist);
+                f.save("isinitialized.ser", DTagList.is_initialized);
                 sleep(10000);
             } catch (Exception e1) {
                 String str = e1.toString();

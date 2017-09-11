@@ -1,6 +1,9 @@
 package com.newsclient.view;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -94,6 +98,13 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.floatingActionButton:
+                ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+                if (mNetworkInfo == null) {
+                    Toast.makeText(VDetails.this, "没有网络连接", Toast.LENGTH_SHORT).show();
+                }
+
                 if (mySynthesizer.isSpeaking()) {
                     mySynthesizer.stopSpeaking();
                     break;
@@ -129,7 +140,13 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
             DNewsList._size++;
         }
         news.readed = true;
-        news.load();
+
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+        if (mNetworkInfo != null) {
+            news.load();
+        }
 
         DTagList.addNewsToTag(-1, news_id);
 
@@ -199,8 +216,14 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
         info = (TextView) findViewById(R.id.articleDetailSourceText);
         content = (TextView) findViewById(R.id.articleDetailContentText);
 
-        PicGetter p = new PicGetter(VDetails.this);
-        p.setImageView(intro, news);
+
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+        if (mNetworkInfo != null) {
+            PicGetter p = new PicGetter(VDetails.this);
+            p.setImageView(intro, news);
+        }
 
         title.setLineSpacing(1.4f);
         title.setText(news.displayTitle());
