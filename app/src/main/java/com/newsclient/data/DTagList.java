@@ -112,7 +112,9 @@ public class DTagList {
 
                 String responseCode = url.openConnection().getHeaderField(0);
 
-                map.put("ItemImage", BitmapFactory.decodeStream(url.openStream()));
+                Bitmap itemimage = BitmapFactory.decodeStream(url.openStream());
+
+                map.put("ItemImage", itemimage);
                 System.out.println(imageurl);
             }
             else {

@@ -47,7 +47,6 @@ public class DSingleNews {
             try {
 //                String Url = news_pictures[0];
                 String Url = ImageFinder.findImageByKeyword(news_title);
-                System.out.println(Url);
                 URL url = new URL(Url);
 
                 String responseCode = url.openConnection().getHeaderField(0);

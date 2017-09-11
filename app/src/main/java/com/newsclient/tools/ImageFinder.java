@@ -41,7 +41,6 @@ public class ImageFinder {
             System.out.println(urlarray.size());
             if (urlarray.size() < 2) idx = urlarray.size() - 1;
             finalurl = urlarray.get(idx);
-            System.out.println(finalurl);
 
             URL url = new URL(finalurl);
             return finalurl;
