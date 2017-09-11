@@ -141,4 +141,6 @@ public class DSingleNews {
     public String displayContent(){
         return content.replaceAll("  ", "\n");
     }
+
+    public String displayIntro() { return news_intro;}
 }

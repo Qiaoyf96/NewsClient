@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name="com.newsclient.data.Data">
+        android:name="com.newsclient.data.Data"
+        android:hardwareAccelerated="true">
         <activity
             android:name=".view.VSplash"
             android:label="@string/app_name">

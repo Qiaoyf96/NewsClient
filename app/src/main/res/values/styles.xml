@@ -36,7 +36,7 @@
         <attr name="textSize" format="dimension"/>
         <attr name="textColor" format="reference|color"/>
         <attr name="textHighlightedColor" format="color"/>
-        <attr name="lineSpacingExtra" format="dimension"/>
+        <attr name="lineSpacing" format="float"/>
         <attr name="maxDisplayLineCount" format="integer"/>
         <attr name="keyword" format="string"/>
 

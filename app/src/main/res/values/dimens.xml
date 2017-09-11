@@ -11,5 +11,13 @@
     <dimen name="detailTitleTextSize">24sp</dimen>
     <dimen name="detailSourceTextSize">14sp</dimen>
     <dimen name="detailContentTextSize">16sp</dimen>
-    <dimen name="detailImgMaxHight">400dp</dimen>
+    <dimen name="detailImgMaxHeight">400dp</dimen>
+
+    <!--card-->
+    <dimen name="cardHorizontalMargin">10dp</dimen>
+    <dimen name="cardVerticalMargin">10dp</dimen>
+    <dimen name="cardHorizontalPadding">10dp</dimen>
+    <dimen name="cardVerticalPadding">10dp</dimen>
+
+    <dimen name="cardImageMaxHeight">200dp</dimen>
 </resources>
