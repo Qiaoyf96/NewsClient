@@ -14,6 +14,7 @@ public class Data extends Application{
     public void onCreate(){
         SpeechUtility.createUtility(Data.this, "appid=59b53f3d");
         dtaglist = new DTagList();
+        dtaglist.initialize();
         is_4G_mode_on = false;
         is_night_shift_on = false;
         super.onCreate();

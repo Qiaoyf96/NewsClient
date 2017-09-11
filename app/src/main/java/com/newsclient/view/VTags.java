@@ -27,8 +27,7 @@ public class VTags extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tags);
         v = VTags.this;
-        Data app = (Data)getApplication();
-        app.dtaglist.initialize();
+        app = (Data)getApplication();
     }
 
     @Override
