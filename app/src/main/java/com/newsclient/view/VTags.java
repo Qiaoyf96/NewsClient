@@ -20,12 +20,14 @@ import java.util.HashMap;
 
 public class VTags extends Activity {
     static VTags v;
+    Data app;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tags);
         v = VTags.this;
+        app = (Data)getApplication();
     }
 
     @Override
@@ -33,8 +35,6 @@ public class VTags extends Activity {
         super.onResume();
 
         GridView tags_gridview = (GridView) findViewById(R.id.activity_tags_Gridview);
-
-        Data app = (Data)getApplication();
 
         DTagList tl = app.dtaglist;
 

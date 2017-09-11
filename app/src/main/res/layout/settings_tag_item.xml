@@ -8,7 +8,6 @@
         android:id="@+id/outpatient_check_hospital"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5.0dip"
         android:layout_marginLeft="12.599976dip"
         android:layout_marginRight="12.599976dip"
         android:gravity="center_vertical">
