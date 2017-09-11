@@ -2,6 +2,10 @@ package com.newsclient.data;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 
 import com.newsclient.R;
 
@@ -115,7 +119,6 @@ public class DTagList {
                 Bitmap btmap = BitmapFactory.decodeStream(url.openStream());
 
                 map.put("ItemImage", btmap);
-                System.out.println(imageurl);
             }
             else {
                 int imagekey = random.nextInt(3);
