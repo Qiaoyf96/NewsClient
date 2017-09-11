@@ -2,12 +2,14 @@ package com.newsclient.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 
 import com.newsclient.R;
@@ -38,6 +40,19 @@ public class VTags extends Activity {
 
         SimpleAdapter saImageitems = new SimpleAdapter(this, tl.lstImageitem, R.layout.tags_item,
                 new String[]{"ItemImage", "ItemText"}, new int[]{R.id.tags_item_ItemImage, R.id.tags_item_ItemText});
+        saImageitems.setViewBinder(new SimpleAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Object data,
+                                       String textRepresentation) {
+                // TODO Auto-generated method stub
+                if(view instanceof ImageView && data instanceof Bitmap){
+                    ImageView iv = (ImageView)view;
+                    iv.setImageBitmap((Bitmap) data);
+                    return true;
+                }else{
+                    return false;                 }
+            }
+        });
         tags_gridview.setAdapter(saImageitems);
 
         tags_gridview.setOnItemClickListener(new ItemClickListener());

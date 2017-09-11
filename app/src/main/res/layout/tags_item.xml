@@ -18,6 +18,8 @@
         android:textSize="18sp"
         android:padding="1dp"
         android:textColor="#ffffff"
+        android:shadowColor="#000000"
+        android:shadowRadius="5"
         android:id = "@+id/tags_item_ItemText" />
 
 </FrameLayout>

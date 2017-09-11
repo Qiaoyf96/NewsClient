@@ -3,6 +3,7 @@ package com.newsclient.data;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.newsclient.tools.ImageFinder;
 import com.newsclient.tools.StringFormatTransfer;
 
 import org.json.JSONArray;
@@ -32,7 +33,7 @@ public class DSingleNews {
             lang_type = o.getString("lang_Type");
             news_author = o.getString("news_Author");
             news_id = o.getString("news_ID");
-            news_pictures = o.getString("news_Pictures").split(";");
+            news_pictures = o.getString("news_Pictures").split(";| ");
             news_time = o.getString("news_Time");
             news_title = o.getString("news_Title");
             news_url = o.getString("news_URL");
@@ -42,9 +43,23 @@ public class DSingleNews {
             news_time = o.getString("news_Time");
         } catch (JSONException e) {
         }
-        if (news_pictures.length > 0) {
+        if (!news_pictures[0].equals("")) {
             try {
                 String Url = news_pictures[0];
+//                String Url = ImageFinder.findImageByKeyword(news_title);
+                URL url = new URL(Url);
+
+                String responseCode = url.openConnection().getHeaderField(0);
+
+                news_intropic = BitmapFactory.decodeStream(url.openStream());
+
+            } catch (Exception e) {
+            }
+        }
+        else {
+            try {
+//                String Url = news_pictures[0];
+                String Url = ImageFinder.findImageByKeyword(news_title);
                 URL url = new URL(Url);
 
                 String responseCode = url.openConnection().getHeaderField(0);
@@ -69,8 +84,8 @@ public class DSingleNews {
             news_time = art.getString("news_Time");
             news_source = art.getString("news_Source");
             news_intro = "";
-            news_pictures = art.getString("news_Pictures").split(";");
-            if (news_pictures.length > 0) {
+            news_pictures = art.getString("news_Pictures").split(";| ");
+            if (news_pictures[0] != "") {
                 try {
                     String Url = news_pictures[0];
                     URL pic_url = new URL(Url);
