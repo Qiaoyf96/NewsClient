@@ -48,13 +48,13 @@ public class PicGetter {
     }
 
     private Bitmap getBitmapDrawableFromMemoryCache(DSingleNews news) {
-        return news.news_intropic;
+        return news.news_intropic.bitmap;
     }
 
     /**     * 添加图片到缓存中     * @param imageUrl     * @param drawable     */
     private void addBitmapDrawableToMemoryCache(DSingleNews news,Bitmap drawable) {
         if (getBitmapDrawableFromMemoryCache(news) == null ) {
-            news.news_intropic = drawable;
+            news.news_intropic.bitmap = drawable;
         }
     }
 

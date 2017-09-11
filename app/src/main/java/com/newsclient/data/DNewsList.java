@@ -1,5 +1,8 @@
 package com.newsclient.data;
 
+import com.newsclient.tools.FileHelper;
+import com.newsclient.view.VRecents;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,10 +13,11 @@ import java.util.Collections;
 import static com.newsclient.tools.Http.sendGet;
 
 public class DNewsList {
-    public static ArrayList<DSingleNews> _news_list = new ArrayList<DSingleNews>();
+    public static ArrayList<DSingleNews> _news_list;
     public static int _size;
 
     public static void load() {
+        _news_list = new ArrayList<>();
         String str = sendGet("http://166.111.68.66:2042/news/action/query/latest?pageNo=1&pageSize=20");
         try {
             JSONArray artList = new JSONArray(new JSONObject(str).getString("list"));
@@ -49,6 +53,17 @@ public class DNewsList {
         Collections.shuffle(_news_list);
         _news_list.get(0).load();
         return _news_list.get(0);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        FileHelper f = new FileHelper(VRecents.context);
+        try {
+            f.save("/tmp/newslist.ser", DNewsList._news_list);
+            f.save("/tmp/newssize.ser", DNewsList._size);
+        } catch (Exception e) {
+        }
+        super.finalize();
     }
 }
 

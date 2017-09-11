@@ -1,8 +1,7 @@
 package com.newsclient.data;
 
-import android.graphics.Bitmap;
-
 import com.newsclient.tools.ImageFinder;
+import com.newsclient.tools.SerialBitmap;
 import com.newsclient.tools.StringFormatTransfer;
 
 import org.json.JSONArray;
@@ -11,12 +10,12 @@ import org.json.JSONObject;
 
 import static com.newsclient.tools.Http.sendGet;
 
-public class DSingleNews {
+public class DSingleNews implements java.io.Serializable{
     public String lang_type, newsclasstag, news_author,
             news_id, news_source, news_time,
             news_title, news_url, news_video, news_intro, content;
     public String news_pictures;
-    public Bitmap news_intropic;
+    public SerialBitmap news_intropic;
     public boolean readed;
     public boolean loaded;
     public String[] wordList;
@@ -38,6 +37,7 @@ public class DSingleNews {
             news_intro = o.getString("news_Intro");
             news_source = o.getString("news_Source");
             news_time = o.getString("news_Time");
+            news_intropic = new SerialBitmap();
             pictureList = o.getString("news_Pictures");
         } catch (JSONException e) {
         }
@@ -58,6 +58,7 @@ public class DSingleNews {
     }
     public DSingleNews(String id) {
         news_id = id;
+        news_intropic = new SerialBitmap();
     }
     public void load() {
         loaded = true;
@@ -71,7 +72,7 @@ public class DSingleNews {
             news_source = art.getString("news_Source");
             news_intro = "";
 
-            if (news_intropic == null) {
+//            if (news_intropic.bitmap == null) {
                 String pictureList = art.getString("news_Pictures");
                 if (!pictureList.equals("") && !pictureList.startsWith(" ")) {
                     try {
@@ -86,7 +87,7 @@ public class DSingleNews {
                     } catch (Exception e) {
                     }
                 }
-            }
+//            }
 
             JSONArray wordsList = art.getJSONArray("Keywords");
             int length = wordsList.length();

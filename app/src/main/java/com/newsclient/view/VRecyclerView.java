@@ -13,6 +13,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -104,15 +106,18 @@ public class VRecyclerView {
             title.setText(news.displayTitle());
             source.setText(news.displaySource());
             time.setText(news.displayTime());
-            PicGetter p = new PicGetter(VRecents.context);
-            p.setImageView(img, news);
-//            if (news.news_intropic != null){
-//                img.setImageBitmap(news.news_intropic);
-//            }
-//            else{
-//                PicGetter.setImageView(img, news.news_pictures);
-//                img.setVisibility(View.GONE);
-//            }
+            if (news.news_intropic != null){
+                img.setImageBitmap(news.news_intropic.bitmap);
+            }
+            else{
+                ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+                if (mNetworkInfo != null) {
+                    PicGetter p = new PicGetter(VRecents.context);
+                    p.setImageView(img, news);
+                }
+            }
         }
     }
 

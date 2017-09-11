@@ -16,16 +16,38 @@ import android.os.Build.VERSION;
 import com.newsclient.R;
 import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
+import com.newsclient.tools.FileHelper;
 import com.newsclient.tools.SwipeRefresh;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
+
+class SaveData extends Thread {
+    Context c;
+    @Override
+    public void run() {
+        while (true) {
+            FileHelper f = new FileHelper(c);
+            try {
+                f.save("newslist.ser", DNewsList._news_list);
+                f.save("newssize.ser", DNewsList._size);
+                sleep(10000);
+            } catch (Exception e1) {
+                String str = e1.toString();
+            }
+        }
+    }
+}
 
 public class VRecents extends FragmentActivity {
     static View v;
     static Drawable d;
     static boolean isthreadexist = false;
     static final int SDK_INT = VERSION.SDK_INT;
-    static Context context;
+    public static Context context;
 
     @Override
     protected void onResume() {
@@ -48,6 +70,9 @@ public class VRecents extends FragmentActivity {
         setContentView(R.layout.activity_recentlist);
 
         context = VRecents.this;
+        SaveData s = new SaveData();
+        s.c = getApplication();
+        s.start();
 
         if (SDK_INT > 25)
             noti = new NotificationHelper(this);
@@ -191,5 +216,10 @@ public class VRecents extends FragmentActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
