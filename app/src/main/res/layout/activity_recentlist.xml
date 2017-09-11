@@ -12,11 +12,11 @@
         android:queryHint="Search News"
         android:saveEnabled="true"
         />
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+    <!--<TextView-->
+        <!--android:id="@+id/textView3"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="TextView" />-->
 
     <!--<ScrollView-->
         <!--android:layout_width="match_parent"-->
@@ -41,7 +41,7 @@
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/recentMargin"
+
         >
 
     </android.support.v7.widget.RecyclerView>
