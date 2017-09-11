@@ -12,6 +12,7 @@ import com.newsclient.R;
 import com.newsclient.tools.ImageFinder;
 
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -116,7 +117,7 @@ public class DTagList {
         map.put("ItemText", "天气");
         lstImageitem.add(map);
         lstItem.add("天气");
-        for(int i = 0; i < 12; i++) {
+        for(int i = 0; i < lstItem.size(); i++) {
             ArrayList<String> as = new ArrayList<String>();
             lstdetail.add(as);
         }
@@ -138,14 +139,25 @@ public class DTagList {
         try {
             if (imageurl != null) {
                 URL url = new URL(imageurl);
+                URLConnection urlcon = url.openConnection();
+                urlcon.setConnectTimeout(1000);
+                urlcon.setReadTimeout(1000);
+                urlcon.connect();
 
-                String responseCode = url.openConnection().getHeaderField(0);
+                Bitmap btmap = BitmapFactory.decodeStream(urlcon.getInputStream());
 
-                Bitmap btmap = BitmapFactory.decodeStream(url.openStream());
-
-                map.put("ItemImage", btmap);
+                if (btmap != null) map.put("ItemImage", btmap);
+                else{
+                    int imagekey = random.nextInt(3);
+                    if (imagekey == 0)
+                        map.put("ItemImage", R.mipmap.blue);
+                    if (imagekey == 1)
+                        map.put("ItemImage", R.mipmap.orange);
+                    if (imagekey == 2)
+                        map.put("ItemImage", R.mipmap.green);
+                }
             }
-            else {
+            else{
                 int imagekey = random.nextInt(3);
                 if (imagekey == 0)
                     map.put("ItemImage", R.mipmap.blue);
