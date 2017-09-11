@@ -22,7 +22,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.newsclient.R;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.tools.PicGetter;
 
@@ -174,6 +176,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
 
         holder.item.bindValue(position);
 
+
         if (mOnItemClickLitener != null)
         {
             holder.itemView.setOnClickListener(new View.OnClickListener()
@@ -184,7 +187,8 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
                 {
                     VRecents.v = holder.itemView;
                     VRecents.d = holder.itemView.getBackground();
-                    //holder.itemView.setBackgroundColor(activity.getResources().getColor(R.color.pressedBackground));
+
+                    holder.item.title.setTextColor(activity.getResources().getColor(R.color.recentTitleVisitedColor));
 
                     int pos = holder.getLayoutPosition();
                     mOnItemClickLitener.onItemClick(holder.itemView, pos);
