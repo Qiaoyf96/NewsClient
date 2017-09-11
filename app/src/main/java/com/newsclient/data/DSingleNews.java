@@ -70,7 +70,7 @@ public class DSingleNews implements java.io.Serializable{
             news_title = art.getString("news_Title");
             news_time = art.getString("news_Time");
             news_source = art.getString("news_Source");
-            news_intro = "";
+            if (news_intro == null) news_intro = "";
 
 //            if (news_intropic.bitmap == null) {
                 String pictureList = art.getString("news_Pictures");
