@@ -14,7 +14,7 @@ public class DNewsList {
     public static int _size;
 
     public static void load() {
-        String str = sendGet("http://166.111.68.66:2042/news/action/query/latest");
+        String str = sendGet("http://166.111.68.66:2042/news/action/query/latest?pageNo=1&pageSize=20");
         try {
             JSONArray artList = new JSONArray(new JSONObject(str).getString("list"));
             _size = artList.length();

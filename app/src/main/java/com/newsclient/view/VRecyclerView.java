@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.newsclient.R;
 import com.newsclient.data.DSingleNews;
+import com.newsclient.tools.PicGetter;
 
 import java.util.List;
 
@@ -103,12 +104,15 @@ public class VRecyclerView {
             title.setText(news.displayTitle());
             source.setText(news.displaySource());
             time.setText(news.displayTime());
-            if (news.news_intropic != null){
-                img.setImageBitmap(news.news_intropic);
-            }
-            else{
-                img.setVisibility(View.GONE);
-            }
+            PicGetter p = new PicGetter(VRecents.context);
+            p.setImageView(img, news);
+//            if (news.news_intropic != null){
+//                img.setImageBitmap(news.news_intropic);
+//            }
+//            else{
+//                PicGetter.setImageView(img, news.news_pictures);
+//                img.setVisibility(View.GONE);
+//            }
         }
     }
 

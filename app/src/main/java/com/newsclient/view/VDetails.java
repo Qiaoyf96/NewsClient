@@ -27,6 +27,7 @@ import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.data.DTagList;
 import com.newsclient.data.Data;
+import com.newsclient.tools.PicGetter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -194,13 +195,9 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
         info = (TextView) findViewById(R.id.articleDetailSourceText);
         content = (TextView) findViewById(R.id.articleDetailContentText);
 
-        if (news.news_intropic != null){
+        PicGetter p = new PicGetter(VDetails.this);
+        p.setImageView(intro, news);
 
-            intro.setImageBitmap(news.news_intropic);
-        }
-        else{
-            intro.setVisibility(View.GONE);
-        }
         title.setLineSpacing(1.4f);
         title.setText(news.displayTitle());
         info.setText(news.displaySource() + "     " + news.displayTime());

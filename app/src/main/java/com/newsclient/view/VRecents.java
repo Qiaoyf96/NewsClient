@@ -25,6 +25,7 @@ public class VRecents extends FragmentActivity {
     static Drawable d;
     static boolean isthreadexist = false;
     static final int SDK_INT = VERSION.SDK_INT;
+    static Context context;
 
     @Override
     protected void onResume() {
@@ -45,6 +46,9 @@ public class VRecents extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recentlist);
+
+        context = VRecents.this;
+
         if (SDK_INT > 25)
             noti = new NotificationHelper(this);
         if (isthreadexist == false) {
@@ -73,7 +77,7 @@ public class VRecents extends FragmentActivity {
             }
         });
 
-        DNewsList.load();
+
 
 //        if (savedInstanceState == null) {
 //            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

@@ -1,7 +1,6 @@
 package com.newsclient.data;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 import com.newsclient.tools.ImageFinder;
 import com.newsclient.tools.StringFormatTransfer;
@@ -10,15 +9,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URL;
-
 import static com.newsclient.tools.Http.sendGet;
 
 public class DSingleNews {
     public String lang_type, newsclasstag, news_author,
             news_id, news_source, news_time,
             news_title, news_url, news_video, news_intro, content;
-    public String[] news_pictures;
+    public String news_pictures;
     public Bitmap news_intropic;
     public boolean readed;
     public boolean loaded;
@@ -34,7 +31,6 @@ public class DSingleNews {
             lang_type = o.getString("lang_Type");
             news_author = o.getString("news_Author");
             news_id = o.getString("news_ID");
-            news_pictures = o.getString("news_Pictures").split(";| ");
             news_time = o.getString("news_Time");
             news_title = o.getString("news_Title");
             news_url = o.getString("news_URL");
@@ -48,28 +44,14 @@ public class DSingleNews {
 
         if (!pictureList.equals("")) {
             try {
-                news_pictures = pictureList.split(";| ");
-                String Url = news_pictures[0];
-//                String Url = ImageFinder.findImageByKeyword(news_title);
-                URL url = new URL(Url);
-
-                String responseCode = url.openConnection().getHeaderField(0);
-
-                news_intropic = BitmapFactory.decodeStream(url.openStream());
-
+                news_pictures = pictureList.split(";| ")[0];
             } catch (Exception e) {
             }
         }
         else {
             try {
-//                String Url = news_pictures[0];
                 String Url = ImageFinder.findImageByKeyword(news_title);
-                URL url = new URL(Url);
-
-                String responseCode = url.openConnection().getHeaderField(0);
-
-                news_intropic = BitmapFactory.decodeStream(url.openStream());
-
+                news_pictures = Url;
             } catch (Exception e) {
             }
         }
@@ -88,19 +70,21 @@ public class DSingleNews {
             news_time = art.getString("news_Time");
             news_source = art.getString("news_Source");
             news_intro = "";
-            String pictureList = art.getString("news_Pictures");
 
-            if (!pictureList.equals("")) {
-                try {
-                    news_pictures = pictureList.split(";| ");
-                    String Url = news_pictures[0];
-                    URL pic_url = new URL(Url);
-
-                    String responseCode = pic_url.openConnection().getHeaderField(0);
-
-                    news_intropic = BitmapFactory.decodeStream(pic_url.openStream());
-
-                } catch (Exception e) {
+            if (news_intropic == null) {
+                String pictureList = art.getString("news_Pictures");
+                if (!pictureList.equals("") && !pictureList.startsWith(" ")) {
+                    try {
+                        news_pictures = pictureList.split(";| ")[0];
+                    } catch (Exception e) {
+                    }
+                }
+                else {
+                    try {
+                        String Url = ImageFinder.findImageByKeyword(news_title);
+                        news_pictures = Url;
+                    } catch (Exception e) {
+                    }
                 }
             }
 
