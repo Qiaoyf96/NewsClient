@@ -81,7 +81,7 @@ public class VSettings extends Activity{
         try {
             View listviewitem = adapter.getView(0, null, tags_lv);
             listviewitem.measure(0, 0);
-            params.height = listviewitem.getMeasuredHeight() * app.dtaglist.lstImageitem.size() - listviewitem.getMeasuredHeight();
+            params.height = (listviewitem.getMeasuredHeight() + 3) * app.dtaglist.lstImageitem.size() - listviewitem.getMeasuredHeight();
         }catch (Exception e){
             params.height = 0;
         }
@@ -104,7 +104,7 @@ public class VSettings extends Activity{
                 try {
                     View listviewitem = adapter.getView(1, null, tags_lv);
                     listviewitem.measure(0, 0);
-                    params.height = listviewitem.getMeasuredHeight() * app.dtaglist.lstImageitem.size() - listviewitem.getMeasuredHeight();
+                    params.height = (listviewitem.getMeasuredHeight() + 3) * app.dtaglist.lstImageitem.size() - listviewitem.getMeasuredHeight();
                 }catch (Exception e){
                     params.height = 0;
                 }
@@ -139,7 +139,13 @@ public class VSettings extends Activity{
                         tags_lv.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
                         ViewGroup.LayoutParams params = tags_lv.getLayoutParams();
-                        params.height = 195 * app.dtaglist.lstImageitem.size();
+                        try {
+                            View listviewitem = adapter.getView(1, null, tags_lv);
+                            listviewitem.measure(0, 0);
+                            params.height = (listviewitem.getMeasuredHeight() + 3) * app.dtaglist.lstImageitem.size() - listviewitem.getMeasuredHeight();
+                        }catch (Exception e){
+                            params.height = 0;
+                        }
                         tags_lv.setLayoutParams(params);
                         adapter.notifyDataSetChanged();
                     }
