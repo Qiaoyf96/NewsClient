@@ -40,6 +40,7 @@ public class VRecents extends FragmentActivity {
 
     private NotificationHelper noti;
     private static final String TAG = VRecents.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,9 +74,6 @@ public class VRecents extends FragmentActivity {
         });
 
         DNewsList.load();
-
-        SwipeRefresh.setList(new DNewsList());
-        SwipeRefresh.setV(VRecents.this);
 
 //        if (savedInstanceState == null) {
 //            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

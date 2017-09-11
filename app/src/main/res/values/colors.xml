@@ -20,4 +20,6 @@
     <color name="detailSourceTextColor">#aa999999</color>
     <color name="detailContentTextColor">#000000</color>
 
+    <color name="highlightedTextColor">#ff0000</color>
+
 </resources>

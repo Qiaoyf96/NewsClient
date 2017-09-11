@@ -1,7 +1,8 @@
 package com.newsclient.data;
+
 import android.app.Application;
 
-import com.newsclient.data.DNewsList;
+import com.iflytek.cloud.SpeechUtility;
 
 import java.util.ArrayList;
 
@@ -11,9 +12,11 @@ public class Data extends Application{
     public static ArrayList<String> blockwordlist = new ArrayList<String>();
     @Override
     public void onCreate(){
+        SpeechUtility.createUtility(Data.this, "appid=59b53f3d");
         dtaglist = new DTagList();
         is_4G_mode_on = false;
         is_night_shift_on = false;
+        super.onCreate();
     }
     public void readFromFile(){
 

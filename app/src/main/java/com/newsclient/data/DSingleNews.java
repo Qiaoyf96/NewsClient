@@ -29,11 +29,12 @@ public class DSingleNews {
         content = "";
         readed = false;
         loaded = false;
+        String pictureList = "";
         try {
             lang_type = o.getString("lang_Type");
             news_author = o.getString("news_Author");
             news_id = o.getString("news_ID");
-            news_pictures = o.getString("news_Pictures").split(";");
+            news_pictures = o.getString("news_Pictures").split(";| ");
             news_time = o.getString("news_Time");
             news_title = o.getString("news_Title");
             news_url = o.getString("news_URL");
@@ -41,9 +42,25 @@ public class DSingleNews {
             news_intro = o.getString("news_Intro");
             news_source = o.getString("news_Source");
             news_time = o.getString("news_Time");
+            pictureList = o.getString("news_Pictures");
         } catch (JSONException e) {
         }
-//        if (!news_pictures.equals("")) {
+
+        if (!pictureList.equals("")) {
+            try {
+                news_pictures = pictureList.split(";| ");
+                String Url = news_pictures[0];
+//                String Url = ImageFinder.findImageByKeyword(news_title);
+                URL url = new URL(Url);
+
+                String responseCode = url.openConnection().getHeaderField(0);
+
+                news_intropic = BitmapFactory.decodeStream(url.openStream());
+
+            } catch (Exception e) {
+            }
+        }
+        else {
             try {
 //                String Url = news_pictures[0];
                 String Url = ImageFinder.findImageByKeyword(news_title);
@@ -55,7 +72,7 @@ public class DSingleNews {
 
             } catch (Exception e) {
             }
-//        }
+        }
     }
     public DSingleNews(String id) {
         news_id = id;
@@ -67,6 +84,26 @@ public class DSingleNews {
         try {
             JSONObject art = new JSONObject(txt);
             content = art.getString("news_Content");
+            news_title = art.getString("news_Title");
+            news_time = art.getString("news_Time");
+            news_source = art.getString("news_Source");
+            news_intro = "";
+            String pictureList = art.getString("news_Pictures");
+
+            if (!pictureList.equals("")) {
+                try {
+                    news_pictures = pictureList.split(";| ");
+                    String Url = news_pictures[0];
+                    URL pic_url = new URL(Url);
+
+                    String responseCode = pic_url.openConnection().getHeaderField(0);
+
+                    news_intropic = BitmapFactory.decodeStream(pic_url.openStream());
+
+                } catch (Exception e) {
+                }
+            }
+
             JSONArray wordsList = art.getJSONArray("Keywords");
             int length = wordsList.length();
             length = min(5, length);
