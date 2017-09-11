@@ -126,52 +126,10 @@ public class VRecyclerView {
     }
 
 
-    class RecyclerLayoutManager extends RecyclerView.LayoutManager{
 
 
-        @Override
-        public RecyclerView.LayoutParams generateDefaultLayoutParams() {
-            return new RecyclerView.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT,
-                    RecyclerView.LayoutParams.WRAP_CONTENT);
-        }
-
-        @Override
-        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
-            super.onLayoutChildren(recycler, state);
-            // 先把所有的View先从RecyclerView中detach掉，然后标记为"Scrap"状态，表示这些View处于可被重用状态(非显示中)。
-            // 实际就是把View放到了Recycler中的一个集合中。
-            detachAndScrapAttachedViews(recycler);
-            calculateChildrenSite(recycler);
-        }
-
-        private void calculateChildrenSite(RecyclerView.Recycler recycler) {
-            int totalHeight = 0;
-            for (int i = 0; i < getItemCount(); i++) {
-                View view = recycler.getViewForPosition(i);
-                addView(view);
-                //我们自己指定ItemView的尺寸。
-                //measureChildWithMargins();
-                measureChildWithMargins(view, 200, 0);
-                int width = getDecoratedMeasuredWidth(view);
-                int height = getDecoratedMeasuredHeight(view);
-                Rect mTmpRect = new Rect();
-                calculateItemDecorationsForChild(view, mTmpRect);
-                if (i % 2 == 0) { //当i能被2整除时，是左，否则是右。
-                    //左
-                    layoutDecoratedWithMargins(view, 0, totalHeight, 200,
-                            totalHeight + height);
-                } else {
-                    //右，需要换行
-                    layoutDecoratedWithMargins(view, 200, totalHeight,
-                            400, totalHeight + height);
-                    totalHeight = totalHeight + height;
-                    //LogUtils.e(i + "->" + totalHeight);
-                }
-            }
-        }
 
 
-    }
 }
 class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHolder>{
 
@@ -227,7 +185,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
                 {
                     VRecents.v = holder.itemView;
                     VRecents.d = holder.itemView.getBackground();
-                    holder.itemView.setBackgroundColor(activity.getResources().getColor(R.color.pressedBackground));
+                    //holder.itemView.setBackgroundColor(activity.getResources().getColor(R.color.pressedBackground));
 
                     int pos = holder.getLayoutPosition();
                     mOnItemClickLitener.onItemClick(holder.itemView, pos);

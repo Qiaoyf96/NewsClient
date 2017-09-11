@@ -71,6 +71,7 @@ public class VAlignTextView extends AppCompatTextView{
         textFont = Typeface.DEFAULT;
         maxLineCount = typedArray.getInteger(R.styleable.VAlignTextView_maxDisplayLineCount, 10);
         keyword = typedArray.getString(R.styleable.VAlignTextView_keyword);
+        LineSpacing = typedArray.getFloat(R.styleable.VAlignTextView_lineSpacing, 1);
 
         paddingLeft = attrs.getAttributeIntValue(namespace, "paddingLeft", 0);
         paddingRight = attrs.getAttributeIntValue(namespace, "paddingRight", 0);

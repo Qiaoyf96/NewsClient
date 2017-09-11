@@ -126,4 +126,6 @@ public class DSingleNews implements java.io.Serializable{
     public String displayContent(){
         return content.replaceAll("  ", "\n");
     }
+
+    public String displayIntro() { return news_intro;}
 }
