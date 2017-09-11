@@ -1,7 +1,17 @@
 package com.newsclient.data;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
+
 import com.newsclient.R;
 
+import com.newsclient.tools.ImageFinder;
+
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -99,13 +109,36 @@ public class DTagList {
         Random random = new Random();
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("ItemText", newtag);
-        int imagekey = random.nextInt(3);
-        if (imagekey == 0)
-            map.put("ItemImage", R.mipmap.blue);
-        if (imagekey == 1)
-            map.put("ItemImage", R.mipmap.orange);
-        if (imagekey == 2)
-            map.put("ItemImage", R.mipmap.green);
+        String imageurl = ImageFinder.findImageByKeyword(newtag);
+        try {
+            if (imageurl != null) {
+                URL url = new URL(imageurl);
+
+                String responseCode = url.openConnection().getHeaderField(0);
+
+                Bitmap btmap = BitmapFactory.decodeStream(url.openStream());
+
+                map.put("ItemImage", btmap);
+            }
+            else {
+                int imagekey = random.nextInt(3);
+                if (imagekey == 0)
+                    map.put("ItemImage", R.mipmap.blue);
+                if (imagekey == 1)
+                    map.put("ItemImage", R.mipmap.orange);
+                if (imagekey == 2)
+                    map.put("ItemImage", R.mipmap.green);
+            }
+        }catch (Exception e){
+            int imagekey = random.nextInt(3);
+            if (imagekey == 0)
+                map.put("ItemImage", R.mipmap.blue);
+            if (imagekey == 1)
+                map.put("ItemImage", R.mipmap.orange);
+            if (imagekey == 2)
+                map.put("ItemImage", R.mipmap.green);
+        }
+
 
         lstImageitem.add(map);
         lstItem.add(newtag);

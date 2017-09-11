@@ -116,14 +116,17 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
 
         Intent intent = getIntent();
         news_id = intent.getStringExtra("news_id");
-        DTagList.addNewsToTag(-1, news_id);
 
         news = DNewsList.getById(news_id);
         if (news == null) {
             news = new DSingleNews(news_id);
+            DNewsList._news_list.add(news);
+            DNewsList._size++;
         }
         news.readed = true;
         news.load();
+
+        DTagList.addNewsToTag(-1, news_id);
 
         setViewDisplay();
 
@@ -251,7 +254,22 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
                 intent.putExtra(Intent.EXTRA_TEXT, news.news_intro + news.news_url);
-
+//                if (news.news_intropic != null) {
+//                    File file = new File("/sdcard/temp.jpeg");
+//                    try {
+//                        file.createNewFile();
+//                    } catch (IOException e) {
+//                    }
+//                    OutputStream os = null;
+//                    try {
+//                        os = new BufferedOutputStream(new FileOutputStream(file));
+//                        news.news_intropic.compress(Bitmap.CompressFormat.JPEG, 100, os);
+//                        os.close();
+//                    } catch (Exception e) {
+//                        String str = e.toString();
+//                    }
+//                    intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+//                }
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(Intent.createChooser(intent, getTitle()));
                 return true;
