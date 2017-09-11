@@ -29,6 +29,7 @@ public class DSingleNews {
         content = "";
         readed = false;
         loaded = false;
+        String pictureList = "";
         try {
             lang_type = o.getString("lang_Type");
             news_author = o.getString("news_Author");
@@ -41,10 +42,13 @@ public class DSingleNews {
             news_intro = o.getString("news_Intro");
             news_source = o.getString("news_Source");
             news_time = o.getString("news_Time");
+            pictureList = o.getString("news_Pictures");
         } catch (JSONException e) {
         }
-        if (!news_pictures[0].equals("")) {
+
+        if (!pictureList.equals("")) {
             try {
+                news_pictures = pictureList.split(";| ");
                 String Url = news_pictures[0];
 //                String Url = ImageFinder.findImageByKeyword(news_title);
                 URL url = new URL(Url);
@@ -84,9 +88,11 @@ public class DSingleNews {
             news_time = art.getString("news_Time");
             news_source = art.getString("news_Source");
             news_intro = "";
-            news_pictures = art.getString("news_Pictures").split(";| ");
-            if (news_pictures[0] != "") {
+            String pictureList = art.getString("news_Pictures");
+
+            if (!pictureList.equals("")) {
                 try {
+                    news_pictures = pictureList.split(";| ");
                     String Url = news_pictures[0];
                     URL pic_url = new URL(Url);
 
