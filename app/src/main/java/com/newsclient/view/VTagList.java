@@ -1,10 +1,7 @@
 package com.newsclient.view;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -13,14 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.newsclient.R;
 import com.newsclient.data.DSingleNews;
@@ -303,8 +295,8 @@ class CardItemGroup{
 
         title.setText(news.displayTitle());
         source.setText(news.displaySource() + "   " + news.displayTime());
-        if (news.news_intropic != null){
-            intropic.setImageBitmap(news.news_intropic);
+        if (news.news_intropic.bitmap != null){
+            intropic.setImageBitmap(news.news_intropic.bitmap);
         }
         else{
             intropic.setVisibility(View.GONE);

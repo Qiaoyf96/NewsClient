@@ -117,7 +117,6 @@ public class PicGetter {
             try {
 
                 is = GetImageByUrl(uri);
-
                 bitmap = BitmapFactory.decodeStream(is);
                 is.close();
 
@@ -126,6 +125,7 @@ public class PicGetter {
             } catch (MalformedURLException e) {
 
             } catch (IOException e) {
+            } catch (NullPointerException e) {
             }
             return null;
         }

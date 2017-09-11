@@ -94,6 +94,10 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.floatingActionButton:
+                if (mySynthesizer.isSpeaking()) {
+                    mySynthesizer.stopSpeaking();
+                    break;
+                }
                 //设置发音人
                 mySynthesizer.setParameter(SpeechConstant.VOICE_NAME,"xiaoyan");
                 //设置音调

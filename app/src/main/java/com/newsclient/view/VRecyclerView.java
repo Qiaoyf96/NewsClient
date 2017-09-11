@@ -23,7 +23,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.newsclient.R;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.tools.PicGetter;
 
@@ -106,7 +105,7 @@ public class VRecyclerView {
             title.setText(news.displayTitle());
             source.setText(news.displaySource());
             time.setText(news.displayTime());
-            if (news.news_intropic != null){
+            if (news.news_intropic.bitmap != null){
                 img.setImageBitmap(news.news_intropic.bitmap);
             }
             else{
