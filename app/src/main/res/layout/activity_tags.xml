@@ -11,6 +11,7 @@
         android:id="@+id/tags_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
         android:text="    My Tags" />
 
     <TextView
@@ -29,13 +30,13 @@
 
             <GridView
                 android:id="@+id/activity_tags_Gridview"
-                android:layout_width="375dp"
+                android:layout_width="371dp"
                 android:layout_height="495dp"
-                android:columnWidth="90dp"
+                android:columnWidth="92dp"
                 android:gravity="center_horizontal"
-                android:horizontalSpacing="5dp"
+                android:horizontalSpacing="1dp"
                 android:numColumns="auto_fit"
-                android:verticalSpacing="5dp" />
+                android:verticalSpacing="1dp" />
         </LinearLayout>
     </ScrollView>
 
