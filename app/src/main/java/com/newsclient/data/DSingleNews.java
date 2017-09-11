@@ -3,6 +3,7 @@ package com.newsclient.data;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.newsclient.tools.ImageFinder;
 import com.newsclient.tools.StringFormatTransfer;
 
 import org.json.JSONArray;
@@ -42,9 +43,11 @@ public class DSingleNews {
             news_time = o.getString("news_Time");
         } catch (JSONException e) {
         }
-        if (!news_pictures.equals("")) {
+//        if (!news_pictures.equals("")) {
             try {
-                String Url = news_pictures[0];
+//                String Url = news_pictures[0];
+                String Url = ImageFinder.findImageByKeyword(news_title);
+                System.out.println(Url);
                 URL url = new URL(Url);
 
                 String responseCode = url.openConnection().getHeaderField(0);
@@ -53,7 +56,7 @@ public class DSingleNews {
 
             } catch (Exception e) {
             }
-        }
+//        }
     }
     public DSingleNews(String id) {
         news_id = id;
