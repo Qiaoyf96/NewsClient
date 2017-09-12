@@ -25,14 +25,17 @@ public class VTags extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        app = (Data)getApplication();
+        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
         setContentView(R.layout.activity_tags);
         v = VTags.this;
-        app = (Data)getApplication();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+        setContentView(R.layout.activity_tags);
 
         GridView tags_gridview = (GridView) findViewById(R.id.activity_tags_Gridview);
 

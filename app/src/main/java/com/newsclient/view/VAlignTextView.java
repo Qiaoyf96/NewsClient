@@ -258,7 +258,7 @@ public class VAlignTextView extends AppCompatTextView{
     public void setTextColor(int color){
         this.textColor = color;
         paint1.setColor(color);
-        this.setText(this.text);
+        //this.setText(this.text);
     }
 
 

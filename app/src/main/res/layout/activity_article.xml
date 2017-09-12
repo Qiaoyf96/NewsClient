@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/mainBackgroundColor">
 
 
         <ScrollView
@@ -58,7 +59,7 @@
                         app:textSize="@dimen/detailTitleTextSize"
                         setLineSpacing="1.4"
                         app:maxDisplayLineCount="5"
-                        android:textColor="@color/detailTitleTextColor"/>
+                        app:textColor="?attr/titleTextColor"/>
                     <!--infomation(source && time)-->
                     <TextView
                         android:layout_marginTop="5dp"
@@ -67,7 +68,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/articleDetailSourceText"
                         android:textSize="@dimen/detailSourceTextSize"
-                        android:textColor="@color/detailSourceTextColor"/>
+                        android:textColor="?attr/sourceTextColor"/>
                     <!--content-->
                     <TextView
                         android:layout_marginTop="5dp"
@@ -77,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:lineSpacingMultiplier="1.6"
                         android:textSize="@dimen/detailContentTextSize"
-                        android:textColor="@color/detailContentTextColor"/>
+                        android:textColor="?attr/contentTextColor"/>
 
                 </LinearLayout>
 
@@ -90,7 +91,8 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginTop="30dp"
                     android:textSize="14sp"
-                    android:text="Does the above news harass you? Here to select dislike topics!" />
+                    android:text="Does the above news harass you? Here to select dislike topics!"
+                    android:textColor="?attr/contentTextColor"/>
 
                 <ListView
                     android:id="@+id/details_keywordlistview"
@@ -103,7 +105,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
-                    android:background="#FFFFFF"
+                    android:background="?attr/buttonBackgroundColor"
+                    android:textColor="?attr/buttonTextColor"
                     android:text="Dislike Selected Topics" />
             </LinearLayout>
         </ScrollView>

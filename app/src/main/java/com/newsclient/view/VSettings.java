@@ -23,15 +23,19 @@ import java.util.HashMap;
 
 public class VSettings extends Activity{
     VSingleItemSelected adapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final Data app = (Data)getApplication();
+        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+        //setTheme(R.style.DarkTheme);
         setContentView(R.layout.activity_settings);
+
 
         Switch switch1 = (Switch)findViewById(R.id.settings_switch1);
         Switch switch2 = (Switch)findViewById(R.id.settings_switch2);
 
-        final Data app = (Data)getApplication();
         switch1.setChecked(app.is_4G_mode_on);
         switch2.setChecked(app.is_night_shift_on);
 
@@ -57,7 +61,9 @@ public class VSettings extends Activity{
                 } else {
                     app.is_night_shift_on = false;
                 }
-
+                setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+                
+                //setContentView(R.layout.activity_settings);
             }
         });
 

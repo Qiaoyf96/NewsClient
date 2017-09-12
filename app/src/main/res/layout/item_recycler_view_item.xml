@@ -9,8 +9,8 @@
 
     android:clickable="true"
     android:focusable="true"
-
     android:foreground="?android:attr/selectableItemBackground"
+    android:background="?attr/mainBackgroundColor"
     >
 
     <ImageView
@@ -43,8 +43,7 @@
             setLineSpacing="1.6"
             app:textSize="20sp"
             app:maxDisplayLineCount="1"
-            android:textColor="@color/recentTitleTextColor"
-
+            app:textColor="?attr/titleTextColor"
 
             android:id="@+id/item_title">
 
@@ -58,7 +57,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="3dp"
-            android:textColor="@color/recentSourceTextColor"
+            android:textColor="?attr/sourceTextColor"
             android:textSize="16sp">
 
         </TextView>
@@ -70,7 +69,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="3dp"
-            android:textColor="@color/recentTimeTextColor"
+            android:textColor="?attr/sourceTextColor"
             android:textSize="@dimen/recentTimeTextSize">
 
         </TextView>
