@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:textSize="@dimen/detailContentTextSize"
-                    app:maxDisplayLineCount="4"
+                    app:maxDisplayLineCount="3"
                     android:textColor="@color/detailContentTextColor"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="10dp"

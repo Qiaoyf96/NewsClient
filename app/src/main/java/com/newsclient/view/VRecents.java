@@ -55,17 +55,21 @@ public class VRecents extends FragmentActivity {
     static boolean isthreadexist = false;
     static final int SDK_INT = VERSION.SDK_INT;
     public static Context context;
+    VRecyclerView vRecyclerView;
 
     @Override
     protected void onResume() {
         super.onResume();
         SwipeRefresh.setList(new DNewsList());
         SwipeRefresh.setV(VRecents.this);
-        if (v != null)
-            //v.setBackgroundColor(Color.parseColor(Integer.valueOf(R.attr.colorBackgroundFloating).toString()));
-            //v.setBackgroundColor(Color.RED);
-            //v.getBackground();
-            v.setBackground(d);
+//        if (v != null)
+//            //v.setBackgroundColor(Color.parseColor(Integer.valueOf(R.attr.colorBackgroundFloating).toString()));
+//            //v.setBackgroundColor(Color.RED);
+//            //v.getBackground();
+//            v.setBackground(d);
+        if (vRecyclerView != null){
+            vRecyclerView.generate();
+        }
     }
 
     private NotificationHelper noti;
@@ -152,13 +156,13 @@ public class VRecents extends FragmentActivity {
             R.id.item_time
         };
 
-        VRecyclerView recycler = new VRecyclerView(
+        vRecyclerView = new VRecyclerView(
                 DNewsList._news_list,
                 VRecents.this,
                 R.layout.item_recycler_view_item,
                 R.id.recent_recycler_view,
                 itemsId);
-        recycler.generate();
+        vRecyclerView.generate();
     }
 
     public void sendNotification(String title, String content) {

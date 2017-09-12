@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.newsclient.R;
 import com.newsclient.data.DSingleNews;
+import com.newsclient.data.Data;
 import com.newsclient.tools.PicGetter;
 
 import java.util.List;
@@ -107,18 +108,25 @@ public class VRecyclerView {
             title.setText(news.displayTitle());
             source.setText(news.displaySource());
             time.setText(news.displayTime());
-            if (news.news_intropic.bitmap != null){
-                img.setImageBitmap(news.news_intropic.bitmap);
+            Data app = (Data) VRecyclerView.this.activity.getApplication();
+            if (app.is_4G_mode_on){
+                img.setVisibility(View.GONE);
             }
-            else{
-                ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
-                        .getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-                if (mNetworkInfo != null) {
-                    PicGetter p = new PicGetter(VRecents.context);
-                    p.setImageView(img, news);
+            else {
+                if (news.news_intropic.bitmap != null){
+                    img.setImageBitmap(news.news_intropic.bitmap);
+                }
+                else{
+                    ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
+                            .getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+                    if (mNetworkInfo != null) {
+                        PicGetter p = new PicGetter(VRecents.context);
+                        p.setImageView(img, news);
+                    }
                 }
             }
+
         }
     }
 
