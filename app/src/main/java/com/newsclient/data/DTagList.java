@@ -17,6 +17,7 @@ public class DTagList {
     public static ArrayList<String> lstItem = new ArrayList<String>();
     public static ArrayList<ArrayList<String>> lstdetail = new ArrayList<ArrayList<String>>();
     public static ArrayList<String> readedlist = new ArrayList<String>();
+    public static ArrayList<Integer> category = new ArrayList<Integer>();
     public static boolean is_initialized = false;
 
     public static ArrayList<HashMap<String, Object>> getListItem() {
@@ -115,6 +116,7 @@ public class DTagList {
         for(int i = 0; i < lstItem.size(); i++) {
             ArrayList<String> as = new ArrayList<String>();
             lstdetail.add(as);
+            category.add(new Integer(i));
         }
     }
 
@@ -122,12 +124,13 @@ public class DTagList {
         lstdetail.remove(i);
         lstImageitem.remove(i);
         lstItem.remove(i);
+        category.remove(i);
     }
 
     public static boolean addtag(String newtag){
         if (lstItem.indexOf(newtag) != -1)
             return false;
-        Random random = new Random();
+        category.add(new Integer(lstItem.size()));
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("ItemText", newtag);
         String imageurl = ImageFinder.findImageByKeyword(newtag);
@@ -143,6 +146,7 @@ public class DTagList {
 
                 if (btmap != null) map.put("ItemImage", btmap);
                 else{
+                    Random random = new Random();
                     int imagekey = random.nextInt(3);
                     if (imagekey == 0)
                         map.put("ItemImage", R.mipmap.blue);
@@ -153,6 +157,7 @@ public class DTagList {
                 }
             }
             else{
+                Random random = new Random();
                 int imagekey = random.nextInt(3);
                 if (imagekey == 0)
                     map.put("ItemImage", R.mipmap.blue);
@@ -162,6 +167,7 @@ public class DTagList {
                     map.put("ItemImage", R.mipmap.green);
             }
         }catch (Exception e){
+            Random random = new Random();
             int imagekey = random.nextInt(3);
             if (imagekey == 0)
                 map.put("ItemImage", R.mipmap.blue);
