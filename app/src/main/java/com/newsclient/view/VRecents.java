@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.SearchView;
@@ -71,10 +73,36 @@ public class VRecents extends FragmentActivity {
     private NotificationHelper noti;
     private static final String TAG = VRecents.class.getSimpleName();
 
+    int[] itemsId = new int[]{
+            R.id.imageView2,
+            R.id.item_title,
+            R.id.item_source,
+            R.id.item_time
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recentlist);
+
+        final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) findViewById(R.id.swipe);
+        swipeView.setColorSchemeResources(android.R.color.holo_blue_dark, android.R.color.holo_blue_light, android.R.color.holo_green_light, android.R.color.holo_green_light);
+        swipeView.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeView.setRefreshing(true);
+                ( new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeView.setRefreshing(false);
+                        DNewsList.news_list = new ArrayList<>();
+                        DNewsList.enlargeRecent();
+                        vRecyclerView.newsList = DNewsList.news_list;
+                        vRecyclerView.generate();
+                    }
+                }, 3000);
+            }
+        });
 
         context = VRecents.this;
         SaveData s = new SaveData();
@@ -144,13 +172,6 @@ public class VRecents extends FragmentActivity {
 //                startActivity(intent);
 //            }
 //        });
-
-        int[] itemsId = new int[]{
-                R.id.imageView2,
-            R.id.item_title,
-            R.id.item_source,
-            R.id.item_time
-        };
 
         if (DNewsList.news_list == null || DNewsList.news_list.size() == 0) {
             DNewsList.news_list = new ArrayList<>();
