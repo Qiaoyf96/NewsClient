@@ -38,10 +38,11 @@ import java.util.HashMap;
 
 public class VDetails extends AppCompatActivity implements View.OnClickListener {
     DSingleNews news;
-    ImageView intro;
+    ImageView intropic;
     VAlignTextView title;
     TextView info;
     TextView content;
+    Data app;
 
     FloatingActionButton btn;
     //TextView tv;
@@ -127,6 +128,8 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_article);
 
+        app = (Data)this.getApplication();
+
         SpeechUtility.createUtility(VDetails.this, "appid=59b53f3d");
         mySynthesizer = SpeechSynthesizer.createSynthesizer(this, myInitListener);
 
@@ -211,18 +214,22 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
     }
 
     void setViewDisplay(){
-        intro = (ImageView) findViewById(R.id.articleDetailIntroImg);
+        intropic = (ImageView) findViewById(R.id.articleDetailIntroImg);
         title = (VAlignTextView) findViewById(R.id.articleDetailTitleText);
         info = (TextView) findViewById(R.id.articleDetailSourceText);
         content = (TextView) findViewById(R.id.articleDetailContentText);
 
-
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-        if (mNetworkInfo != null) {
-            PicGetter p = new PicGetter(VDetails.this);
-            p.setImageView(intro, news);
+        if (app.is_4G_mode_on){
+            intropic.setVisibility(View.GONE);
+        }
+        else {
+            ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+            if (mNetworkInfo != null) {
+                PicGetter p = new PicGetter(VDetails.this);
+                p.setImageView(intropic, news);
+            }
         }
 
         title.setLineSpacing(1.4f);
