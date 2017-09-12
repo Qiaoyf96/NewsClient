@@ -94,13 +94,13 @@ public class VRecents extends FragmentActivity {
                 ( new Handler()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        swipeView.setRefreshing(false);
                         DNewsList.news_list = new ArrayList<>();
                         DNewsList.enlargeRecent();
                         vRecyclerView.newsList = DNewsList.news_list;
                         vRecyclerView.generate();
+                        swipeView.setRefreshing(false);
                     }
-                }, 3000);
+                }, 1000);
             }
         });
 

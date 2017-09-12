@@ -32,6 +32,14 @@ public class DNewsList {
             for (int i = 0; i < length; i++) {
                 DSingleNews news = _news_list.get(i);
                 if (!news_list.contains(news) && news.news_tag >= 1 && news.news_tag <= 12) {
+                    boolean ff = true;
+                    for (String s: Data.blockwordlist) {
+                        if (news.news_title.contains(s)) {
+                            ff = false;
+                            break;
+                        }
+                    }
+                    if (!ff) continue;
                     double p;
                     if (DNewsList.totaltime == 0) p = 0.5;
                     else p = DNewsList.readtime[news.news_tag] / (double) DNewsList.totaltime;

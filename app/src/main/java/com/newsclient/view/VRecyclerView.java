@@ -106,7 +106,7 @@ public class VRecyclerView {
             source.setText(news.displaySource());
             time.setText(news.displayTime());
             Data app = (Data) VRecyclerView.this.activity.getApplication();
-            if (app.is_4G_mode_on || news.news_pictures.equals(" ")){
+            if (app.is_4G_mode_on || news.news_pictures.equals("")){
                 img.setVisibility(View.GONE);
             }
             else {
