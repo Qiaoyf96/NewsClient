@@ -162,9 +162,11 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
         final ArrayList<String> displaykeywords = new ArrayList<String>();
         final Data app = (Data)getApplication();
         final HashMap<Integer,Boolean> isselected = new HashMap<Integer,Boolean>();
-        for(int i = 0; i < news.wordList.length; i++){
-            displaykeywords.add(news.wordList[i]);
-            isselected.put(i, false);
+        if (news.wordList != null) {
+            for (int i = 0; i < news.wordList.length; i++) {
+                displaykeywords.add(news.wordList[i]);
+                isselected.put(i, false);
+            }
         }
         adapter = new VSingleItemSelected(this, displaykeywords, isselected);
         keywordlistview.setAdapter(adapter);
@@ -220,12 +222,12 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
             intropic.setVisibility(View.GONE);
         }
         else {
-            ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
-                    .getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-            if (mNetworkInfo != null) {
+            if (Network.isConnected()) {
                 PicGetter p = new PicGetter(VDetails.this);
                 p.setImageView(intropic, news);
+            }
+            else {
+                intropic.setVisibility(View.GONE);
             }
         }
 

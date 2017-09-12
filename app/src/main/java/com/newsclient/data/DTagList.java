@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 
 import com.newsclient.R;
 import com.newsclient.tools.ImageFinder;
+import com.newsclient.tools.Network;
 
 import java.net.URL;
 import java.net.URLConnection;
@@ -230,6 +231,7 @@ public class DTagList {
                     if (size >= 10) return;
                 }
             }
+            if (!Network.isConnected()) return;
             DNewsList.enlarge(id);
         }
     }
