@@ -146,6 +146,11 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
         }
         news.readed = true;
 
+        if (news.news_tag > 0 && news.news_tag <= 12) {
+            DNewsList.totaltime++;
+            DNewsList.readtime[news.news_tag]++;
+        }
+
         if (Network.isConnected()) {
             news.load();
         }

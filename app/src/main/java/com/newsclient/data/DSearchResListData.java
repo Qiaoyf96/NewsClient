@@ -8,10 +8,6 @@ import java.util.ArrayList;
 
 import static com.newsclient.tools.Http.sendGet;
 
-/**
- * Created by xemboliu on 8/9/2017.
- */
-
 public class DSearchResListData {
     public ArrayList<String> _news_title_list = new ArrayList<String>();
     public ArrayList<String> _news_id_set = new ArrayList<String>();
