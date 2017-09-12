@@ -8,6 +8,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+
 import static com.newsclient.tools.Http.sendGet;
 
 public class DSingleNews implements java.io.Serializable{
@@ -70,6 +74,23 @@ public class DSingleNews implements java.io.Serializable{
             news_title = art.getString("news_Title");
             news_time = art.getString("news_Time");
             news_source = art.getString("news_Source");
+            String keyst = art.getString("seggedPListOfContent");
+            String discretekeyst[] = keyst.split(" ");
+            HashSet<String> neededkeyst = new HashSet<String>();
+            for(int i = 0; i < discretekeyst.length; i++){
+                if (discretekeyst[i].indexOf("/ORG") != -1)
+                    neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 5));
+                if (discretekeyst[i].indexOf("/PER") != -1)
+                    neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 5));
+                if (discretekeyst[i].indexOf("/LOC") != -1)
+                    neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 5));
+                if (discretekeyst[i].indexOf("/nx") != -1)
+                    neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 4));
+            }
+            for(String str:neededkeyst){
+                content = content.replaceFirst(str,"<a href=\"https://baike.baidu.com/item/" + str + "\">"
+                    + str + "</a>");
+            }
             if (news_intro == null) news_intro = "";
 
 //            if (news_intropic.bitmap == null) {

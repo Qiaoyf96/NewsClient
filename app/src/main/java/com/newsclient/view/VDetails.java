@@ -9,6 +9,8 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -235,7 +237,9 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
         title.setLineSpacing(1.4f);
         title.setText(news.displayTitle());
         info.setText(news.displaySource() + "     " + news.displayTime());
-        content.setText(news.displayContent());
+        content.setText(Html.fromHtml(news.displayContent()));
+        //
+        content.setMovementMethod(LinkMovementMethod.getInstance());
 
     }
 

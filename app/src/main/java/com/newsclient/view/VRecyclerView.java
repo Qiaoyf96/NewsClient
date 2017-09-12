@@ -20,6 +20,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,11 +35,11 @@ import java.util.List;
 public class VRecyclerView {
 
     List<DSingleNews> newsList;
-    RecyclerView mRecyclerView;
+    public RecyclerView mRecyclerView;
     private RecyclerAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     Activity activity;
-    int targetLayout;
+    public int targetLayout;
     int sourceLayout;
     int[] itemsId;
 
@@ -51,7 +52,6 @@ public class VRecyclerView {
     }
 
     void generate(){
-        mRecyclerView = (RecyclerView) activity.findViewById(targetLayout);
         mLayoutManager = new LinearLayoutManager(activity);
 
         //mLayoutManager = new RecyclerLayoutManager();
@@ -134,11 +134,6 @@ public class VRecyclerView {
         return new RecyclerShowItemGroup(args);
     }
 
-
-
-
-
-
 }
 class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHolder>{
 
@@ -148,6 +143,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
     private List<DSingleNews> newsList;
     private VRecyclerView recyclerView;
     private OnItemClickLitener mOnItemClickLitener;
+    static int lastvisibleposition;
 
     // constructor
     RecyclerAdapter(VRecyclerView view){

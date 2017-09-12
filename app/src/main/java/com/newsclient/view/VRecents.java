@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.SearchView;
 import android.os.Build.VERSION;
@@ -55,6 +56,7 @@ public class VRecents extends FragmentActivity {
     static boolean isthreadexist = false;
     static final int SDK_INT = VERSION.SDK_INT;
     public static Context context;
+    int totaldy = 0;
     VRecyclerView vRecyclerView;
 
     @Override
@@ -69,7 +71,9 @@ public class VRecents extends FragmentActivity {
 //            v.setBackground(d);
         if (vRecyclerView != null){
             vRecyclerView.generate();
+            vRecyclerView.mRecyclerView.scrollBy(0, 1100);
         }
+        System.out.println(totaldy);
     }
 
     private NotificationHelper noti;
@@ -162,7 +166,15 @@ public class VRecents extends FragmentActivity {
                 R.layout.item_recycler_view_item,
                 R.id.recent_recycler_view,
                 itemsId);
-        vRecyclerView.generate();
+        vRecyclerView.mRecyclerView = (RecyclerView)findViewById(vRecyclerView.targetLayout);
+        vRecyclerView.mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx,int dy){
+                super.onScrolled(recyclerView, dx, dy);
+                totaldy = totaldy + dy;
+                System.out.println(totaldy + " " + dy);
+            }
+        });
     }
 
     public void sendNotification(String title, String content) {
