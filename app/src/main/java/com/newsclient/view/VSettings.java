@@ -23,15 +23,21 @@ import java.util.HashMap;
 
 public class VSettings extends Activity{
     VSingleItemSelected adapter;
+    Data app;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
         setContentView(R.layout.activity_settings);
 
-        Switch switch1 = (Switch)findViewById(R.id.settings_switch1);
-        Switch switch2 = (Switch)findViewById(R.id.settings_switch2);
+        Switch switch1 = (Switch) findViewById(R.id.settings_switch1);
+        Switch switch2 = (Switch) findViewById(R.id.settings_switch2);
 
-        final Data app = (Data)getApplication();
+        app = (Data) getApplication();
         switch1.setChecked(app.is_4G_mode_on);
         switch2.setChecked(app.is_night_shift_on);
 
@@ -39,7 +45,7 @@ public class VSettings extends Activity{
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
+                if (isChecked) {
                     app.is_4G_mode_on = true;
 
                 } else {
@@ -52,7 +58,7 @@ public class VSettings extends Activity{
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
+                if (isChecked) {
                     app.is_night_shift_on = true;
                 } else {
                     app.is_night_shift_on = false;
