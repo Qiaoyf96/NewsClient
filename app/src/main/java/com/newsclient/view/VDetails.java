@@ -11,7 +11,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -31,6 +30,7 @@ import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.data.DTagList;
 import com.newsclient.data.Data;
+import com.newsclient.tools.Network;
 import com.newsclient.tools.PicGetter;
 
 import java.util.ArrayList;
@@ -144,10 +144,7 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
         }
         news.readed = true;
 
-        ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-        if (mNetworkInfo != null) {
+        if (Network.isConnected()) {
             news.load();
         }
 
@@ -248,27 +245,6 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-
-        SubMenu subMenu = menu.addSubMenu(1, 100, 100, "添加到tags");
-
-        ArrayList<HashMap<String, Object>> listItem =  DTagList.getListItem();
-
-        int i = 0;
-        for (HashMap<String, Object> item : listItem) {
-            if (i == 0) {
-                i++;
-                continue;
-            }
-            subMenu.add(2, 100 + i, 100 + i, item.get("ItemText").toString());
-            i++;
-        }
-
-        if (DTagList.isInTagList(0, news_id)) {
-            MenuItem mi = (MenuItem) findViewById(R.id.action_favorite);
-            menu.findItem(R.id.action_favorite).setIcon(android.R.drawable.btn_star_big_on);
-
-        }
-
         return true;
     }
 
@@ -276,10 +252,6 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id;
         switch (id = item.getItemId()) {
-            case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
-                return true;
-
             case R.id.action_share:
                 Intent intent=new Intent(Intent.ACTION_SEND);
                 intent.setType("image/*");
@@ -305,7 +277,7 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
                 startActivity(Intent.createChooser(intent, getTitle()));
                 return true;
 
-        case R.id.action_favorite:
+            case R.id.action_favorite:
                 if (DTagList.addNewsToTag(0, news_id))
                     item.setIcon(android.R.drawable.btn_star_big_on);
                 else item.setIcon(android.R.drawable.btn_star_big_off);
@@ -317,9 +289,6 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
                 return true;
 
             default:
-                if (id > 100) {
-                    DTagList.addNewsToTag(id - 100, news_id);
-                }
                 return super.onOptionsItemSelected(item);
         }
     }

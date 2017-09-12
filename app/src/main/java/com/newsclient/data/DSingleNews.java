@@ -11,7 +11,7 @@ import org.json.JSONObject;
 import static com.newsclient.tools.Http.sendGet;
 
 public class DSingleNews implements java.io.Serializable{
-    public String lang_type, newsclasstag, news_author,
+    public String lang_type, news_author,
             news_id, news_source, news_time,
             news_title, news_url, news_video, news_intro, content;
     public String news_pictures;
@@ -20,13 +20,17 @@ public class DSingleNews implements java.io.Serializable{
     public boolean loaded;
     public String[] wordList;
     public double[] scoreList;
-    DSingleNews(JSONObject o){
+
+    public int news_tag;
+
+    DSingleNews(JSONObject o, int i){
         news_id = "";
         content = "";
         readed = false;
         loaded = false;
         String pictureList = "";
         try {
+            news_tag = i;
             lang_type = o.getString("lang_Type");
             news_author = o.getString("news_Author");
             news_id = o.getString("news_ID");
@@ -42,18 +46,12 @@ public class DSingleNews implements java.io.Serializable{
         } catch (JSONException e) {
         }
 
-        if (!pictureList.equals("")) {
-            try {
-                news_pictures = pictureList.split(";| ")[0];
-            } catch (Exception e) {
-            }
+        if (!pictureList.equals("") && !pictureList.startsWith(" ")) {
+            news_pictures = pictureList.split(";| ")[0];
         }
         else {
-            try {
-                String Url = ImageFinder.findImageByKeyword(news_title);
-                news_pictures = Url;
-            } catch (Exception e) {
-            }
+            String Url = ImageFinder.findImageByKeyword(news_title);
+            news_pictures = Url;
         }
     }
     public DSingleNews(String id) {

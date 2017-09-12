@@ -13,6 +13,7 @@ import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.data.DTagList;
 import com.newsclient.tools.FileHelper;
+import com.newsclient.tools.Network;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,10 +23,10 @@ class MyThread extends Thread {
     public void run() {
         FileHelper f = new FileHelper(c);
         try {
-//            throw new Exception();
+            if (Network.isConnected()) throw new Exception();
             DNewsList._news_list = (ArrayList<DSingleNews>) f.read("newslist.ser");
             DNewsList._size = (int) f.read("newssize.ser");
-
+            DNewsList.page = (int[]) f.read("page.ser");
             if (DNewsList._news_list == null || DNewsList._news_list.size() == 0) throw new Exception();
         } catch (Exception e) {
             DNewsList.load();
@@ -37,6 +38,11 @@ class MyThread extends Thread {
             DTagList.readedlist = (ArrayList<String>) f.read("readedlist.ser");
             DTagList.is_initialized = (boolean) f.read("isinitialized.ser");
         } catch (Exception e) {
+        }
+        if (Network.isConnected()) {
+            for (int i = 1; i <= 12; i++) {
+                DTagList.lstdetail.get(i).clear();
+            }
         }
     }
 }
