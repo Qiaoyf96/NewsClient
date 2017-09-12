@@ -10,18 +10,48 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 import static com.newsclient.tools.Http.sendGet;
 
 public class DNewsList {
     public static ArrayList<DSingleNews> _news_list;
+    public static ArrayList<DSingleNews> news_list;
     public static int _size;
     public static int[] page = new int [20];
+
+    public static int[] readtime = new int [20];
+    public static int totaltime;
+
+    public static void enlargeRecent() {
+        int size = 0;
+        Random r = new Random();
+        while (true) {
+            Collections.shuffle(_news_list);
+            int length = _news_list.size();
+            for (int i = 0; i < length; i++) {
+                DSingleNews news = _news_list.get(i);
+                if (!news_list.contains(news) && news.news_tag >= 1 && news.news_tag <= 12) {
+                    double p;
+                    if (DNewsList.totaltime == 0) p = 0.5;
+                    else p = DNewsList.readtime[news.news_tag] / (double) DNewsList.totaltime;
+                    if (p > r.nextDouble()) {
+                        news_list.add(news);
+                        size++;
+                        if (size > 10) return;
+                    }
+                }
+            }
+            for (int j = 1; j <= 12; j++) {
+                enlarge(j);
+            }
+        }
+    }
 
     public static void enlarge(int id) {
         if (!Network.isConnected()) return;
         page[id]++;
-        String str = sendGet("http://166.111.68.66:2042/news/action/query/latest?pageNo=" + page[id] + "&pageSize=10&category=" + id);
+        String str = sendGet("http://166.111.68.66:2042/news/action/query/latest?pageNo=" + page[id] + "&pageSize=" + max(10, page[id] + 1) + "&category=" + id);
         try {
             JSONArray artList = new JSONArray(new JSONObject(str).getString("list"));
             _size += artList.length();
@@ -34,6 +64,11 @@ public class DNewsList {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    private static int max(int a, int b) {
+        if (a > b) return a;
+        return b;
     }
 
     public static void load() {

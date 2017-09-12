@@ -5,10 +5,12 @@ import android.graphics.BitmapFactory;
 
 import com.newsclient.R;
 import com.newsclient.tools.ImageFinder;
+import com.newsclient.tools.Network;
 
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -223,6 +225,7 @@ public class DTagList {
         ArrayList<String> taglist = lstdetail.get(id);
         int size = 0;
         while (true) {
+            Collections.shuffle(DNewsList._news_list);
             for (DSingleNews news : DNewsList._news_list) {
                 if (news.news_tag == id && !taglist.contains(news.news_id)) {
                     taglist.add(news.news_id);
@@ -230,6 +233,7 @@ public class DTagList {
                     if (size >= 10) return;
                 }
             }
+            if (!Network.isConnected()) return;
             DNewsList.enlarge(id);
         }
     }

@@ -27,9 +27,15 @@ class MyThread extends Thread {
             DNewsList._news_list = (ArrayList<DSingleNews>) f.read("newslist.ser");
             DNewsList._size = (int) f.read("newssize.ser");
             DNewsList.page = (int[]) f.read("page.ser");
+            DNewsList.news_list = (ArrayList<DSingleNews>) f.read("anothernewslist.ser");
             if (DNewsList._news_list == null || DNewsList._news_list.size() == 0) throw new Exception();
         } catch (Exception e) {
             DNewsList.load();
+        }
+        try {
+            DNewsList.readtime = (int[]) f.read("readtime.ser");
+            DNewsList.totaltime = (int) f.read("totaltime.ser");
+        } catch (Exception e) {
         }
         try {
             DTagList.lstImageitem = (ArrayList<HashMap<String, Object>>) f.read("lstImageitem.ser");

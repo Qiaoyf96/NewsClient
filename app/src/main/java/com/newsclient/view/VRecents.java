@@ -4,28 +4,22 @@ import android.app.ActivityManager;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build.VERSION;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.SearchView;
-import android.os.Build.VERSION;
 
 import com.newsclient.R;
 import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.data.DTagList;
 import com.newsclient.tools.FileHelper;
-import com.newsclient.tools.SwipeRefresh;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 class SaveData extends Thread {
@@ -42,6 +36,10 @@ class SaveData extends Thread {
                 f.save("lstdetail.ser", DTagList.lstdetail);
                 f.save("readedlist.ser", DTagList.readedlist);
                 f.save("isinitialized.ser", DTagList.is_initialized);
+                f.save("page.ser", DNewsList.page);
+                f.save("readtime.ser", DNewsList.readtime);
+                f.save("totaltime.ser", DNewsList.totaltime);
+                f.save("anothernewslist.ser", DNewsList.news_list);
                 sleep(10000);
             } catch (Exception e1) {
                 String str = e1.toString();
@@ -62,17 +60,11 @@ public class VRecents extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        SwipeRefresh.setList(new DNewsList());
-        SwipeRefresh.setV(VRecents.this);
-//        if (v != null)
-//            //v.setBackgroundColor(Color.parseColor(Integer.valueOf(R.attr.colorBackgroundFloating).toString()));
-//            //v.setBackgroundColor(Color.RED);
-//            //v.getBackground();
-//            v.setBackground(d);
         if (vRecyclerView != null){
             vRecyclerView.generate();
-            vRecyclerView.mRecyclerView.scrollBy(0, 1100);
         }
+//        vRecyclerView.mRecyclerView.setScrollY(totaldy);
+        vRecyclerView.mRecyclerView.scrollTo(0, 2);
         System.out.println(totaldy);
     }
 
@@ -160,8 +152,13 @@ public class VRecents extends FragmentActivity {
             R.id.item_time
         };
 
+        if (DNewsList.news_list == null || DNewsList.news_list.size() == 0) {
+            DNewsList.news_list = new ArrayList<>();
+            DNewsList.enlargeRecent();
+        }
+
         vRecyclerView = new VRecyclerView(
-                DNewsList._news_list,
+                DNewsList.news_list,
                 VRecents.this,
                 R.layout.item_recycler_view_item,
                 R.id.recent_recycler_view,
