@@ -1,6 +1,7 @@
 package com.newsclient.data;
 
 import com.newsclient.tools.FileHelper;
+import com.newsclient.tools.Network;
 import com.newsclient.view.VRecents;
 
 import org.json.JSONArray;
@@ -15,21 +16,33 @@ import static com.newsclient.tools.Http.sendGet;
 public class DNewsList {
     public static ArrayList<DSingleNews> _news_list;
     public static int _size;
+    public static int[] page = new int [20];
 
-    public static void load() {
-        _news_list = new ArrayList<>();
-        String str = sendGet("http://166.111.68.66:2042/news/action/query/latest?pageNo=1&pageSize=20");
+    public static void enlarge(int id) {
+        if (!Network.isConnected()) return;
+        page[id]++;
+        String str = sendGet("http://166.111.68.66:2042/news/action/query/latest?pageNo=" + page[id] + "&pageSize=10&category=" + id);
         try {
             JSONArray artList = new JSONArray(new JSONObject(str).getString("list"));
-            _size = artList.length();
-            for (int i = 0; i < _size; i++) {
+            _size += artList.length();
+            int length = artList.length();
+            for (int i = 0; i < length; i++) {
                 JSONObject art = artList.getJSONObject(i);
-                DSingleNews news = new DSingleNews(art);
+                DSingleNews news = new DSingleNews(art, id);
                 _news_list.add(news);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void load() {
+        _news_list = new ArrayList<>();
+        _size = 0;
+        for (int i = 1; i <= 12; i++)
+            page[i] = 0;
+        for (int i = 1; i <= 12; i++)
+            enlarge(i);
     }
 
     public static DSingleNews getById(String id) {

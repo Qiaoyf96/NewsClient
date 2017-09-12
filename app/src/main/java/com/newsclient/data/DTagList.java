@@ -212,6 +212,28 @@ public class DTagList {
         return current_tag;
     }
 
+    public static void build(int id) {
+        ArrayList<String> taglist = lstdetail.get(id);
+        if (taglist.size() < 10) {
+            enlarge(id);
+        }
+    }
+
+    public static void enlarge(int id) {
+        ArrayList<String> taglist = lstdetail.get(id);
+        int size = 0;
+        while (true) {
+            for (DSingleNews news : DNewsList._news_list) {
+                if (news.news_tag == id && !taglist.contains(news.news_id)) {
+                    taglist.add(news.news_id);
+                    size++;
+                    if (size >= 10) return;
+                }
+            }
+            DNewsList.enlarge(id);
+        }
+    }
+
     public static boolean isInTagList(int id, String news_id) {
         int idx = lstdetail.get(id).indexOf(news_id);
         if (idx == -1)

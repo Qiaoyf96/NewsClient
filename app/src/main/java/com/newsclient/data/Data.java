@@ -3,6 +3,7 @@ package com.newsclient.data;
 import android.app.Application;
 
 import com.iflytek.cloud.SpeechUtility;
+import com.newsclient.tools.Network;
 
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ public class Data extends Application{
         dtaglist.initialize();
         is_4G_mode_on = false;
         is_night_shift_on = false;
+        Network.c = Data.this;
         super.onCreate();
     }
     public void readFromFile(){

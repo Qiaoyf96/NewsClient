@@ -13,8 +13,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,11 +21,11 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.newsclient.R;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.data.Data;
+import com.newsclient.tools.Network;
 import com.newsclient.tools.PicGetter;
 
 import java.util.List;
@@ -109,7 +107,7 @@ public class VRecyclerView {
             source.setText(news.displaySource());
             time.setText(news.displayTime());
             Data app = (Data) VRecyclerView.this.activity.getApplication();
-            if (app.is_4G_mode_on){
+            if (app.is_4G_mode_on || news.news_pictures.equals(" ")){
                 img.setVisibility(View.GONE);
             }
             else {
@@ -117,12 +115,12 @@ public class VRecyclerView {
                     img.setImageBitmap(news.news_intropic.bitmap);
                 }
                 else{
-                    ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
-                            .getSystemService(Context.CONNECTIVITY_SERVICE);
-                    NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
-                    if (mNetworkInfo != null) {
+                    if (Network.isConnected()) {
                         PicGetter p = new PicGetter(VRecents.context);
                         p.setImageView(img, news);
+                    }
+                    else {
+                        img.setVisibility(View.GONE);
                     }
                 }
             }
