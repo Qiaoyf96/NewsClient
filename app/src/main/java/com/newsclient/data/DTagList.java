@@ -19,6 +19,7 @@ public class DTagList {
     public static ArrayList<String> readedlist = new ArrayList<String>();
     public static ArrayList<Integer> category = new ArrayList<Integer>();
     public static boolean is_initialized = false;
+    static int totaltag = 0;
 
     public static ArrayList<HashMap<String, Object>> getListItem() {
         return lstImageitem;
@@ -118,6 +119,7 @@ public class DTagList {
             lstdetail.add(as);
             category.add(new Integer(i));
         }
+        totaltag = category.size();
     }
 
     public static void removetag(int i){
@@ -130,7 +132,8 @@ public class DTagList {
     public static boolean addtag(String newtag){
         if (lstItem.indexOf(newtag) != -1)
             return false;
-        category.add(new Integer(lstItem.size()));
+        totaltag = totaltag + 1;
+        category.add(new Integer(totaltag));
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("ItemText", newtag);
         String imageurl = ImageFinder.findImageByKeyword(newtag);
