@@ -199,11 +199,9 @@ public class VRecents extends FragmentActivity {
                 int firstposition = layoutManager.findFirstVisibleItemPosition();
                 if (itemCount < lastposition + 10) {
                     DNewsList.enlargeRecent();
-
                 }
             }
 
-        }
         });
     }
 
