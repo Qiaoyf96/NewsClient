@@ -80,9 +80,7 @@ public class VSearchRes extends Activity {
     }
 
     public void loadNewView(){
-        TextView tv6 = (TextView)findViewById(R.id.textView6);
         pagenum = pagenum + 1;
-        tv6.setText((5 << pagenum) + ".");
         searchres.load(searchkey, pagenum);
         if (searchres._news_title_list.size() == searchres._total)
             loadComplete();
