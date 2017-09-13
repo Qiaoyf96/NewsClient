@@ -14,6 +14,8 @@ public class DSingleTag extends DNewsList {
     void set(ArrayList<String> id_list) {
         for (String id: id_list) {
             DSingleNews news = getById(id);
+            if (news == null) news = new DSingleNews(id);
+            news.load();
             news_list.add(news);
             size++;
         }

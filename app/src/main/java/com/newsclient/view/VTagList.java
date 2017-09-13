@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.newsclient.R;
-import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.data.DSingleTag;
 import com.newsclient.data.DTagList;
@@ -35,12 +34,6 @@ public class VTagList extends Activity {
         setContentView(R.layout.activity_taglist);
         final DSingleTag dt = DTagList.getNewsById(tagId);
 
-        String[] titleList = new String[dt.size];
-
-        for (int i = 0; i < dt.size; i++) {
-            titleList[i] = dt.news_list.get(i).news_title;
-        }
-
         //ListView lv = (ListView) findViewById(R.id.listViewTag);
 
         CardView cv = (CardView) this.findViewById(R.id.card);
@@ -59,7 +52,7 @@ public class VTagList extends Activity {
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener(){
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx,int dy){
-                if (tagId <= 12) {
+                if (tagId <= 12 && tagId > 0) {
                     super.onScrolled(recyclerView, dx, dy);
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int itemCount = layoutManager.getItemCount();
@@ -251,7 +244,7 @@ class CardItemGroup{
         title.setText(news.displayTitle());
         source.setText(news.displaySource() + "   " + news.displayTime());
 
-        if (hidePic || news.news_pictures.equals(" ")){
+        if (hidePic || news.news_pictures == null || news.news_pictures.equals("")){
             intropic.setVisibility(View.GONE);
         }
         else{

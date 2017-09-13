@@ -84,6 +84,14 @@ public class VRecents extends FragmentActivity {
         }
     }
 
+    class LoadThread extends Thread {
+        @Override
+        public void run() {
+            DNewsList.enlargeRecent();
+            super.run();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -176,7 +184,8 @@ public class VRecents extends FragmentActivity {
                 int lastposition = layoutManager.findLastVisibleItemPosition();
                 int firstposition = layoutManager.findFirstVisibleItemPosition();
                 if (itemCount < lastposition + 10) {
-                    DNewsList.enlargeRecent();
+                    LoadThread t = new LoadThread();
+                    t.start();
                 }
             }
 
