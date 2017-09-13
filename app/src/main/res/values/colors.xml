@@ -33,6 +33,8 @@
     <color name="light_buttonBackgroundColor">#ffffff</color>
     <color name="light_buttonTextColor">#000000</color>
     <color name="light_barTextColor">#ffffff</color>
+    <color name="light_warmBackgroundColor">#ffffff</color>
+
 
     <!--Dark Theme-->
     <color name="dark_titleTextColor">#cccccc</color>
@@ -44,6 +46,7 @@
     <color name="dark_buttonBackgroundColor">#222222</color>
     <color name="dark_buttonTextColor">#cccccc</color>
     <color name="dark_barTextColor">#cccccc</color>
+    <color name="dark_warmBackgroundColor">#e5d2ab</color>
     <!--<color name="test">#ff3333</color>-->
 
 

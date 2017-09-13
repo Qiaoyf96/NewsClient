@@ -30,6 +30,10 @@ public class VSettings extends Activity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setDisplay();
+    }
+
+    void setDisplay(){
         final Data app = (Data)getApplication();
         setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
         //setTheme(R.style.DarkTheme);
@@ -77,7 +81,7 @@ public class VSettings extends Activity{
                             ? getResources().getColor(R.color.dark_buttonTextColor)
                             : getResources().getColor(R.color.light_buttonTextColor));
                 }
-
+                setDisplay();
             }
         });
 

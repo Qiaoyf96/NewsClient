@@ -13,8 +13,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.newsclient.R;
 import com.newsclient.data.DNewsList;
@@ -60,6 +64,7 @@ public class VRecents extends FragmentActivity {
     static final int SDK_INT = VERSION.SDK_INT;
     public static Context context;
     int totaldy = 0;
+    SearchView searchview;
     VRecyclerView vRecyclerView;
 
     @Override
@@ -70,6 +75,24 @@ public class VRecents extends FragmentActivity {
             vRecyclerView.refresh();
         }
         setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+
+        searchview.setBackgroundColor((app.is_night_shift_on)
+                ? getResources().getColor(R.color.dark_mainBackgroundColor)
+                : getResources().getColor(R.color.light_mainBackgroundColor));
+        TextView tv = (TextView) searchview.findViewById(searchview.getResources().getIdentifier("android:id/search_src_text", null, null));
+        tv.setTextColor((app.is_night_shift_on)
+                ? getResources().getColor(R.color.dark_contentTextColor)
+                : getResources().getColor(R.color.light_contentTextColor));
+
+        SpannableString spanText = new SpannableString("Search News");
+        spanText.setSpan(new ForegroundColorSpan(
+                (app.is_night_shift_on)
+                        ? getResources().getColor(R.color.dark_contentTextColor)
+                        : getResources().getColor(R.color.light_contentTextColor)),
+                0,
+                spanText.length(),
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        searchview.setQueryHint(spanText);
     }
 
     private NotificationHelper noti;
@@ -135,7 +158,8 @@ public class VRecents extends FragmentActivity {
             pushthread.start();
         }
 
-        SearchView searchview = (SearchView)findViewById(R.id.recentlist_searchview);
+        searchview = (SearchView)findViewById(R.id.recentlist_searchview);
+
 
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
