@@ -25,7 +25,6 @@ import com.newsclient.tools.FileHelper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 class SaveData extends Thread {
     Context c;

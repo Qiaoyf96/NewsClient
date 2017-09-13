@@ -137,7 +137,13 @@ public class DSingleNews implements java.io.Serializable{
     public String displayTime(){
         // time's format:
         // 20160912000000
-        return Integer.parseInt(news_time.substring(4, 6)) + "月" + Integer.parseInt(news_time.substring(6, 8)) + "日";
+        String str;
+        try {
+            str = Integer.parseInt(news_time.substring(4, 6)) + "月" + Integer.parseInt(news_time.substring(6, 8)) + "日";
+        } catch (Exception e) {
+            str = "";
+        }
+        return str;
     }
 
     public String displayContent(){
