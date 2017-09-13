@@ -2,27 +2,26 @@ package com.newsclient.data;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
 
 import com.newsclient.R;
-
 import com.newsclient.tools.ImageFinder;
+import com.newsclient.tools.Network;
 
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
 public class DTagList {
     public static ArrayList<HashMap<String, Object>> lstImageitem = new ArrayList<HashMap<String, Object>>();
-    static ArrayList<String> lstItem = new ArrayList<String>();
-    static ArrayList<ArrayList<String>> lstdetail = new ArrayList<ArrayList<String>>();
-    static ArrayList<String> readedlist = new ArrayList<String>();
-    static boolean is_initialized = false;
+    public static ArrayList<String> lstItem = new ArrayList<String>();
+    public static ArrayList<ArrayList<String>> lstdetail = new ArrayList<ArrayList<String>>();
+    public static ArrayList<String> readedlist = new ArrayList<String>();
+    public static ArrayList<Integer> category = new ArrayList<Integer>();
+    public static boolean is_initialized = false;
+    static int totaltag = 0;
 
     public static ArrayList<HashMap<String, Object>> getListItem() {
         return lstImageitem;
@@ -120,19 +119,23 @@ public class DTagList {
         for(int i = 0; i < lstItem.size(); i++) {
             ArrayList<String> as = new ArrayList<String>();
             lstdetail.add(as);
+            category.add(new Integer(i));
         }
+        totaltag = category.size();
     }
 
     public static void removetag(int i){
         lstdetail.remove(i);
         lstImageitem.remove(i);
         lstItem.remove(i);
+        category.remove(i);
     }
 
     public static boolean addtag(String newtag){
         if (lstItem.indexOf(newtag) != -1)
             return false;
-        Random random = new Random();
+        totaltag = totaltag + 1;
+        category.add(new Integer(totaltag));
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("ItemText", newtag);
         String imageurl = ImageFinder.findImageByKeyword(newtag);
@@ -148,6 +151,7 @@ public class DTagList {
 
                 if (btmap != null) map.put("ItemImage", btmap);
                 else{
+                    Random random = new Random();
                     int imagekey = random.nextInt(3);
                     if (imagekey == 0)
                         map.put("ItemImage", R.mipmap.blue);
@@ -158,6 +162,7 @@ public class DTagList {
                 }
             }
             else{
+                Random random = new Random();
                 int imagekey = random.nextInt(3);
                 if (imagekey == 0)
                     map.put("ItemImage", R.mipmap.blue);
@@ -167,6 +172,7 @@ public class DTagList {
                     map.put("ItemImage", R.mipmap.green);
             }
         }catch (Exception e){
+            Random random = new Random();
             int imagekey = random.nextInt(3);
             if (imagekey == 0)
                 map.put("ItemImage", R.mipmap.blue);
@@ -203,9 +209,45 @@ public class DTagList {
     }
 
     public static DSingleTag getNewsById(int id){
-        DSingleTag current_tag = new DSingleTag();
+        DSingleTag current_tag = new DSingleTag(id);
         current_tag.set(lstdetail.get(id));
         return current_tag;
+    }
+
+    public static void build(int id) {
+        ArrayList<String> taglist = lstdetail.get(id);
+        if (taglist.size() < 10) {
+            enlarge(id);
+        }
+    }
+
+    public static void enlarge(int id) {
+        ArrayList<String> taglist = lstdetail.get(id);
+        int size = 0;
+        while (true) {
+            Collections.shuffle(DNewsList._news_list);
+            for (DSingleNews news : DNewsList._news_list) {
+                if (news.news_tag == id && !taglist.contains(news.news_id)) {
+                    boolean ff = true;
+                    for (String s: Data.blockwordlist) {
+                        if (news.news_title.contains(s)) {
+                            ff = false;
+                            break;
+                        }
+                    }
+                    if (!ff) continue;
+                    if (news.news_pictures == null || news.news_pictures.equals("")) {
+                        String Url = ImageFinder.findImageByKeyword(news.news_title);
+                        news.news_pictures = Url;
+                    }
+                    taglist.add(news.news_id);
+                    size++;
+                    if (size >= 10) return;
+                }
+            }
+            if (!Network.isConnected()) return;
+            DNewsList.enlarge(id);
+        }
     }
 
     public static boolean isInTagList(int id, String news_id) {

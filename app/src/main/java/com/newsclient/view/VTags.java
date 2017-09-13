@@ -18,6 +18,8 @@ import com.newsclient.data.Data;
 
 import java.util.HashMap;
 
+import static com.newsclient.data.DTagList.category;
+
 public class VTags extends Activity {
     static VTags v;
     Data app;
@@ -72,7 +74,7 @@ public class VTags extends Activity {
             //显示所选Item的ItemText
             Intent intent = new Intent(v, VTagList.class);
             try {
-                intent.putExtra("tag_id", arg2);
+                intent.putExtra("tag_id", category.get(arg2));
             } catch (Exception e) {
                 e.printStackTrace();
             }

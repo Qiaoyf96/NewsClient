@@ -1,5 +1,7 @@
 package com.newsclient.data;
 
+import android.util.Log;
+
 import com.newsclient.tools.ImageFinder;
 import com.newsclient.tools.SerialBitmap;
 import com.newsclient.tools.StringFormatTransfer;
@@ -8,10 +10,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashSet;
+
 import static com.newsclient.tools.Http.sendGet;
 
 public class DSingleNews implements java.io.Serializable{
-    public String lang_type, newsclasstag, news_author,
+    public String lang_type, news_author,
             news_id, news_source, news_time,
             news_title, news_url, news_video, news_intro, content;
     public String news_pictures;
@@ -20,13 +24,19 @@ public class DSingleNews implements java.io.Serializable{
     public boolean loaded;
     public String[] wordList;
     public double[] scoreList;
-    DSingleNews(JSONObject o){
+    int length;
+
+    public int news_tag;
+
+    DSingleNews(JSONObject o, int i){
+        news_pictures = "";
         news_id = "";
         content = "";
         readed = false;
         loaded = false;
         String pictureList = "";
         try {
+            news_tag = i;
             lang_type = o.getString("lang_Type");
             news_author = o.getString("news_Author");
             news_id = o.getString("news_ID");
@@ -42,25 +52,22 @@ public class DSingleNews implements java.io.Serializable{
         } catch (JSONException e) {
         }
 
-        if (!pictureList.equals("")) {
-            try {
-                news_pictures = pictureList.split(";| ")[0];
-            } catch (Exception e) {
-            }
+        if (!pictureList.equals("") && !pictureList.startsWith(" ")) {
+            news_pictures = pictureList.split(";| ")[0];
         }
         else {
-            try {
-                String Url = ImageFinder.findImageByKeyword(news_title);
-                news_pictures = Url;
-            } catch (Exception e) {
-            }
+            news_pictures = "";
+//            String Url = ImageFinder.findImageByKeyword(news_title);
+//            news_pictures = Url;
         }
     }
     public DSingleNews(String id) {
         news_id = id;
         news_intropic = new SerialBitmap();
+        news_pictures = "";
     }
     public void load() {
+        if (loaded) return;
         loaded = true;
         String url = "http://166.111.68.66:2042/news/action/query/detail?newsId=" + news_id;
         String txt = sendGet(url);
@@ -70,27 +77,44 @@ public class DSingleNews implements java.io.Serializable{
             news_title = art.getString("news_Title");
             news_time = art.getString("news_Time");
             news_source = art.getString("news_Source");
+            String keyst = art.getString("seggedPListOfContent");
+            String discretekeyst[] = keyst.split(" ");
+            HashSet<String> neededkeyst = new HashSet<String>();
+            for(int i = 0; i < discretekeyst.length; i++){
+                if (discretekeyst[i].length() < 7) continue;
+                if (discretekeyst[i].indexOf("/ORG") != -1)
+                    neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 5));
+                if (discretekeyst[i].indexOf("/PER") != -1)
+                    neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 5));
+                if (discretekeyst[i].indexOf("/LOC") != -1)
+                    neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 5));
+                if (discretekeyst[i].indexOf("/nx") != -1)
+                    neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 4));
+            }
+            for(String str:neededkeyst){
+                if (content.indexOf(str) != -1)
+                    content = content.replaceFirst(str,"<a href=\"https://baike.baidu.com/item/" + str + "\">"
+                    + str + "</a>");
+            }
             if (news_intro == null) news_intro = "";
 
 //            if (news_intropic.bitmap == null) {
                 String pictureList = art.getString("news_Pictures");
                 if (!pictureList.equals("") && !pictureList.startsWith(" ")) {
-                    try {
-                        news_pictures = pictureList.split(";| ")[0];
-                    } catch (Exception e) {
+                    news_pictures = pictureList.split(";| ")[0];
+                    if (news_pictures == null) {
+                        Log.e("Error", this.toString());
                     }
                 }
                 else {
-                    try {
-                        String Url = ImageFinder.findImageByKeyword(news_title);
-                        news_pictures = Url;
-                    } catch (Exception e) {
-                    }
+//                    news_pictures = "";
+                    String Url = ImageFinder.findImageByKeyword(news_title);
+                    news_pictures = Url;
                 }
 //            }
 
             JSONArray wordsList = art.getJSONArray("Keywords");
-            int length = wordsList.length();
+            length = wordsList.length();
             length = min(5, length);
             wordList = new String [length];
             scoreList = new double [length];
@@ -99,7 +123,7 @@ public class DSingleNews implements java.io.Serializable{
                 wordList[i] = word.getString("word");
                 scoreList[i] = word.getDouble("score");
             }
-        } catch (JSONException e) {
+        } catch (Exception e) {
             content = e.toString();
         }
     }
@@ -120,7 +144,13 @@ public class DSingleNews implements java.io.Serializable{
     public String displayTime(){
         // time's format:
         // 20160912000000
-        return Integer.parseInt(news_time.substring(4, 6)) + "月" + Integer.parseInt(news_time.substring(6, 8)) + "日";
+        String str;
+        try {
+            str = Integer.parseInt(news_time.substring(4, 6)) + "月" + Integer.parseInt(news_time.substring(6, 8)) + "日";
+        } catch (Exception e) {
+            str = "";
+        }
+        return str;
     }
 
     public String displayContent(){

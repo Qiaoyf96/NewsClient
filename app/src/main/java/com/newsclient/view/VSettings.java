@@ -43,7 +43,7 @@ public class VSettings extends Activity{
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
+                if (isChecked) {
                     app.is_4G_mode_on = true;
 
                 } else {
@@ -56,7 +56,7 @@ public class VSettings extends Activity{
 
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
+                if (isChecked) {
                     app.is_night_shift_on = true;
                 } else {
                     app.is_night_shift_on = false;

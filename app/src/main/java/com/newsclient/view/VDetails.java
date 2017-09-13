@@ -1,20 +1,25 @@
 package com.newsclient.view;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -27,6 +32,7 @@ import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.data.DTagList;
 import com.newsclient.data.Data;
+import com.newsclient.tools.Network;
 import com.newsclient.tools.PicGetter;
 
 import java.util.ArrayList;
@@ -95,6 +101,13 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.floatingActionButton:
+                ConnectivityManager mConnectivityManager = (ConnectivityManager) VRecents.context
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+                if (mNetworkInfo == null) {
+                    Toast.makeText(VDetails.this, "没有网络连接", Toast.LENGTH_SHORT).show();
+                }
+
                 if (mySynthesizer.isSpeaking()) {
                     mySynthesizer.stopSpeaking();
                     break;
@@ -141,7 +154,15 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
             DNewsList._size++;
         }
         news.readed = true;
-        news.load();
+
+        if (news.news_tag > 0 && news.news_tag <= 12) {
+            DNewsList.totaltime++;
+            DNewsList.readtime[news.news_tag]++;
+        }
+
+        if (Network.isConnected()) {
+            news.load();
+        }
 
         DTagList.addNewsToTag(-1, news_id);
 
@@ -157,9 +178,11 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
         final ArrayList<String> displaykeywords = new ArrayList<String>();
         final Data app = (Data)getApplication();
         final HashMap<Integer,Boolean> isselected = new HashMap<Integer,Boolean>();
-        for(int i = 0; i < news.wordList.length; i++){
-            displaykeywords.add(news.wordList[i]);
-            isselected.put(i, false);
+        if (news.wordList != null) {
+            for (int i = 0; i < news.wordList.length; i++) {
+                displaykeywords.add(news.wordList[i]);
+                isselected.put(i, false);
+            }
         }
         adapter = new VSingleItemSelected(this, displaykeywords, isselected);
         keywordlistview.setAdapter(adapter);
@@ -215,14 +238,21 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
             intropic.setVisibility(View.GONE);
         }
         else {
-            PicGetter p = new PicGetter(VDetails.this);
-            p.setImageView(intropic, news);
+            if (Network.isConnected()) {
+                PicGetter p = new PicGetter(VDetails.this);
+                p.setImageView(intropic, news);
+            }
+            else {
+                intropic.setVisibility(View.GONE);
+            }
         }
 
         title.setLineSpacing(1.4f);
         title.setText(news.displayTitle());
         info.setText(news.displaySource() + "     " + news.displayTime());
-        content.setText(news.displayContent());
+        content.setText(Html.fromHtml(news.displayContent()));
+        //
+        content.setMovementMethod(LinkMovementMethod.getInstance());
 
     }
 
@@ -236,27 +266,11 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.main, menu);
-
-        SubMenu subMenu = menu.addSubMenu(1, 100, 100, "添加到tags");
-
-        ArrayList<HashMap<String, Object>> listItem =  DTagList.getListItem();
-
-        int i = 0;
-        for (HashMap<String, Object> item : listItem) {
-            if (i == 0) {
-                i++;
-                continue;
-            }
-            subMenu.add(2, 100 + i, 100 + i, item.get("ItemText").toString());
-            i++;
-        }
-
         if (DTagList.isInTagList(0, news_id)) {
             MenuItem mi = (MenuItem) findViewById(R.id.action_favorite);
             menu.findItem(R.id.action_favorite).setIcon(android.R.drawable.btn_star_big_on);
 
         }
-
         return true;
     }
 
@@ -264,36 +278,16 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         int id;
         switch (id = item.getItemId()) {
-            case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
-                return true;
-
             case R.id.action_share:
                 Intent intent=new Intent(Intent.ACTION_SEND);
                 intent.setType("image/*");
                 intent.putExtra(Intent.EXTRA_SUBJECT, "Share");
-                intent.putExtra(Intent.EXTRA_TEXT, news.news_intro + news.news_url);
-//                if (news.news_intropic != null) {
-//                    File file = new File("/sdcard/temp.jpeg");
-//                    try {
-//                        file.createNewFile();
-//                    } catch (IOException e) {
-//                    }
-//                    OutputStream os = null;
-//                    try {
-//                        os = new BufferedOutputStream(new FileOutputStream(file));
-//                        news.news_intropic.compress(Bitmap.CompressFormat.JPEG, 100, os);
-//                        os.close();
-//                    } catch (Exception e) {
-//                        String str = e.toString();
-//                    }
-//                    intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-//                }
+                intent.putExtra(Intent.EXTRA_TEXT, "「Instant News：」" + news.news_intro + news.news_url);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(Intent.createChooser(intent, getTitle()));
                 return true;
 
-        case R.id.action_favorite:
+            case R.id.action_favorite:
                 if (DTagList.addNewsToTag(0, news_id))
                     item.setIcon(android.R.drawable.btn_star_big_on);
                 else item.setIcon(android.R.drawable.btn_star_big_off);
@@ -305,9 +299,6 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
                 return true;
 
             default:
-                if (id > 100) {
-                    DTagList.addNewsToTag(id - 100, news_id);
-                }
                 return super.onOptionsItemSelected(item);
         }
     }

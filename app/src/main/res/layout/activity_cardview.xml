@@ -59,19 +59,19 @@
                     android:scaleType="centerCrop"
                     android:maxHeight="@dimen/cardImageMaxHeight"
                     android:adjustViewBounds="true"
-                    android:layout_marginBottom="@dimen/cardVerticalMargin"
                     android:layout_marginTop="@dimen/cardVerticalMargin"/>
 
                 <com.newsclient.view.VAlignTextView
                     android:id="@+id/card_intro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/detailContentTextColor"
                     app:textSize="@dimen/detailContentTextSize"
                     app:maxDisplayLineCount="3"
                     app:textColor="?attr/contentTextColor"
                     android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
-                    app:lineSpacing = "1.1"
+                    android:layout_marginBottom="15dp"
+                    app:lineSpacing = "1.6"
                     />
                 <!--<TextView-->
                     <!--android:id="@+id/card_intro"-->

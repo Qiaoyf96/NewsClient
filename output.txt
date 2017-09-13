@@ -1,0 +1,858 @@
+diff --git a/app/src/main/java/com/newsclient/data/DNewsList.java b/app/src/main/java/com/newsclient/data/DNewsList.java
+index e0083f2..b8d3e12 100644
+--- a/app/src/main/java/com/newsclient/data/DNewsList.java
++++ b/app/src/main/java/com/newsclient/data/DNewsList.java
+@@ -1,6 +1,7 @@
+ package com.newsclient.data;
+ 
+ import com.newsclient.tools.FileHelper;
++import com.newsclient.tools.ImageFinder;
+ import com.newsclient.tools.Network;
+ import com.newsclient.view.VRecents;
+ 
+@@ -44,6 +45,10 @@ public class DNewsList {
+                     if (DNewsList.totaltime == 0) p = 0.5;
+                     else p = DNewsList.readtime[news.news_tag] / (double) DNewsList.totaltime;
+                     if (p > r.nextDouble()) {
++                        if (news.news_pictures.equals("")) {
++                            String Url = ImageFinder.findImageByKeyword(news.news_title);
++                            news.news_pictures = Url;
++                        }
+                         news_list.add(news);
+                         size++;
+                         if (size > 10) return;
+diff --git a/app/src/main/java/com/newsclient/data/DTagList.java b/app/src/main/java/com/newsclient/data/DTagList.java
+index ea65006..10c1353 100644
+--- a/app/src/main/java/com/newsclient/data/DTagList.java
++++ b/app/src/main/java/com/newsclient/data/DTagList.java
+@@ -236,6 +236,10 @@ public class DTagList {
+                         }
+                     }
+                     if (!ff) continue;
++                    if (news.news_pictures.equals("")) {
++                        String Url = ImageFinder.findImageByKeyword(news.news_title);
++                        news.news_pictures = Url;
++                    }
+                     taglist.add(news.news_id);
+                     size++;
+                     if (size >= 10) return;
+diff --git a/app/src/main/java/com/newsclient/view/VAlignTextView.java b/app/src/main/java/com/newsclient/view/VAlignTextView.java
+index 2f33dde..0ac1ad3 100644
+--- a/app/src/main/java/com/newsclient/view/VAlignTextView.java
++++ b/app/src/main/java/com/newsclient/view/VAlignTextView.java
+@@ -258,7 +258,7 @@ public class VAlignTextView extends AppCompatTextView{
+     public void setTextColor(int color){
+         this.textColor = color;
+         paint1.setColor(color);
+-        this.setText(this.text);
++        //this.setText(this.text);
+     }
+ 
+ 
+diff --git a/app/src/main/java/com/newsclient/view/VDetails.java b/app/src/main/java/com/newsclient/view/VDetails.java
+index b713cf3..5c1998a 100644
+--- a/app/src/main/java/com/newsclient/view/VDetails.java
++++ b/app/src/main/java/com/newsclient/view/VDetails.java
+@@ -125,12 +125,21 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener
+         }
+     }
+ 
++//    @Override
++//    protected void onResume(){
++//        super.onResume();
++//        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
++//        setContentView(R.layout.activity_article);
++//    }
++
+     @Override
+     protected void onCreate(@Nullable Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
++        app = (Data)this.getApplication();
++        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
++
+         setContentView(R.layout.activity_article);
+ 
+-        app = (Data)this.getApplication();
+ 
+         SpeechUtility.createUtility(VDetails.this, "appid=59b53f3d");
+         mySynthesizer = SpeechSynthesizer.createSynthesizer(this, myInitListener);
+diff --git a/app/src/main/java/com/newsclient/view/VRecents.java b/app/src/main/java/com/newsclient/view/VRecents.java
+index d8c515c..95e4d71 100644
+--- a/app/src/main/java/com/newsclient/view/VRecents.java
++++ b/app/src/main/java/com/newsclient/view/VRecents.java
+@@ -19,10 +19,12 @@ import com.newsclient.R;
+ import com.newsclient.data.DNewsList;
+ import com.newsclient.data.DSingleNews;
+ import com.newsclient.data.DTagList;
++import com.newsclient.data.Data;
+ import com.newsclient.tools.FileHelper;
+ 
+ import java.util.ArrayList;
+ import java.util.List;
++import java.util.concurrent.ThreadLocalRandom;
+ 
+ class SaveData extends Thread {
+     Context c;
+@@ -51,6 +53,7 @@ class SaveData extends Thread {
+ }
+ 
+ public class VRecents extends FragmentActivity {
++    Data app;
+     static View v;
+     static Drawable d;
+     static boolean isthreadexist = false;
+@@ -62,27 +65,30 @@ public class VRecents extends FragmentActivity {
+     @Override
+     protected void onResume() {
+         super.onResume();
++
+         if (vRecyclerView != null){
+-            vRecyclerView.generate();
++            vRecyclerView.refresh();
+         }
+-//        vRecyclerView.mRecyclerView.setScrollY(totaldy);
+-        vRecyclerView.mRecyclerView.scrollTo(0, 2);
+-        System.out.println(totaldy);
++        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+     }
+ 
+     private NotificationHelper noti;
+     private static final String TAG = VRecents.class.getSimpleName();
+ 
+-    int[] itemsId = new int[]{
+-            R.id.imageView2,
+-            R.id.item_title,
+-            R.id.item_source,
+-            R.id.item_time
+-    };
++    class Tthread extends Thread {
++        @Override
++        public void run() {
++            DNewsList.news_list = new ArrayList<>();
++            DNewsList.enlargeRecent();
++            super.run();
++        }
++    }
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
++        app = (Data) this.getApplication();
++        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+         setContentView(R.layout.activity_recentlist);
+ 
+         final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) findViewById(R.id.swipe);
+@@ -91,11 +97,15 @@ public class VRecents extends FragmentActivity {
+             @Override
+             public void onRefresh() {
+                 swipeView.setRefreshing(true);
++                final Tthread t = new Tthread();
++                t.start();
+                 ( new Handler()).postDelayed(new Runnable() {
+                     @Override
+                     public void run() {
+-                        DNewsList.news_list = new ArrayList<>();
+-                        DNewsList.enlargeRecent();
++                        try {
++                            t.join();
++                        } catch (InterruptedException e) {
++                        }
+                         vRecyclerView.newsList = DNewsList.news_list;
+                         vRecyclerView.generate();
+                         swipeView.setRefreshing(false);
+@@ -137,46 +147,16 @@ public class VRecents extends FragmentActivity {
+             }
+         });
+ 
+-
+-
+-//        if (savedInstanceState == null) {
+-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+-//            SwipeRefresh.SwipeRefreshListFragmentFragment fragment = new SwipeRefresh.SwipeRefreshListFragmentFragment();
+-//            transaction.replace(R.id.sample_content_fragment, fragment);
+-//            transaction.commit();
+-//        }
+-
+-
+-//        String[] titleList = new String[DNewsList._size];
+-//
+-//        for (int i = 0; i < DNewsList._size; i++) {
+-//            titleList[i] = DNewsList._news_list.get(i).news_title;
+-//        }
+-//
+-//        ListView lv = (ListView)findViewById(R.id.listView);
+-//        lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titleList));
+-//
+-//        ListView lv = findViewById(R.id.sample_content_fragment);
+-//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+-//
+-//            @Override
+-//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+-//                                    long arg3) {
+-//                //点击后在标题上显示点击了第几行
+-//                Intent intent = new Intent(VRecents.this, VDetails.class);
+-//                try {
+-//                    intent.putExtra("news_id", DNewsList._news_list.get(arg2).news_id);
+-//                } catch (Exception e) {
+-//                    e.printStackTrace();
+-//                }
+-//                startActivity(intent);
+-//            }
+-//        });
+-
+         if (DNewsList.news_list == null || DNewsList.news_list.size() == 0) {
+             DNewsList.news_list = new ArrayList<>();
+             DNewsList.enlargeRecent();
+         }
++        int[] itemsId = new int[]{
++                R.id.imageView2,
++            R.id.item_title,
++            R.id.item_source,
++            R.id.item_time
++        };
+ 
+         vRecyclerView = new VRecyclerView(
+                 DNewsList.news_list,
+@@ -193,6 +173,7 @@ public class VRecents extends FragmentActivity {
+                 System.out.println(totaldy + " " + dy);
+             }
+         });
++        vRecyclerView.generate();
+     }
+ 
+     public void sendNotification(String title, String content) {
+diff --git a/app/src/main/java/com/newsclient/view/VRecyclerView.java b/app/src/main/java/com/newsclient/view/VRecyclerView.java
+index eab929a..2844721 100644
+--- a/app/src/main/java/com/newsclient/view/VRecyclerView.java
++++ b/app/src/main/java/com/newsclient/view/VRecyclerView.java
+@@ -11,6 +11,7 @@ import android.content.Context;
+ import android.content.Intent;
+ import android.content.res.TypedArray;
+ import android.graphics.Canvas;
++import android.graphics.Color;
+ import android.graphics.Rect;
+ import android.graphics.drawable.Drawable;
+ import android.support.v7.widget.LinearLayoutManager;
+@@ -39,6 +40,8 @@ public class VRecyclerView {
+     public int targetLayout;
+     int sourceLayout;
+     int[] itemsId;
++    private boolean decorationExisted = false;
++    Data app;
+ 
+     VRecyclerView(List<DSingleNews> list, Activity activity, int sourceLayout, int targetLayout, int[] itemsId){
+         this.newsList = list;
+@@ -46,20 +49,38 @@ public class VRecyclerView {
+         this.sourceLayout = sourceLayout;
+         this.targetLayout = targetLayout;
+         this.itemsId = itemsId;
++        this.app = (Data)activity.getApplication();
+     }
+ 
+-    void generate(){
++    public void generate(){
++        mRecyclerView = (RecyclerView) activity.findViewById(targetLayout);
+         mLayoutManager = new LinearLayoutManager(activity);
+ 
+         //mLayoutManager = new RecyclerLayoutManager();
+         //mLayoutManager = new GridLayoutManager(activity, 2);
+ 
+         mRecyclerView.setLayoutManager(mLayoutManager);
+-        mRecyclerView.setAdapter(mAdapter = new RecyclerAdapter(this));
++        mAdapter = new RecyclerAdapter(this);
++        mRecyclerView.setAdapter(mAdapter);
+         setClickReflection();
+ 
+-        mRecyclerView.addItemDecoration(new DividerItemDecoration(activity,
+-                DividerItemDecoration.VERTICAL_LIST));
++        if (!decorationExisted){
++            mRecyclerView.addItemDecoration(new DividerItemDecoration(activity,
++                    DividerItemDecoration.VERTICAL_LIST));
++            decorationExisted = true;
++        }
++    }
++
++    public void refresh(){
++        mAdapter = new RecyclerAdapter(this);
++        mRecyclerView.setAdapter(mAdapter);
++        setClickReflection();
++
++        if (!decorationExisted){
++            mRecyclerView.addItemDecoration(new DividerItemDecoration(activity,
++                    DividerItemDecoration.VERTICAL_LIST));
++            decorationExisted = true;
++        }
+     }
+ 
+     void setClickReflection(){
+@@ -103,13 +124,19 @@ public class VRecyclerView {
+         void bindValue(int index){
+             DSingleNews news = newsList.get(index);
+             title.setText(news.displayTitle());
++            if (news.readed){
++                title.setTextColor(activity.getResources().getColor(R.color.recentTitleVisitedColor));
++                //title.setTextColor(Color.BLUE);
++                //Toast.makeText(activity, "safsa", Toast.LENGTH_SHORT).show();
++            }
+             source.setText(news.displaySource());
+             time.setText(news.displayTime());
++
+             Data app = (Data) VRecyclerView.this.activity.getApplication();
+             if (app.is_4G_mode_on || news.news_pictures.equals("")){
+                 img.setVisibility(View.GONE);
+             }
+-            else {
++            else{
+                 if (news.news_intropic.bitmap != null){
+                     img.setImageBitmap(news.news_intropic.bitmap);
+                 }
+@@ -124,7 +151,11 @@ public class VRecyclerView {
+                 }
+             }
+ 
++
++
++
+         }
++
+     }
+ 
+     RecyclerShowItemGroup getGroup(View[] args){
+@@ -134,7 +165,7 @@ public class VRecyclerView {
+ }
+ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHolder>{
+ 
+-    private Context activity;
++    private Activity activity;
+     private int sourceLayout;
+     private int[] itemsId;
+     private List<DSingleNews> newsList;
+@@ -142,6 +173,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
+     private OnItemClickLitener mOnItemClickLitener;
+     static int lastvisibleposition;
+ 
++
+     // constructor
+     RecyclerAdapter(VRecyclerView view){
+         this.recyclerView = view;
+@@ -149,6 +181,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
+         this.sourceLayout = this.recyclerView.sourceLayout;
+         this.itemsId = this.recyclerView.itemsId;
+         this.newsList = this.recyclerView.newsList;
++
+     }
+     // set click reflection
+     public interface OnItemClickLitener
+@@ -169,12 +202,18 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
+                 activity).inflate(sourceLayout, parent,
+                 false),
+                 itemsId);
++
+         return holder;
+     }
+ 
+     @Override
+     public void onBindViewHolder(final InnerViewHolder holder, final int position) {
+ 
++//        if (isChangingImageMode){
++//            holder.item.changeImageMode();
++//            return;
++//        }
++
+         holder.item.bindValue(position);
+ 
+ 
+@@ -232,7 +271,9 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
+             }
+             item = recyclerView.getGroup(views);
+         }
++
+     }
++
+ }
+ 
+ class DividerItemDecoration extends RecyclerView.ItemDecoration {
+diff --git a/app/src/main/java/com/newsclient/view/VSettings.java b/app/src/main/java/com/newsclient/view/VSettings.java
+index 8eae7cb..d374cff 100644
+--- a/app/src/main/java/com/newsclient/view/VSettings.java
++++ b/app/src/main/java/com/newsclient/view/VSettings.java
+@@ -23,21 +23,19 @@ import java.util.HashMap;
+ 
+ public class VSettings extends Activity{
+     VSingleItemSelected adapter;
+-    Data app;
++
+     @Override
+     protected void onCreate(@Nullable Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+-    }
+-
+-    @Override
+-    protected void onResume(){
+-        super.onResume();
++        final Data app = (Data)getApplication();
++        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
++        //setTheme(R.style.DarkTheme);
+         setContentView(R.layout.activity_settings);
+ 
+-        Switch switch1 = (Switch) findViewById(R.id.settings_switch1);
+-        Switch switch2 = (Switch) findViewById(R.id.settings_switch2);
+ 
+-        app = (Data) getApplication();
++        Switch switch1 = (Switch)findViewById(R.id.settings_switch1);
++        Switch switch2 = (Switch)findViewById(R.id.settings_switch2);
++
+         switch1.setChecked(app.is_4G_mode_on);
+         switch2.setChecked(app.is_night_shift_on);
+ 
+@@ -63,7 +61,9 @@ public class VSettings extends Activity{
+                 } else {
+                     app.is_night_shift_on = false;
+                 }
+-
++                setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
++                
++                //setContentView(R.layout.activity_settings);
+             }
+         });
+ 
+diff --git a/app/src/main/java/com/newsclient/view/VTagList.java b/app/src/main/java/com/newsclient/view/VTagList.java
+index 8f4e462..113f56a 100644
+--- a/app/src/main/java/com/newsclient/view/VTagList.java
++++ b/app/src/main/java/com/newsclient/view/VTagList.java
+@@ -24,10 +24,14 @@ import java.util.List;
+ 
+ public class VTagList extends Activity {
+     int tagId;
++    Data app;
+     //final DSingleTag dt;
+ 
+     @Override
+     protected void onResume() {
++        super.onResume();
++        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
++        setContentView(R.layout.activity_taglist);
+         final DSingleTag dt = DTagList.getNewsById(tagId);
+ 
+         String[] titleList = new String[dt.size];
+@@ -91,8 +95,11 @@ public class VTagList extends Activity {
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
++        app = (Data) getApplication();
++        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+         setContentView(R.layout.activity_taglist);
+ 
++
+         Intent intent = getIntent();
+         tagId = intent.getIntExtra("tag_id", -1);
+         if (tagId > 0 && tagId <= 12) DTagList.build(tagId);
+diff --git a/app/src/main/java/com/newsclient/view/VTags.java b/app/src/main/java/com/newsclient/view/VTags.java
+index 9495644..0c9df41 100644
+--- a/app/src/main/java/com/newsclient/view/VTags.java
++++ b/app/src/main/java/com/newsclient/view/VTags.java
+@@ -25,14 +25,17 @@ public class VTags extends Activity {
+     @Override
+     protected void onCreate(@Nullable Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
++        app = (Data)getApplication();
++        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+         setContentView(R.layout.activity_tags);
+         v = VTags.this;
+-        app = (Data)getApplication();
+     }
+ 
+     @Override
+     protected void onResume() {
+         super.onResume();
++        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
++        setContentView(R.layout.activity_tags);
+ 
+         GridView tags_gridview = (GridView) findViewById(R.id.activity_tags_Gridview);
+ 
+diff --git a/app/src/main/res/layout/activity_article.xml b/app/src/main/res/layout/activity_article.xml
+index d1de6dd..fb884ee 100644
+--- a/app/src/main/res/layout/activity_article.xml
++++ b/app/src/main/res/layout/activity_article.xml
+@@ -2,7 +2,8 @@
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:orientation="vertical" android:layout_width="match_parent"
+-    android:layout_height="match_parent">
++    android:layout_height="match_parent"
++    android:background="?attr/mainBackgroundColor">
+ 
+ 
+         <ScrollView
+@@ -58,7 +59,7 @@
+                         app:textSize="@dimen/detailTitleTextSize"
+                         setLineSpacing="1.4"
+                         app:maxDisplayLineCount="5"
+-                        android:textColor="@color/detailTitleTextColor"/>
++                        app:textColor="?attr/titleTextColor"/>
+                     <!--infomation(source && time)-->
+                     <TextView
+                         android:layout_marginTop="5dp"
+@@ -67,7 +68,7 @@
+                         android:layout_height="wrap_content"
+                         android:id="@+id/articleDetailSourceText"
+                         android:textSize="@dimen/detailSourceTextSize"
+-                        android:textColor="@color/detailSourceTextColor"/>
++                        android:textColor="?attr/sourceTextColor"/>
+                     <!--content-->
+                     <TextView
+                         android:layout_marginTop="5dp"
+@@ -77,7 +78,7 @@
+                         android:layout_height="wrap_content"
+                         android:lineSpacingMultiplier="1.6"
+                         android:textSize="@dimen/detailContentTextSize"
+-                        android:textColor="@color/detailContentTextColor"/>
++                        android:textColor="?attr/contentTextColor"/>
+ 
+                 </LinearLayout>
+ 
+@@ -90,7 +91,8 @@
+                     android:layout_marginRight="5dp"
+                     android:layout_marginTop="30dp"
+                     android:textSize="14sp"
+-                    android:text="Does the above news harass you? Here to select dislike topics!" />
++                    android:text="Does the above news harass you? Here to select dislike topics!"
++                    android:textColor="?attr/contentTextColor"/>
+ 
+                 <ListView
+                     android:id="@+id/details_keywordlistview"
+@@ -103,7 +105,8 @@
+                     android:layout_height="wrap_content"
+                     android:layout_marginBottom="5dp"
+                     android:layout_marginTop="5dp"
+-                    android:background="#FFFFFF"
++                    android:background="?attr/buttonBackgroundColor"
++                    android:textColor="?attr/buttonTextColor"
+                     android:text="Dislike Selected Topics" />
+             </LinearLayout>
+         </ScrollView>
+diff --git a/app/src/main/res/layout/activity_cardview.xml b/app/src/main/res/layout/activity_cardview.xml
+index 493fe9a..62fd482 100644
+--- a/app/src/main/res/layout/activity_cardview.xml
++++ b/app/src/main/res/layout/activity_cardview.xml
+@@ -13,8 +13,8 @@
+     app:cardElevation="3dp"
+     app:cardPreventCornerOverlap="true"
+     app:cardUseCompatPadding="true"
+-
+-
++    android:background="?attr/mainBackgroundColor"
++    app:cardBackgroundColor="?attr/mainBackgroundColor"
+     >
+ 
+         <LinearLayout
+@@ -32,7 +32,7 @@
+                     android:layout_height="wrap_content"
+                     app:textSize="@dimen/detailTitleTextSize"
+                     app:maxDisplayLineCount="2"
+-                    android:textColor="@color/detailTitleTextColor"
++                    app:textColor="?attr/titleTextColor"
+                     android:layout_marginBottom="@dimen/cardVerticalMargin"
+                     android:layout_marginTop="@dimen/cardVerticalMargin"
+                     app:lineSpacing="1.4"/>
+@@ -48,7 +48,7 @@
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:textSize="@dimen/detailSourceTextSize"
+-                    android:textColor="@color/detailSourceTextColor"
++                    android:textColor="?attr/sourceTextColor"
+ 
+                     />
+ 
+@@ -68,7 +68,7 @@
+                     android:layout_height="wrap_content"
+                     app:textSize="@dimen/detailContentTextSize"
+                     app:maxDisplayLineCount="3"
+-                    android:textColor="@color/detailContentTextColor"
++                    app:textColor="?attr/contentTextColor"
+                     android:layout_marginTop="5dp"
+                     android:layout_marginBottom="10dp"
+                     app:lineSpacing = "1.1"
+diff --git a/app/src/main/res/layout/activity_recentlist.xml b/app/src/main/res/layout/activity_recentlist.xml
+index 526e517..a1592e9 100644
+--- a/app/src/main/res/layout/activity_recentlist.xml
++++ b/app/src/main/res/layout/activity_recentlist.xml
+@@ -1,9 +1,11 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:id="@+id/recentlist_linearlayout"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:orientation="vertical">
++    android:orientation="vertical"
++    >
+ 
+     <SearchView
+         android:id="@+id/recentlist_searchview"
+diff --git a/app/src/main/res/layout/activity_settings.xml b/app/src/main/res/layout/activity_settings.xml
+index c62cacc..6338057 100644
+--- a/app/src/main/res/layout/activity_settings.xml
++++ b/app/src/main/res/layout/activity_settings.xml
+@@ -1,7 +1,11 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:orientation="vertical" android:layout_width="match_parent"
+-    android:layout_height="match_parent" android:gravity="center_horizontal"
++    xmlns:app="http://schemas.android.com/apk/res-auto"
++    android:orientation="vertical"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    android:gravity="center_horizontal"
++    android:background="?attr/mainBackgroundColor"
+     android:weightSum="1">
+ 
+ 
+@@ -24,19 +28,22 @@
+                 android:layout_marginBottom="5dp"
+                 android:layout_marginTop="30dp"
+                 android:text="  Display Settings"
+-                android:textSize="16sp" />
++                android:textSize="16sp"
++                android:textColor="?attr/titleTextColor"/>
+ 
+             <Switch
+                 android:id="@+id/settings_switch1"
+                 android:layout_width="360dp"
+                 android:layout_height="wrap_content"
+-                android:text="4G Mode" />
++                android:text="4G Mode"
++                android:textColor="?attr/titleTextColor"/>
+ 
+             <TextView
+                 android:id="@+id/textView11"
+                 android:layout_width="360dp"
+                 android:layout_height="wrap_content"
+-                android:text="    When 4G mode is enabled, all the photos in recent list will be disappear." />
++                android:text="    When 4G mode is enabled, all the photos in recent list will disappear."
++                android:textColor="?attr/contentTextColor"/>
+ 
+             <TextView
+                 android:id="@+id/textView"
+@@ -48,13 +55,15 @@
+                 android:id="@+id/settings_switch2"
+                 android:layout_width="360dp"
+                 android:layout_height="wrap_content"
+-                android:text="Night Shift" />
++                android:text="Night Shift"
++                android:textColor="?attr/titleTextColor"/>
+ 
+             <TextView
+                 android:id="@+id/textView10"
+                 android:layout_width="360dp"
+                 android:layout_height="61dp"
+-                android:text="    For the night is dark and full of terrors, when the night shift on, every thing will go dark and it will be less harmful to your eyes." />
++                android:text="    For the night is dark and full of terrors, when the night shift on, every thing will go dark and it will be less harmful to your eyes."
++                android:textColor="?attr/titleTextColor"/>
+ 
+             <TextView
+                 android:id="@+id/textView5"
+@@ -63,7 +72,8 @@
+                 android:layout_marginBottom="10dp"
+                 android:layout_marginTop="30dp"
+                 android:text="  Tag Settings"
+-                android:textSize="16sp" />
++                android:textSize="16sp"
++                android:textColor="?attr/titleTextColor"/>
+ 
+             <TextView
+                 android:id="@+id/textView7"
+@@ -71,7 +81,7 @@
+                 android:layout_height="wrap_content"
+                 android:layout_marginBottom="5dp"
+                 android:text="    Existed Tags"
+-                android:textColor="#000000"
++                android:textColor="?attr/titleTextColor"
+                 android:textSize="16sp" />
+ 
+             <ListView
+@@ -83,7 +93,8 @@
+                 android:id="@+id/Settings_deletebutton"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+-                android:background="#FFFFFF"
++                android:background="?attr/buttonBackgroundColor"
++                android:textColor="?attr/buttonTextColor"
+                 android:text="Delete Selected Tag" />
+ 
+             <android.support.design.widget.TextInputLayout
+@@ -102,7 +113,8 @@
+                 android:id="@+id/Settings_addbutton"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+-                android:background="#FFFFFF"
++                android:background="?attr/buttonBackgroundColor"
++                android:textColor="?attr/buttonTextColor"
+                 android:text="Add New Tag" />
+ 
+             <Button
+@@ -111,7 +123,8 @@
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="5dp"
+                 android:layout_marginBottom="5dp"
+-                android:background="#FFFFFF"
++                android:background="?attr/buttonBackgroundColor"
++                android:textColor="?attr/buttonTextColor"
+                 android:text="About us" />
+ 
+         </LinearLayout>
+diff --git a/app/src/main/res/layout/activity_taglist.xml b/app/src/main/res/layout/activity_taglist.xml
+index 4be576f..4bb6164 100644
+--- a/app/src/main/res/layout/activity_taglist.xml
++++ b/app/src/main/res/layout/activity_taglist.xml
+@@ -2,8 +2,9 @@
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/recentlist_linearlayout"
+     android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    android:orientation="vertical">
++    android:layout_height="match_parent"
++    android:orientation="vertical"
++    android:background="?attr/mainBackgroundColor">
+ 
+     <android.support.v7.widget.RecyclerView
+         android:id="@+id/taglist"
+diff --git a/app/src/main/res/layout/activity_tags.xml b/app/src/main/res/layout/activity_tags.xml
+index 69cdcaa..fdbc6c4 100644
+--- a/app/src/main/res/layout/activity_tags.xml
++++ b/app/src/main/res/layout/activity_tags.xml
+@@ -1,7 +1,9 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:orientation="vertical" android:layout_width="match_parent"
+-    android:layout_height="match_parent" android:gravity="center_horizontal">
++    android:layout_height="match_parent" android:gravity="center_horizontal"
++    android:background="?attr/mainBackgroundColor"
++    >
+ 
+     <TextView
+         android:layout_width="match_parent"
+@@ -12,6 +14,7 @@
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:textSize="20sp"
++        android:textColor="?attr/titleTextColor"
+         android:text="    My Tags" />
+ 
+     <TextView
+diff --git a/app/src/main/res/layout/item_recycler_view_item.xml b/app/src/main/res/layout/item_recycler_view_item.xml
+index 55a5c1c..5fa3b35 100644
+--- a/app/src/main/res/layout/item_recycler_view_item.xml
++++ b/app/src/main/res/layout/item_recycler_view_item.xml
+@@ -9,8 +9,8 @@
+ 
+     android:clickable="true"
+     android:focusable="true"
+-
+     android:foreground="?android:attr/selectableItemBackground"
++    android:background="?attr/mainBackgroundColor"
+     >
+ 
+     <ImageView
+@@ -43,8 +43,7 @@
+             setLineSpacing="1.6"
+             app:textSize="20sp"
+             app:maxDisplayLineCount="1"
+-            android:textColor="@color/recentTitleTextColor"
+-
++            app:textColor="?attr/titleTextColor"
+ 
+             android:id="@+id/item_title">
+ 
+@@ -58,7 +57,7 @@
+             android:layout_alignParentBottom="true"
+             android:layout_alignParentLeft="true"
+             android:layout_marginBottom="3dp"
+-            android:textColor="@color/recentSourceTextColor"
++            android:textColor="?attr/sourceTextColor"
+             android:textSize="16sp">
+ 
+         </TextView>
+@@ -70,7 +69,7 @@
+             android:layout_alignParentBottom="true"
+             android:layout_alignParentRight="true"
+             android:layout_marginBottom="3dp"
+-            android:textColor="@color/recentTimeTextColor"
++            android:textColor="?attr/sourceTextColor"
+             android:textSize="@dimen/recentTimeTextSize">
+ 
+         </TextView>
+diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
+index fae6440..60be118 100644
+--- a/app/src/main/res/values/colors.xml
++++ b/app/src/main/res/values/colors.xml
+@@ -23,4 +23,28 @@
+ 
+     <color name="highlightedTextColor">#ff0000</color>
+ 
++    <!--Light Theme-->
++    <color name="light_titleTextColor">#000000</color>
++    <color name="light_titleVisitedTextColor">#666666</color>
++    <color name="light_sourceTextColor">#444444</color>
++    <color name="light_contentTextColor">#000000</color>
++    <color name="light_mainBackgroundColor">#ffffff</color>
++    <color name="light_barBackgroundColor">#3f51b5</color>
++    <color name="light_buttonBackgroundColor">#ffffff</color>
++    <color name="light_buttonTextColor">#000000</color>
++    <color name="light_barTextColor">#ffffff</color>
++
++    <!--Dark Theme-->
++    <color name="dark_titleTextColor">#cccccc</color>
++    <color name="dark_titleVisitedTextColor">#888888</color>
++    <color name="dark_sourceTextColor">#888888</color>
++    <color name="dark_contentTextColor">#cccccc</color>
++    <color name="dark_mainBackgroundColor">#111111</color>
++    <color name="dark_barBackgroundColor">#303f9f</color>
++    <color name="dark_buttonBackgroundColor">#222222</color>
++    <color name="dark_buttonTextColor">#cccccc</color>
++    <color name="dark_barTextColor">#cccccc</color>
++    <!--<color name="test">#ff3333</color>-->
++
++
+ </resources>
+diff --git a/app/src/main/res/values/styles.xml b/app/src/main/res/values/styles.xml
+index 129cf6c..c5c6f7a 100644
+--- a/app/src/main/res/values/styles.xml
++++ b/app/src/main/res/values/styles.xml
+@@ -7,6 +7,36 @@
+         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+         <item name="colorAccent">@color/colorAccent</item>
+     </style>
++    
++    <!--my-->
++    <style name="LightTheme" parent="AppTheme">
++        <item name="mainBackgroundColor">@color/light_mainBackgroundColor</item>
++        <item name="titleTextColor">@color/light_titleTextColor</item>
++        <item name="sourceTextColor">@color/light_sourceTextColor</item>
++        <item name="contentTextColor">@color/light_contentTextColor</item>
++        <item name="buttonBackgroundColor">@color/light_buttonBackgroundColor</item>
++        <item name="buttonTextColor">@color/light_buttonTextColor</item>
++
++    </style>
++
++    <style name="DarkTheme" parent="AppTheme">
++        <item name="mainBackgroundColor">@color/dark_mainBackgroundColor</item>
++        <item name="titleTextColor">@color/dark_titleTextColor</item>
++        <item name="sourceTextColor">@color/dark_sourceTextColor</item>
++        <item name="contentTextColor">@color/dark_contentTextColor</item>
++        <item name="buttonBackgroundColor">@color/dark_buttonBackgroundColor</item>
++        <item name="buttonTextColor">@color/dark_buttonTextColor</item>
++
++    </style>
++
++    <!--Attributes-->
++    <attr name="titleTextColor" format="color"/>
++    <attr name="mainBackgroundColor" format="color"/>
++    <attr name="sourceTextColor" format="color"/>
++    <attr name="contentTextColor" format="color"/>
++    <attr name="buttonBackgroundColor" format="color"/>
++    <attr name="buttonTextColor" format="color"/>
++    <!---->
+ 
+     <style name="AppTheme.NoActionBar">
+         <item name="windowActionBar">false</item>

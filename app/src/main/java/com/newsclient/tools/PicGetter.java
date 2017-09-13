@@ -19,15 +19,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
-/** * Created by zyh on 2015/9/15. */
+/** * Created by LegaDyan on 2017/9/11. */
 public class PicGetter {
     private Context mContext;
     private Bitmap mBitmap;
 
     public PicGetter(Context context) {
         this.mContext= context;
-        int maxMemory = (int) Runtime.getRuntime().maxMemory();
-        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.mipmap.ic_launcher);
+        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.unloaded);
     }
 
     /**     * 检查复用的ImageView中是否存在其他图片的下载任务，如果存在就取消并且返回ture 否则返回 false
@@ -114,18 +113,17 @@ public class PicGetter {
         private Bitmap downLoadBitmap(String uri) {
             Bitmap bitmap;
             InputStream is;
-            try {
+            for (int i = 0; i < 5; i++) {
+                try {
 
-                is = GetImageByUrl(uri);
-                bitmap = BitmapFactory.decodeStream(is);
-                is.close();
+                    is = GetImageByUrl(uri);
+                    bitmap = BitmapFactory.decodeStream(is);
+                    is.close();
 
-                return bitmap;
+                    return bitmap;
 
-            } catch (MalformedURLException e) {
-
-            } catch (IOException e) {
-            } catch (NullPointerException e) {
+                } catch (Exception e) {
+                }
             }
             return null;
         }

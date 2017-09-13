@@ -2,7 +2,6 @@ package com.newsclient.view;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.newsclient.R;
@@ -19,11 +17,10 @@ import com.newsclient.data.DSingleNews;
 import com.newsclient.data.DSingleTag;
 import com.newsclient.data.DTagList;
 import com.newsclient.data.Data;
+import com.newsclient.tools.Network;
+import com.newsclient.tools.PicGetter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class VTagList extends Activity {
     int tagId;
@@ -36,12 +33,6 @@ public class VTagList extends Activity {
         setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
         setContentView(R.layout.activity_taglist);
         final DSingleTag dt = DTagList.getNewsById(tagId);
-
-        String[] titleList = new String[dt.size];
-
-        for (int i = 0; i < dt.size; i++) {
-            titleList[i] = dt.news_list.get(i).news_title;
-        }
 
         //ListView lv = (ListView) findViewById(R.id.listViewTag);
 
@@ -57,6 +48,22 @@ public class VTagList extends Activity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.taglist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx,int dy){
+                if (tagId <= 12 && tagId > 0) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    int itemCount = layoutManager.getItemCount();
+                    int lastposition = layoutManager.findLastVisibleItemPosition();
+                    if (itemCount < lastposition + 10) {
+                        dt.enlarge();
+                    }
+                }
+            }
+
+        });
 
         CardAdapter adapter = new CardAdapter(this, R.layout.activity_cardview, new int[]{
                 R.id.card_title,
@@ -105,6 +112,7 @@ public class VTagList extends Activity {
 
         Intent intent = getIntent();
         tagId = intent.getIntExtra("tag_id", -1);
+        if (tagId > 0 && tagId <= 12) DTagList.build(tagId);
 
     }
 }
@@ -236,7 +244,7 @@ class CardItemGroup{
         title.setText(news.displayTitle());
         source.setText(news.displaySource() + "   " + news.displayTime());
 
-        if (hidePic){
+        if (hidePic || news.news_pictures == null || news.news_pictures.equals("")){
             intropic.setVisibility(View.GONE);
         }
         else{
@@ -244,7 +252,13 @@ class CardItemGroup{
                 intropic.setImageBitmap(news.news_intropic.bitmap);
             }
             else{
-                intropic.setVisibility(View.GONE);
+                if (Network.isConnected()) {
+                    PicGetter p = new PicGetter(VRecents.context);
+                    p.setImageView(intropic, news);
+                }
+                else {
+                    intropic.setVisibility(View.GONE);
+                }
             }
         }
         intro.setText(news.displayIntro());

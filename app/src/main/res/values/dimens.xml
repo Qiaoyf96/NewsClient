@@ -20,4 +20,7 @@
     <dimen name="cardVerticalPadding">10dp</dimen>
 
     <dimen name="cardImageMaxHeight">200dp</dimen>
+
+    <!--Cardview textfont-->
+    <dimen name="cardPreview">16sp</dimen>
 </resources>
