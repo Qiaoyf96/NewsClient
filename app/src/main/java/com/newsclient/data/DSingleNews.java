@@ -8,8 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 
 import static com.newsclient.tools.Http.sendGet;
@@ -24,6 +22,7 @@ public class DSingleNews implements java.io.Serializable{
     public boolean loaded;
     public String[] wordList;
     public double[] scoreList;
+    int length;
 
     public int news_tag;
 
@@ -54,8 +53,9 @@ public class DSingleNews implements java.io.Serializable{
             news_pictures = pictureList.split(";| ")[0];
         }
         else {
-            String Url = ImageFinder.findImageByKeyword(news_title);
-            news_pictures = Url;
+            news_pictures = "";
+//            String Url = ImageFinder.findImageByKeyword(news_title);
+//            news_pictures = Url;
         }
     }
     public DSingleNews(String id) {
@@ -63,6 +63,7 @@ public class DSingleNews implements java.io.Serializable{
         news_intropic = new SerialBitmap();
     }
     public void load() {
+        if (loaded) return;
         loaded = true;
         String url = "http://166.111.68.66:2042/news/action/query/detail?newsId=" + news_id;
         String txt = sendGet(url);
@@ -96,22 +97,17 @@ public class DSingleNews implements java.io.Serializable{
 //            if (news_intropic.bitmap == null) {
                 String pictureList = art.getString("news_Pictures");
                 if (!pictureList.equals("") && !pictureList.startsWith(" ")) {
-                    try {
-                        news_pictures = pictureList.split(";| ")[0];
-                    } catch (Exception e) {
-                    }
+                    news_pictures = pictureList.split(";| ")[0];
                 }
                 else {
-                    try {
-                        String Url = ImageFinder.findImageByKeyword(news_title);
-                        news_pictures = Url;
-                    } catch (Exception e) {
-                    }
+//                    news_pictures = "";
+                    String Url = ImageFinder.findImageByKeyword(news_title);
+                    news_pictures = Url;
                 }
 //            }
 
             JSONArray wordsList = art.getJSONArray("Keywords");
-            int length = wordsList.length();
+            length = wordsList.length();
             length = min(5, length);
             wordList = new String [length];
             scoreList = new double [length];

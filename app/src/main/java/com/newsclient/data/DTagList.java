@@ -228,6 +228,14 @@ public class DTagList {
             Collections.shuffle(DNewsList._news_list);
             for (DSingleNews news : DNewsList._news_list) {
                 if (news.news_tag == id && !taglist.contains(news.news_id)) {
+                    boolean ff = true;
+                    for (String s: Data.blockwordlist) {
+                        if (news.news_title.contains(s)) {
+                            ff = false;
+                            break;
+                        }
+                    }
+                    if (!ff) continue;
                     taglist.add(news.news_id);
                     size++;
                     if (size >= 10) return;
