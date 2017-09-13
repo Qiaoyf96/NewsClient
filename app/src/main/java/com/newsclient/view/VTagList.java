@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.newsclient.R;
+import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.data.DSingleTag;
 import com.newsclient.data.DTagList;
@@ -54,6 +55,22 @@ public class VTagList extends Activity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.taglist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener(){
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx,int dy){
+                if (tagId <= 12) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                    int itemCount = layoutManager.getItemCount();
+                    int lastposition = layoutManager.findLastVisibleItemPosition();
+                    if (itemCount < lastposition + 10) {
+                        dt.enlarge();
+                    }
+                }
+            }
+
+        });
 
         CardAdapter adapter = new CardAdapter(this, R.layout.activity_cardview, new int[]{
                 R.id.card_title,

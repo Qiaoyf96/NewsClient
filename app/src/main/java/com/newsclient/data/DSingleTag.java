@@ -19,7 +19,7 @@ public class DSingleTag extends DNewsList {
         }
     }
 
-    void enlarge() {
+    public void enlarge() {
         DTagList.enlarge(id);
         set(DTagList.lstdetail.get(id));
     }

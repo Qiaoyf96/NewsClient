@@ -77,6 +77,7 @@ public class DSingleNews implements java.io.Serializable{
             String discretekeyst[] = keyst.split(" ");
             HashSet<String> neededkeyst = new HashSet<String>();
             for(int i = 0; i < discretekeyst.length; i++){
+                if (discretekeyst[i].length() < 7) continue;
                 if (discretekeyst[i].indexOf("/ORG") != -1)
                     neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 5));
                 if (discretekeyst[i].indexOf("/PER") != -1)
@@ -87,7 +88,8 @@ public class DSingleNews implements java.io.Serializable{
                     neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 4));
             }
             for(String str:neededkeyst){
-                content = content.replaceFirst(str,"<a href=\"https://baike.baidu.com/item/" + str + "\">"
+                if (content.indexOf(str) != -1)
+                    content = content.replaceFirst(str,"<a href=\"https://baike.baidu.com/item/" + str + "\">"
                     + str + "</a>");
             }
             if (news_intro == null) news_intro = "";
