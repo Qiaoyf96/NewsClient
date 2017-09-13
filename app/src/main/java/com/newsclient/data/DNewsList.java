@@ -45,7 +45,7 @@ public class DNewsList {
                     if (DNewsList.totaltime == 0) p = 0.5;
                     else p = DNewsList.readtime[news.news_tag] / (double) DNewsList.totaltime;
                     if (p > r.nextDouble()) {
-                        if (news.news_pictures.equals("")) {
+                        if (news.news_pictures == null || news.news_pictures.equals("")) {
                             String Url = ImageFinder.findImageByKeyword(news.news_title);
                             news.news_pictures = Url;
                         }

@@ -26,7 +26,6 @@ public class PicGetter {
 
     public PicGetter(Context context) {
         this.mContext= context;
-        int maxMemory = (int) Runtime.getRuntime().maxMemory();
         mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.unloaded);
     }
 

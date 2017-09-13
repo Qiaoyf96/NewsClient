@@ -11,7 +11,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -133,7 +132,7 @@ public class VRecyclerView {
             time.setText(news.displayTime());
 
             Data app = (Data) VRecyclerView.this.activity.getApplication();
-            if (app.is_4G_mode_on || news.news_pictures.equals("")){
+            if (app.is_4G_mode_on || news.news_pictures == null || news.news_pictures.equals("")){
                 img.setVisibility(View.GONE);
             }
             else{

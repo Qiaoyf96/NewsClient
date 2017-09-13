@@ -1,5 +1,7 @@
 package com.newsclient.data;
 
+import android.util.Log;
+
 import com.newsclient.tools.ImageFinder;
 import com.newsclient.tools.SerialBitmap;
 import com.newsclient.tools.StringFormatTransfer;
@@ -27,6 +29,7 @@ public class DSingleNews implements java.io.Serializable{
     public int news_tag;
 
     DSingleNews(JSONObject o, int i){
+        news_pictures = "";
         news_id = "";
         content = "";
         readed = false;
@@ -61,6 +64,7 @@ public class DSingleNews implements java.io.Serializable{
     public DSingleNews(String id) {
         news_id = id;
         news_intropic = new SerialBitmap();
+        news_pictures = "";
     }
     public void load() {
         if (loaded) return;
@@ -98,6 +102,9 @@ public class DSingleNews implements java.io.Serializable{
                 String pictureList = art.getString("news_Pictures");
                 if (!pictureList.equals("") && !pictureList.startsWith(" ")) {
                     news_pictures = pictureList.split(";| ")[0];
+                    if (news_pictures == null) {
+                        Log.e("Error", this.toString());
+                    }
                 }
                 else {
 //                    news_pictures = "";
