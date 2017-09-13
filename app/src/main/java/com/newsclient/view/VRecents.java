@@ -60,6 +60,7 @@ public class VRecents extends FragmentActivity {
     static final int SDK_INT = VERSION.SDK_INT;
     public static Context context;
     int totaldy = 0;
+    int firstposition;
     VRecyclerView vRecyclerView;
 
     @Override
@@ -69,6 +70,7 @@ public class VRecents extends FragmentActivity {
         if (vRecyclerView != null){
             vRecyclerView.refresh();
         }
+        vRecyclerView.mRecyclerView.scrollToPosition(firstposition);
         setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
     }
 
@@ -182,7 +184,7 @@ public class VRecents extends FragmentActivity {
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 int itemCount = layoutManager.getItemCount();
                 int lastposition = layoutManager.findLastVisibleItemPosition();
-                int firstposition = layoutManager.findFirstVisibleItemPosition();
+                firstposition = layoutManager.findFirstVisibleItemPosition();
                 if (itemCount < lastposition + 10) {
                     LoadThread t = new LoadThread();
                     t.start();

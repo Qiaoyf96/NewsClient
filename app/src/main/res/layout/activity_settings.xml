@@ -84,6 +84,28 @@
                 android:textColor="?attr/titleTextColor"
                 android:textSize="16sp" />
 
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/settings_textinputlayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <EditText
+                    android:id="@+id/Settings_textinput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter tag here" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/Settings_addbutton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?attr/buttonBackgroundColor"
+                android:text="Add New Tag"
+                android:textColor="?attr/buttonTextColor" />
+
             <ListView
                 android:id="@+id/settings_listview"
                 android:layout_width="match_parent"
@@ -96,26 +118,6 @@
                 android:background="?attr/buttonBackgroundColor"
                 android:textColor="?attr/buttonTextColor"
                 android:text="Delete Selected Tag" />
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/settings_textinputlayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/Settings_textinput"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Enter tag here" />
-            </android.support.design.widget.TextInputLayout>
-
-            <Button
-                android:id="@+id/Settings_addbutton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/buttonBackgroundColor"
-                android:textColor="?attr/buttonTextColor"
-                android:text="Add New Tag" />
 
             <Button
                 android:id="@+id/settings_about"
