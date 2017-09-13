@@ -13,10 +13,13 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.newsclient.R;
 import com.newsclient.data.DTagList;
 import com.newsclient.data.Data;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +37,7 @@ public class VSettings extends Activity{
 
 
         Switch switch1 = (Switch)findViewById(R.id.settings_switch1);
-        Switch switch2 = (Switch)findViewById(R.id.settings_switch2);
+        final Switch switch2 = (Switch)findViewById(R.id.settings_switch2);
 
         switch1.setChecked(app.is_4G_mode_on);
         switch2.setChecked(app.is_night_shift_on);
@@ -62,8 +65,19 @@ public class VSettings extends Activity{
                     app.is_night_shift_on = false;
                 }
                 setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
-                
-                //setContentView(R.layout.activity_settings);
+                VNavigation.tabhost.setBackgroundColor(VSettings.this.getResources().getColor(
+                        (app.is_night_shift_on)
+                                ? R.color.dark_mainBackgroundColor
+                                : R.color.light_mainBackgroundColor));
+                for (int i = 0; i < VNavigation.tabhost.getTabWidget().getChildCount(); i++){
+
+                    TextView view = (TextView)VNavigation.tabhost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+
+                    view.setTextColor((app.is_night_shift_on)
+                            ? getResources().getColor(R.color.dark_buttonTextColor)
+                            : getResources().getColor(R.color.light_buttonTextColor));
+                }
+
             }
         });
 

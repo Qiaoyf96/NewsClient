@@ -1,6 +1,5 @@
 package com.newsclient.data;
 
-import com.newsclient.tools.ImageFinder;
 import com.newsclient.tools.SerialBitmap;
 import com.newsclient.tools.StringFormatTransfer;
 
@@ -15,7 +14,7 @@ import static com.newsclient.tools.Http.sendGet;
 public class DSingleNews implements java.io.Serializable{
     public String lang_type, news_author,
             news_id, news_source, news_time,
-            news_title, news_url, news_video, news_intro, content;
+            news_title, news_url, news_video, news_intro, content, readable_content;
     public String news_pictures;
     public SerialBitmap news_intropic;
     public boolean readed;
@@ -89,6 +88,7 @@ public class DSingleNews implements java.io.Serializable{
                 if (discretekeyst[i].indexOf("/nx") != -1)
                     neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 4));
             }
+            readable_content = content;
             for(String str:neededkeyst){
                 if (content.indexOf(str) != -1)
                     content = content.replaceFirst(str,"<a href=\"https://baike.baidu.com/item/" + str + "\">"
@@ -96,17 +96,10 @@ public class DSingleNews implements java.io.Serializable{
             }
             if (news_intro == null) news_intro = "";
 
-//            if (news_intropic.bitmap == null) {
-                String pictureList = art.getString("news_Pictures");
-                if (!pictureList.equals("") && !pictureList.startsWith(" ")) {
-                    news_pictures = pictureList.split(";| ")[0];
-                }
-                else {
-//                    news_pictures = "";
-                    String Url = ImageFinder.findImageByKeyword(news_title);
-                    news_pictures = Url;
-                }
-//            }
+            String pictureList = art.getString("news_Pictures");
+            if (!pictureList.equals("") && !pictureList.startsWith(" ")) {
+                news_pictures = pictureList.split(";| ")[0];
+            }
 
             JSONArray wordsList = art.getJSONArray("Keywords");
             length = wordsList.length();

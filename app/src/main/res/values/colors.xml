@@ -39,7 +39,7 @@
     <color name="dark_titleVisitedTextColor">#888888</color>
     <color name="dark_sourceTextColor">#888888</color>
     <color name="dark_contentTextColor">#cccccc</color>
-    <color name="dark_mainBackgroundColor">#111111</color>
+    <color name="dark_mainBackgroundColor">#112222</color>
     <color name="dark_barBackgroundColor">#303f9f</color>
     <color name="dark_buttonBackgroundColor">#222222</color>
     <color name="dark_buttonTextColor">#cccccc</color>

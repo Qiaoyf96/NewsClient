@@ -118,7 +118,7 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
                 mySynthesizer.setParameter(SpeechConstant.PITCH,"50");
                 //设置音量
                 mySynthesizer.setParameter(SpeechConstant.VOLUME,"50");
-                int code = mySynthesizer.startSpeaking(news.content, mTtsListener);
+                int code = mySynthesizer.startSpeaking(news.readable_content, mTtsListener);
                 break;
             default:
                 break;
@@ -137,7 +137,7 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         app = (Data)this.getApplication();
         setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
-
+        //setTheme(R.style.LightTheme);
         setContentView(R.layout.activity_article);
 
 
@@ -264,6 +264,7 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.main, menu);
         if (DTagList.isInTagList(0, news_id)) {
             MenuItem mi = (MenuItem) findViewById(R.id.action_favorite);
