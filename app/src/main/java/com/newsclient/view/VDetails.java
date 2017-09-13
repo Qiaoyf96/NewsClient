@@ -125,12 +125,21 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
+//    @Override
+//    protected void onResume(){
+//        super.onResume();
+//        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+//        setContentView(R.layout.activity_article);
+//    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        app = (Data)this.getApplication();
+        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+
         setContentView(R.layout.activity_article);
 
-        app = (Data)this.getApplication();
 
         SpeechUtility.createUtility(VDetails.this, "appid=59b53f3d");
         mySynthesizer = SpeechSynthesizer.createSynthesizer(this, myInitListener);

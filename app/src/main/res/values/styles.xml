@@ -7,6 +7,36 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    
+    <!--my-->
+    <style name="LightTheme" parent="AppTheme">
+        <item name="mainBackgroundColor">@color/light_mainBackgroundColor</item>
+        <item name="titleTextColor">@color/light_titleTextColor</item>
+        <item name="sourceTextColor">@color/light_sourceTextColor</item>
+        <item name="contentTextColor">@color/light_contentTextColor</item>
+        <item name="buttonBackgroundColor">@color/light_buttonBackgroundColor</item>
+        <item name="buttonTextColor">@color/light_buttonTextColor</item>
+
+    </style>
+
+    <style name="DarkTheme" parent="AppTheme">
+        <item name="mainBackgroundColor">@color/dark_mainBackgroundColor</item>
+        <item name="titleTextColor">@color/dark_titleTextColor</item>
+        <item name="sourceTextColor">@color/dark_sourceTextColor</item>
+        <item name="contentTextColor">@color/dark_contentTextColor</item>
+        <item name="buttonBackgroundColor">@color/dark_buttonBackgroundColor</item>
+        <item name="buttonTextColor">@color/dark_buttonTextColor</item>
+
+    </style>
+
+    <!--Attributes-->
+    <attr name="titleTextColor" format="color"/>
+    <attr name="mainBackgroundColor" format="color"/>
+    <attr name="sourceTextColor" format="color"/>
+    <attr name="contentTextColor" format="color"/>
+    <attr name="buttonBackgroundColor" format="color"/>
+    <attr name="buttonTextColor" format="color"/>
+    <!---->
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

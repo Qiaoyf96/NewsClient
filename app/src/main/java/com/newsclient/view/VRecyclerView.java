@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -39,6 +40,8 @@ public class VRecyclerView {
     public int targetLayout;
     int sourceLayout;
     int[] itemsId;
+    private boolean decorationExisted = false;
+    Data app;
 
     VRecyclerView(List<DSingleNews> list, Activity activity, int sourceLayout, int targetLayout, int[] itemsId){
         this.newsList = list;
@@ -46,20 +49,38 @@ public class VRecyclerView {
         this.sourceLayout = sourceLayout;
         this.targetLayout = targetLayout;
         this.itemsId = itemsId;
+        this.app = (Data)activity.getApplication();
     }
 
-    void generate(){
+    public void generate(){
+        mRecyclerView = (RecyclerView) activity.findViewById(targetLayout);
         mLayoutManager = new LinearLayoutManager(activity);
 
         //mLayoutManager = new RecyclerLayoutManager();
         //mLayoutManager = new GridLayoutManager(activity, 2);
 
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter = new RecyclerAdapter(this));
+        mAdapter = new RecyclerAdapter(this);
+        mRecyclerView.setAdapter(mAdapter);
         setClickReflection();
 
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(activity,
-                DividerItemDecoration.VERTICAL_LIST));
+        if (!decorationExisted){
+            mRecyclerView.addItemDecoration(new DividerItemDecoration(activity,
+                    DividerItemDecoration.VERTICAL_LIST));
+            decorationExisted = true;
+        }
+    }
+
+    public void refresh(){
+        mAdapter = new RecyclerAdapter(this);
+        mRecyclerView.setAdapter(mAdapter);
+        setClickReflection();
+
+        if (!decorationExisted){
+            mRecyclerView.addItemDecoration(new DividerItemDecoration(activity,
+                    DividerItemDecoration.VERTICAL_LIST));
+            decorationExisted = true;
+        }
     }
 
     void setClickReflection(){
@@ -103,13 +124,19 @@ public class VRecyclerView {
         void bindValue(int index){
             DSingleNews news = newsList.get(index);
             title.setText(news.displayTitle());
+            if (news.readed){
+                title.setTextColor(activity.getResources().getColor(R.color.recentTitleVisitedColor));
+                //title.setTextColor(Color.BLUE);
+                //Toast.makeText(activity, "safsa", Toast.LENGTH_SHORT).show();
+            }
             source.setText(news.displaySource());
             time.setText(news.displayTime());
+
             Data app = (Data) VRecyclerView.this.activity.getApplication();
             if (app.is_4G_mode_on || news.news_pictures.equals("")){
                 img.setVisibility(View.GONE);
             }
-            else {
+            else{
                 if (news.news_intropic.bitmap != null){
                     img.setImageBitmap(news.news_intropic.bitmap);
                 }
@@ -124,7 +151,11 @@ public class VRecyclerView {
                 }
             }
 
+
+
+
         }
+
     }
 
     RecyclerShowItemGroup getGroup(View[] args){
@@ -134,13 +165,14 @@ public class VRecyclerView {
 }
 class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHolder>{
 
-    private Context activity;
+    private Activity activity;
     private int sourceLayout;
     private int[] itemsId;
     private List<DSingleNews> newsList;
     private VRecyclerView recyclerView;
     private OnItemClickLitener mOnItemClickLitener;
     static int lastvisibleposition;
+
 
     // constructor
     RecyclerAdapter(VRecyclerView view){
@@ -149,6 +181,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
         this.sourceLayout = this.recyclerView.sourceLayout;
         this.itemsId = this.recyclerView.itemsId;
         this.newsList = this.recyclerView.newsList;
+
     }
     // set click reflection
     public interface OnItemClickLitener
@@ -169,11 +202,17 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
                 activity).inflate(sourceLayout, parent,
                 false),
                 itemsId);
+
         return holder;
     }
 
     @Override
     public void onBindViewHolder(final InnerViewHolder holder, final int position) {
+
+//        if (isChangingImageMode){
+//            holder.item.changeImageMode();
+//            return;
+//        }
 
         holder.item.bindValue(position);
 
@@ -232,7 +271,9 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
             }
             item = recyclerView.getGroup(views);
         }
+
     }
+
 }
 
 class DividerItemDecoration extends RecyclerView.ItemDecoration {

@@ -114,18 +114,17 @@ public class PicGetter {
         private Bitmap downLoadBitmap(String uri) {
             Bitmap bitmap;
             InputStream is;
-            try {
+            for (int i = 0; i < 5; i++) {
+                try {
 
-                is = GetImageByUrl(uri);
-                bitmap = BitmapFactory.decodeStream(is);
-                is.close();
+                    is = GetImageByUrl(uri);
+                    bitmap = BitmapFactory.decodeStream(is);
+                    is.close();
 
-                return bitmap;
+                    return bitmap;
 
-            } catch (MalformedURLException e) {
-
-            } catch (IOException e) {
-            } catch (NullPointerException e) {
+                } catch (Exception e) {
+                }
             }
             return null;
         }
