@@ -62,7 +62,7 @@ public class VSettings extends Activity{
                     app.is_night_shift_on = false;
                 }
                 setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
-                
+
                 //setContentView(R.layout.activity_settings);
             }
         });
