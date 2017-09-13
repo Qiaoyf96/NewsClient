@@ -11,10 +11,10 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.java.group28.newsclient.R;
 import com.java.group28.newsclient.data.DSearchResListData;
+import com.java.group28.newsclient.data.Data;
 
 public class VSearchRes extends Activity {
     int pagenum;
@@ -27,9 +27,12 @@ public class VSearchRes extends Activity {
     String searchkey;
     ListView reslistview;
     int stop_position;
+    Data app;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        app = (Data)getApplication();
+        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
         setContentView(R.layout.activity_searchres);
         inflater = LayoutInflater.from(this);
         progressbar = getLayoutInflater().inflate(R.layout.activity_searchres_progressbar, null);
@@ -77,6 +80,8 @@ public class VSearchRes extends Activity {
         loadNewView();
         last_index = 0;
         total_index = 0;
+
+
     }
 
     public void loadNewView(){
@@ -84,7 +89,8 @@ public class VSearchRes extends Activity {
         searchres.load(searchkey, pagenum);
         if (searchres._news_title_list.size() == searchres._total)
             loadComplete();
-        reslistview.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, searchres._news_title_list));
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, searchres._news_title_list);
+        reslistview.setAdapter(adapter);
         reslistview.setSelection(stop_position + 1);
     }
 
