@@ -14,12 +14,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.newsclient.R;
 import com.newsclient.data.DTagList;
 import com.newsclient.data.Data;
-
-import org.w3c.dom.Text;
+import com.newsclient.tools.FileHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -177,6 +177,54 @@ public class VSettings extends Activity{
                 Intent aboutIntent = new Intent(VSettings.this,
                         VAbout.class);
                 startActivity(aboutIntent);
+            }
+        });
+
+
+        Button deleteBtn = (Button) findViewById(R.id.settings_delete);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                VRecents.stop = true;
+                FileHelper f = new FileHelper(VSettings.this);
+                boolean g = true;
+                try {
+                    f.save("globalload.ser", g);
+                } catch (Exception e) {}
+//                try {
+//                    f.delete("newslist.ser");
+//                } catch (Exception e) {}
+//                try {
+//                    f.delete("newssize.ser");
+//                } catch (Exception e) {}
+//                try {
+//                    f.delete("lstImageitem.ser");
+//                } catch (Exception e) {}
+//                try {
+//                    f.delete("lstItem.ser");
+//                } catch (Exception e) {}
+//                try {
+//                    f.delete("lstdetail.ser");
+//                } catch (Exception e) {}
+//                try {
+//                    f.delete("readedlist.ser");
+//                } catch (Exception e) {}
+//                try {
+//                    f.delete("isinitialized.ser");
+//                } catch (Exception e) {}
+//                try {
+//                    f.delete("page.ser");
+//                } catch (Exception e) {}
+//                try {
+//                    f.delete("readtime.ser");
+//                } catch (Exception e) {}
+//                try {
+//                    f.delete("totaltime.ser");
+//                } catch (Exception e) {}
+//                try {
+//                    f.delete("anothernewslist.ser");
+//                } catch (Exception e) {}
+                Toast.makeText(VSettings.this, "Cleared!", Toast.LENGTH_SHORT).show();
             }
         });
     }

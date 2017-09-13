@@ -22,6 +22,22 @@ class MyThread extends Thread {
     Context c;
     public void run() {
         FileHelper f = new FileHelper(c);
+
+        try {
+            boolean g = (boolean) f.read("globalload.ser");
+            if (g) {
+                DNewsList.load();
+                if (Network.isConnected()) {
+                    for (int i = 1; i <= 12; i++) {
+                        DTagList.lstdetail.get(i).clear();
+                    }
+                }
+                g = false;
+                f.save("globalload.ser", g);
+                return;
+            }
+        } catch (Exception e) {}
+
         try {
             if (Network.isConnected()) throw new Exception();
             DNewsList._news_list = (ArrayList<DSingleNews>) f.read("newslist.ser");

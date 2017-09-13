@@ -2,6 +2,7 @@ package com.newsclient.tools;
 
 import android.content.Context;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,6 +45,11 @@ public class FileHelper {
         in.close();
         input.close();
         return o;
+    }
+
+    public void delete(String filename) throws IOException {
+        File f = new File(filename);
+        if (f.exists()) f.delete();
     }
 
 }

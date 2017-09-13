@@ -30,7 +30,7 @@ class SaveData extends Thread {
     Context c;
     @Override
     public void run() {
-        while (true) {
+        while (!VRecents.stop) {
             FileHelper f = new FileHelper(c);
             try {
                 f.save("newslist.ser", DNewsList._news_list);
@@ -59,6 +59,7 @@ public class VRecents extends FragmentActivity {
     static boolean isthreadexist = false;
     static final int SDK_INT = VERSION.SDK_INT;
     public static Context context;
+    static boolean stop = false;
     int totaldy = 0;
     int firstposition;
     VRecyclerView vRecyclerView;
