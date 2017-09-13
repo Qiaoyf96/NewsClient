@@ -34,6 +34,9 @@ public class VTagList extends Activity {
         setContentView(R.layout.activity_taglist);
         final DSingleTag dt = DTagList.getNewsById(tagId);
 
+        if (tagId > 12 && dt.news_list.size() == 0) {
+            dt.enlarge((String)DTagList.lstImageitem.get(tagId).get("ItemText"));
+        }
         //ListView lv = (ListView) findViewById(R.id.listViewTag);
 
         CardView cv = (CardView) this.findViewById(R.id.card);
@@ -244,7 +247,7 @@ class CardItemGroup{
         title.setText(news.displayTitle());
         source.setText(news.displaySource() + "   " + news.displayTime());
 
-        if (hidePic || news.news_pictures == null || news.news_pictures.equals("")){
+        if (hidePic){
             intropic.setVisibility(View.GONE);
         }
         else{
