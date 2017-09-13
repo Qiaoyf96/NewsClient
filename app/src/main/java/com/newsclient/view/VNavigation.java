@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.newsclient.R;
 import com.newsclient.data.Data;
 
 public class VNavigation extends TabActivity {
-    private TabHost tabhost;
+    static TabHost tabhost;
     Data app;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,16 +38,25 @@ public class VNavigation extends TabActivity {
                 .setContent(new Intent(this, VRecents.class)));
         tabhost.addTab(tabhost.newTabSpec("two").setIndicator("Tags").setContent(new Intent(this, VTags.class)));
         tabhost.addTab(tabhost.newTabSpec("three").setIndicator("Settings").setContent(new Intent(this, VSettings.class)));
+
+        for (int i = 0; i < tabhost.getTabWidget().getChildCount(); i++){
+
+            TextView view = (TextView)tabhost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+
+            view.setTextColor((app.is_night_shift_on)
+                    ? getResources().getColor(R.color.dark_buttonTextColor)
+                    : getResources().getColor(R.color.light_buttonTextColor));
+        }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
-        //setContentView(R.layout.activity_navigation);
-        //TabHost h = findViewById(R.layout.activity_navigation);
-        tabhost.setBackgroundColor((app.is_night_shift_on)
-            ? getResources().getColor(R.color.dark_mainBackgroundColor)
-            : getResources().getColor(R.color.light_mainBackgroundColor));
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        //setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+//        //setContentView(R.layout.activity_navigation);
+//        //TabHost h = findViewById(R.layout.activity_navigation);
+//        tabhost.setBackgroundColor((app.is_night_shift_on)
+//            ? getResources().getColor(R.color.dark_mainBackgroundColor)
+//            : getResources().getColor(R.color.light_mainBackgroundColor));
+//    }
 }
