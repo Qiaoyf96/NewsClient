@@ -93,9 +93,10 @@ public class PicGetter {
         protected Bitmap doInBackground(DSingleNews... params) {
             DSingleNews news = params[0];
             String url = news.news_pictures;
-            if (url == null || url.equals("")) {
+            if (url == null || url.equals("") || url.startsWith(" ")) {
                 url = ImageFinder.findImageByKeyword(news.news_title);
             }
+            news.news_pictures = url;
             Bitmap bitmap = downLoadBitmap(url);
             BitmapDrawable drawable = new BitmapDrawable(mContext.getResources(),bitmap);
             addBitmapDrawableToMemoryCache(news,bitmap);

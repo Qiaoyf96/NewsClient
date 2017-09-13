@@ -118,7 +118,7 @@ public class VDetails extends AppCompatActivity implements View.OnClickListener 
                 mySynthesizer.setParameter(SpeechConstant.PITCH,"50");
                 //设置音量
                 mySynthesizer.setParameter(SpeechConstant.VOLUME,"50");
-                int code = mySynthesizer.startSpeaking(news.content, mTtsListener);
+                int code = mySynthesizer.startSpeaking(news.readable_content, mTtsListener);
                 break;
             default:
                 break;

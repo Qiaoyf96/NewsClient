@@ -236,10 +236,6 @@ public class DTagList {
                         }
                     }
                     if (!ff) continue;
-                    if (news.news_pictures == null || news.news_pictures.equals("")) {
-                        String Url = ImageFinder.findImageByKeyword(news.news_title);
-                        news.news_pictures = Url;
-                    }
                     taglist.add(news.news_id);
                     size++;
                     if (size >= 10) return;
