@@ -209,7 +209,7 @@ public class DTagList {
     }
 
     public static DSingleTag getNewsById(int id){
-        DSingleTag current_tag = new DSingleTag();
+        DSingleTag current_tag = new DSingleTag(id);
         current_tag.set(lstdetail.get(id));
         return current_tag;
     }
