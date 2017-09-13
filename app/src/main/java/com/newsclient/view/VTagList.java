@@ -60,9 +60,8 @@ public class VTagList extends Activity {
                     LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
                     int itemCount = layoutManager.getItemCount();
                     int lastposition = layoutManager.findLastVisibleItemPosition();
-                    int firstposition = layoutManager.findFirstVisibleItemPosition();
                     if (itemCount < lastposition + 10) {
-                        DTagList.enlarge(tagId);
+                        dt.enlarge();
                     }
                 }
             }

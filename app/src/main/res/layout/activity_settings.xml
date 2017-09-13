@@ -36,7 +36,7 @@
                 android:id="@+id/textView11"
                 android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:text="    When 4G mode is enabled, all the photos in recent list will be disappear." />
+                android:text="When 4G mode is enabled, all the photos in recent list will be disappear." />
 
             <TextView
                 android:id="@+id/textView"
@@ -54,7 +54,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="360dp"
                 android:layout_height="61dp"
-                android:text="    For the night is dark and full of terrors, when the night shift on, every thing will go dark and it will be less harmful to your eyes." />
+                android:text="For the night is dark and full of terrors, when the night shift on, every thing will go dark and it will be less harmful to your eyes." />
 
             <TextView
                 android:id="@+id/textView5"
