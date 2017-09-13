@@ -16,6 +16,7 @@ public class DSingleTag extends DNewsList {
             DSingleNews news = getById(id);
             if (news == null) news = new DSingleNews(id);
             news.load();
+            _news_list.add(news);
             news_list.add(news);
             size++;
         }
