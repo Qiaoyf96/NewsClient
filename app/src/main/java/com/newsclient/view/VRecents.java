@@ -19,10 +19,12 @@ import com.newsclient.R;
 import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.data.DTagList;
+import com.newsclient.data.Data;
 import com.newsclient.tools.FileHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 class SaveData extends Thread {
     Context c;
@@ -51,6 +53,7 @@ class SaveData extends Thread {
 }
 
 public class VRecents extends FragmentActivity {
+    Data app;
     static View v;
     static Drawable d;
     static boolean isthreadexist = false;
@@ -62,27 +65,30 @@ public class VRecents extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         if (vRecyclerView != null){
-            vRecyclerView.generate();
+            vRecyclerView.refresh();
         }
-//        vRecyclerView.mRecyclerView.setScrollY(totaldy);
-        vRecyclerView.mRecyclerView.scrollTo(0, 2);
-        System.out.println(totaldy);
+        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
     }
 
     private NotificationHelper noti;
     private static final String TAG = VRecents.class.getSimpleName();
 
-    int[] itemsId = new int[]{
-            R.id.imageView2,
-            R.id.item_title,
-            R.id.item_source,
-            R.id.item_time
-    };
+    class Tthread extends Thread {
+        @Override
+        public void run() {
+            DNewsList.news_list = new ArrayList<>();
+            DNewsList.enlargeRecent();
+            super.run();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        app = (Data) this.getApplication();
+        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
         setContentView(R.layout.activity_recentlist);
 
         final SwipeRefreshLayout swipeView = (SwipeRefreshLayout) findViewById(R.id.swipe);
@@ -91,11 +97,15 @@ public class VRecents extends FragmentActivity {
             @Override
             public void onRefresh() {
                 swipeView.setRefreshing(true);
+                final Tthread t = new Tthread();
+                t.start();
                 ( new Handler()).postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        DNewsList.news_list = new ArrayList<>();
-                        DNewsList.enlargeRecent();
+                        try {
+                            t.join();
+                        } catch (InterruptedException e) {
+                        }
                         vRecyclerView.newsList = DNewsList.news_list;
                         vRecyclerView.generate();
                         swipeView.setRefreshing(false);
@@ -137,46 +147,16 @@ public class VRecents extends FragmentActivity {
             }
         });
 
-
-
-//        if (savedInstanceState == null) {
-//            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//            SwipeRefresh.SwipeRefreshListFragmentFragment fragment = new SwipeRefresh.SwipeRefreshListFragmentFragment();
-//            transaction.replace(R.id.sample_content_fragment, fragment);
-//            transaction.commit();
-//        }
-
-
-//        String[] titleList = new String[DNewsList._size];
-//
-//        for (int i = 0; i < DNewsList._size; i++) {
-//            titleList[i] = DNewsList._news_list.get(i).news_title;
-//        }
-//
-//        ListView lv = (ListView)findViewById(R.id.listView);
-//        lv.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, titleList));
-//
-//        ListView lv = findViewById(R.id.sample_content_fragment);
-//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-//                                    long arg3) {
-//                //点击后在标题上显示点击了第几行
-//                Intent intent = new Intent(VRecents.this, VDetails.class);
-//                try {
-//                    intent.putExtra("news_id", DNewsList._news_list.get(arg2).news_id);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                startActivity(intent);
-//            }
-//        });
-
         if (DNewsList.news_list == null || DNewsList.news_list.size() == 0) {
             DNewsList.news_list = new ArrayList<>();
             DNewsList.enlargeRecent();
         }
+        int[] itemsId = new int[]{
+                R.id.imageView2,
+            R.id.item_title,
+            R.id.item_source,
+            R.id.item_time
+        };
 
         vRecyclerView = new VRecyclerView(
                 DNewsList.news_list,
@@ -193,6 +173,7 @@ public class VRecents extends FragmentActivity {
                 System.out.println(totaldy + " " + dy);
             }
         });
+        vRecyclerView.generate();
     }
 
     public void sendNotification(String title, String content) {

@@ -13,8 +13,8 @@
     app:cardElevation="3dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
-
-
+    android:background="?attr/mainBackgroundColor"
+    app:cardBackgroundColor="?attr/mainBackgroundColor"
     >
 
         <LinearLayout
@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     app:textSize="@dimen/detailTitleTextSize"
                     app:maxDisplayLineCount="2"
-                    android:textColor="@color/detailTitleTextColor"
+                    app:textColor="?attr/titleTextColor"
                     android:layout_marginBottom="@dimen/cardVerticalMargin"
                     android:layout_marginTop="@dimen/cardVerticalMargin"
                     app:lineSpacing="1.4"/>
@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/detailSourceTextSize"
-                    android:textColor="@color/detailSourceTextColor"
+                    android:textColor="?attr/sourceTextColor"
 
                     />
 
@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     app:textSize="@dimen/detailContentTextSize"
                     app:maxDisplayLineCount="3"
-                    android:textColor="@color/detailContentTextColor"
+                    app:textColor="?attr/contentTextColor"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="10dp"
                     app:lineSpacing = "1.1"

@@ -1,6 +1,7 @@
 package com.newsclient.data;
 
 import com.newsclient.tools.FileHelper;
+import com.newsclient.tools.ImageFinder;
 import com.newsclient.tools.Network;
 import com.newsclient.view.VRecents;
 
@@ -44,6 +45,10 @@ public class DNewsList {
                     if (DNewsList.totaltime == 0) p = 0.5;
                     else p = DNewsList.readtime[news.news_tag] / (double) DNewsList.totaltime;
                     if (p > r.nextDouble()) {
+                        if (news.news_pictures.equals("")) {
+                            String Url = ImageFinder.findImageByKeyword(news.news_title);
+                            news.news_pictures = Url;
+                        }
                         news_list.add(news);
                         size++;
                         if (size > 10) return;

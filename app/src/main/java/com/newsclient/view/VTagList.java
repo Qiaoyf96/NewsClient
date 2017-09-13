@@ -24,10 +24,14 @@ import java.util.List;
 
 public class VTagList extends Activity {
     int tagId;
+    Data app;
     //final DSingleTag dt;
 
     @Override
     protected void onResume() {
+        super.onResume();
+        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+        setContentView(R.layout.activity_taglist);
         final DSingleTag dt = DTagList.getNewsById(tagId);
 
         String[] titleList = new String[dt.size];
@@ -91,7 +95,10 @@ public class VTagList extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        app = (Data) getApplication();
+        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
         setContentView(R.layout.activity_taglist);
+
 
         Intent intent = getIntent();
         tagId = intent.getIntExtra("tag_id", -1);
