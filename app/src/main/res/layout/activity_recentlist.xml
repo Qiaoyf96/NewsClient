@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:queryHint="Search News"
         android:saveEnabled="true"
+        android:background="?attr/mainBackgroundColor"
         />
 
     <android.support.v4.widget.SwipeRefreshLayout

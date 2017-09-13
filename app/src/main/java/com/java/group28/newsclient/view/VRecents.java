@@ -44,6 +44,9 @@ class SaveData extends Thread {
                 f.save("readtime.ser", DNewsList.readtime);
                 f.save("totaltime.ser", DNewsList.totaltime);
                 f.save("anothernewslist.ser", DNewsList.news_list);
+                f.save("4gmode.ser", Data.is_4G_mode_on);
+                f.save("nightshift.ser", Data.is_night_shift_on);
+                f.save("block.ser", Data.blockwordlist);
                 sleep(10000);
             } catch (Exception e1) {
                 String str = e1.toString();

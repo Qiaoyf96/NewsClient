@@ -16,6 +16,7 @@
         <item name="contentTextColor">@color/light_contentTextColor</item>
         <item name="buttonBackgroundColor">@color/light_buttonBackgroundColor</item>
         <item name="buttonTextColor">@color/light_buttonTextColor</item>
+        <item name="warmBackgroundColor">@color/light_warmBackgroundColor</item>
 
     </style>
 
@@ -26,6 +27,7 @@
         <item name="contentTextColor">@color/dark_contentTextColor</item>
         <item name="buttonBackgroundColor">@color/dark_buttonBackgroundColor</item>
         <item name="buttonTextColor">@color/dark_buttonTextColor</item>
+        <item name="warmBackgroundColor">@color/dark_warmBackgroundColor</item>
 
     </style>
 
@@ -36,6 +38,7 @@
     <attr name="contentTextColor" format="color"/>
     <attr name="buttonBackgroundColor" format="color"/>
     <attr name="buttonTextColor" format="color"/>
+    <attr name="warmBackgroundColor" format="color"/>
     <!---->
 
     <style name="AppTheme.NoActionBar">
