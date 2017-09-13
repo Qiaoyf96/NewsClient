@@ -31,7 +31,7 @@
 
     <!--Attributes-->
     <attr name="titleTextColor" format="color"/>
-    <attr name="mainBackgroundColor" format="color"/>
+    <attr name="mainBackgroundColor" format="color|reference"/>
     <attr name="sourceTextColor" format="color"/>
     <attr name="contentTextColor" format="color"/>
     <attr name="buttonBackgroundColor" format="color"/>
