@@ -22,11 +22,12 @@ import java.net.URLConnection;
 /** * Created by LegaDyan on 2017/9/11. */
 public class PicGetter {
     private Context mContext;
-    private Bitmap mBitmap;
+    static private Bitmap mBitmap;
 
     public PicGetter(Context context) {
         this.mContext= context;
-        mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.unloaded);
+        if (mBitmap == null)
+            mBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.unloaded);
     }
 
     /**     * 检查复用的ImageView中是否存在其他图片的下载任务，如果存在就取消并且返回ture 否则返回 false
@@ -91,7 +92,11 @@ public class PicGetter {
         @Override
         protected Bitmap doInBackground(DSingleNews... params) {
             DSingleNews news = params[0];
-            Bitmap bitmap = downLoadBitmap(news.news_pictures);
+            String url = news.news_pictures;
+            if (url == null || url.equals("")) {
+                url = ImageFinder.findImageByKeyword(news.news_title);
+            }
+            Bitmap bitmap = downLoadBitmap(url);
             BitmapDrawable drawable = new BitmapDrawable(mContext.getResources(),bitmap);
             addBitmapDrawableToMemoryCache(news,bitmap);
             return bitmap;

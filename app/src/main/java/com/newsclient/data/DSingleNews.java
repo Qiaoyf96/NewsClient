@@ -1,7 +1,5 @@
 package com.newsclient.data;
 
-import android.util.Log;
-
 import com.newsclient.tools.ImageFinder;
 import com.newsclient.tools.SerialBitmap;
 import com.newsclient.tools.StringFormatTransfer;
@@ -102,9 +100,6 @@ public class DSingleNews implements java.io.Serializable{
                 String pictureList = art.getString("news_Pictures");
                 if (!pictureList.equals("") && !pictureList.startsWith(" ")) {
                     news_pictures = pictureList.split(";| ")[0];
-                    if (news_pictures == null) {
-                        Log.e("Error", this.toString());
-                    }
                 }
                 else {
 //                    news_pictures = "";
