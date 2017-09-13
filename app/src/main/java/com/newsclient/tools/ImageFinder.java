@@ -20,6 +20,7 @@ public class ImageFinder {
             urlarray = new ArrayList<String>();
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
+            keyword = keyword.replace(" ", "").replace("\t","").replace("　", "");
             String searchurl = "http://image.baidu.com/search/avatarjson?tn=resultjsonavatarnew&ie=utf-8&word=" + keyword + "&cg=star&pn=0&rn=30&itg=0&z=0&fr=&width=&height=&lm=-1&ic=0&s=0&st=-1&gsm=0";
             content = Http.sendGet(searchurl);
             Pattern pt = Pattern.compile("thumbURL\"\\:\"(.+?)\"");
@@ -35,6 +36,7 @@ public class ImageFinder {
             URL url = new URL(finalurl);
             return finalurl;
         }catch (Exception e){
-            return null;}
+            return null;
+        }
     }
 }
