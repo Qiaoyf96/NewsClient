@@ -121,7 +121,7 @@ public class DTagList {
             lstdetail.add(as);
             category.add(new Integer(i));
         }
-        totaltag = category.size();
+        totaltag = category.size() - 1;
     }
 
     public static void removetag(int i){

@@ -1,6 +1,14 @@
 package com.newsclient.data;
 
+import com.newsclient.tools.Network;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import static com.newsclient.tools.Http.sendGet;
 
 public class DSingleTag extends DNewsList {
     public int id;
@@ -25,5 +33,21 @@ public class DSingleTag extends DNewsList {
     public void enlarge() {
         DTagList.enlarge(id);
         set(DTagList.lstdetail.get(id));
+    }
+
+    public void enlarge(String keyword) {
+        if (!Network.isConnected()) return;
+        String str = sendGet("http://166.111.68.66:2042/news/action/query/search?keyword=" + keyword);
+        try {
+            JSONArray artList = new JSONArray(new JSONObject(str).getString("list"));
+            int length = artList.length();
+            for (int i = 0; i < length; i++) {
+                JSONObject art = artList.getJSONObject(i);
+                DSingleNews news = new DSingleNews(art, id);
+                news_list.add(news);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
