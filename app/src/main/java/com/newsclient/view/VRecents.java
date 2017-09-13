@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.SearchView;
@@ -19,6 +20,7 @@ import com.newsclient.R;
 import com.newsclient.data.DNewsList;
 import com.newsclient.data.DSingleNews;
 import com.newsclient.data.DTagList;
+import com.newsclient.data.Data;
 import com.newsclient.tools.FileHelper;
 
 import java.util.ArrayList;
@@ -66,7 +68,7 @@ public class VRecents extends FragmentActivity {
             vRecyclerView.generate();
         }
 //        vRecyclerView.mRecyclerView.setScrollY(totaldy);
-        vRecyclerView.mRecyclerView.scrollTo(0, 2);
+
         System.out.println(totaldy);
     }
 
@@ -191,7 +193,17 @@ public class VRecents extends FragmentActivity {
                 super.onScrolled(recyclerView, dx, dy);
                 totaldy = totaldy + dy;
                 System.out.println(totaldy + " " + dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int itemCount = layoutManager.getItemCount();
+                int lastposition = layoutManager.findLastVisibleItemPosition();
+                int firstposition = layoutManager.findFirstVisibleItemPosition();
+                if (itemCount < lastposition + 10) {
+                    DNewsList.enlargeRecent();
+
+                }
             }
+
+        }
         });
     }
 
