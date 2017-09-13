@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">INSTANT NEWS</string>
+    <string name="app_name">28_刘熙航</string>
     <string name="button_send">Say something</string>
     <string name="default_message">Click button below!</string>
     <string name="interact_message">You just clicked on the Button!</string>

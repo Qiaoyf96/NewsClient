@@ -129,6 +129,16 @@
                 android:textColor="?attr/buttonTextColor"
                 android:text="About us" />
 
+            <Button
+                android:id="@+id/settings_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="?attr/buttonBackgroundColor"
+                android:textColor="?attr/buttonTextColor"
+                android:text="Clear IN Cache" />
+
         </LinearLayout>
     </ScrollView>
 

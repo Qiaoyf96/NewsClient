@@ -50,7 +50,7 @@
                     <!--android:textSize="@dimen/detailTitleTextSize"-->
                     <!--android:textColor="@color/detailTitleTextColor"/>-->
 
-                    <com.newsclient.view.VAlignTextView
+                    <com.java.group28.newsclient.view.VAlignTextView
                         android:id="@+id/articleDetailTitleText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

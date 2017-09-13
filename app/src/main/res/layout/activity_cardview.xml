@@ -26,7 +26,7 @@
 
             >
 
-                <com.newsclient.view.VAlignTextView
+                <com.java.group28.newsclient.view.VAlignTextView
                     android:id="@+id/card_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                     android:adjustViewBounds="true"
                     android:layout_marginTop="@dimen/cardVerticalMargin"/>
 
-                <com.newsclient.view.VAlignTextView
+                <com.java.group28.newsclient.view.VAlignTextView
                     android:id="@+id/card_intro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
