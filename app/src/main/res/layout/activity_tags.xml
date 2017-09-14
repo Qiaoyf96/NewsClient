@@ -14,7 +14,7 @@
         android:id="@+id/tags_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="@dimen/tagsTitleTextSize"
         android:textColor="?attr/titleTextColor"
         android:text="    My Tags" />
 
@@ -34,13 +34,13 @@
 
             <GridView
                 android:id="@+id/activity_tags_Gridview"
-                android:layout_width="371dp"
-                android:layout_height="495dp"
-                android:columnWidth="92dp"
+                android:layout_width="@dimen/tagsGridWidth"
+                android:layout_height="@dimen/tagsGridHeight"
+                android:columnWidth="@dimen/tagsGridColumnWidth"
                 android:gravity="center_horizontal"
-                android:horizontalSpacing="1dp"
+                android:horizontalSpacing="@dimen/tagsGridHorizontalSpacing"
                 android:numColumns="auto_fit"
-                android:verticalSpacing="1dp" />
+                android:verticalSpacing="@dimen/tagsGridVerticalSpacing" />
         </LinearLayout>
     </ScrollView>
 

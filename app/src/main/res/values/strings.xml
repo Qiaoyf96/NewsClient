@@ -40,4 +40,6 @@
     <string name="main_secondary_config">Go to secondary settings</string>
     <string name="primary2_body">Second Notification for Primary Channel</string>
     <string name="secondary2_body">Second Notification for Secondary Channel</string>
+
+    <!--settings-->
 </resources>

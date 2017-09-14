@@ -1,26 +1,76 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!--recent-->
+    <dimen name="recentVerticalPadding">10dp</dimen>
+    <dimen name="recentImageWidth">60dp</dimen>
+    <dimen name="recentImageHeight">60dp</dimen>
+    <dimen name="recentTextHeight">60dp</dimen>
     <dimen name="recentMargin">10dp</dimen>
-    <dimen name="recentTitleTextSize">18sp</dimen>
-    <dimen name="recentSourceTextSize">14sp</dimen>
+    <dimen name="recentTitleTextSize">20sp</dimen>
+    <dimen name="recentSourceTextSize">16sp</dimen>
     <dimen name="recentTimeTextSize">14sp</dimen>
     <dimen name="alignTextViewVerticalMargin">5dp</dimen>
     <dimen name="recentTextHorizontalMargin">10dp</dimen>
+    <dimen name="recentSourceVerticalMargin">3dp</dimen>
 
-    <!--detail page-->
+    <!--detail-->
     <dimen name="detailTitleTextSize">24sp</dimen>
     <dimen name="detailSourceTextSize">14sp</dimen>
     <dimen name="detailContentTextSize">16sp</dimen>
     <dimen name="detailImgMaxHeight">400dp</dimen>
+    <dimen name="detailFABMargin">16dp</dimen>
+    <dimen name="detailFABElevation">6dp</dimen>
 
     <!--card-->
     <dimen name="cardHorizontalMargin">10dp</dimen>
     <dimen name="cardVerticalMargin">10dp</dimen>
     <dimen name="cardHorizontalPadding">10dp</dimen>
     <dimen name="cardVerticalPadding">10dp</dimen>
-
+    <dimen name="cardMaxElevation">10dp</dimen>
+    <dimen name="cardElevation">4dp</dimen>
     <dimen name="cardImageMaxHeight">200dp</dimen>
 
-    <!--Cardview textfont-->
+    <!--cardview textfont-->
     <dimen name="cardPreview">16sp</dimen>
+
+    <!--search-->
+    <dimen name="searchVerticalMargin">20dp</dimen>
+    <dimen name="searchTextSize">16sp</dimen>
+    <dimen name="searchBarWidth">20dp</dimen>
+    <dimen name="searchBarHeight">20dp</dimen>
+    <dimen name="searchBarVerticalMargin">20dp</dimen>
+    <dimen name="searchBarHorizontalMargin">7dp</dimen>
+    <dimen name="searchBarTextSize">14sp</dimen>
+
+    <!--settings-->
+    <dimen name="settingsTitleMarginTop">5dp</dimen>
+    <dimen name="settingsTitleMarginBottom">30dp</dimen>
+    <dimen name="settingsTitleTextSize">16sp</dimen>
+    <dimen name="settingsSearchWidth">360dp</dimen>
+    <dimen name="settingsSwitchInfoHeight">61dp</dimen>
+    <dimen name="settingsSubTitleMarginTop">30dp</dimen>
+    <dimen name="settingsSubTitleMarginBottom">10dp</dimen>
+    <dimen name="settingsSubTitleTextSize">16sp</dimen>
+    <dimen name="settingsButtonVerticalMargin">5dp</dimen>
+    <dimen name="settingsTagsViewWidth">0dp</dimen>
+    <dimen name="settingsTagsViewHeight">50dp</dimen>
+    <dimen name="settingsTagsHorizontalMargin">12dp</dimen>
+    <dimen name="settingsTagsViewHorizontalMargin">10dp</dimen>
+    <dimen name="settingsTagsViewHorizontalPadding">30dp</dimen>
+    <dimen name="settingsTagsTextSize">16sp</dimen>
+    <dimen name="settingsTagsCheckWidth">0dp</dimen>
+
+    <!--tags-->
+    <dimen name="tagsTitleTextSize">20sp</dimen>
+    <dimen name="tagsGridWidth">371dp</dimen>
+    <dimen name="tagsGridHeight">495dp</dimen>
+    <dimen name="tagsGridColumnWidth">92dp</dimen>
+    <dimen name="tagsGridHorizontalSpacing">1dp</dimen>
+    <dimen name="tagsGridVerticalSpacing">1dp</dimen>
+    <dimen name="tagsItemWidth">92dp</dimen>
+    <dimen name="tagsItemHeight">92dp</dimen>
+    <dimen name="tagsItemTextVerticalMargin">1dp</dimen>
+    <dimen name="tagsItemTextColor">18sp</dimen>
+    <dimen name="tagsItemTextPadding">1dp</dimen>
 </resources>
