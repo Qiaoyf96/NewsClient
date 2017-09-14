@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.java.group28.newsclient.R;
@@ -26,32 +25,17 @@ import java.util.List;
 public class VTagList extends Activity {
     int tagId;
     Data app;
-    //final DSingleTag dt;
 
     @Override
     protected void onResume() {
         super.onResume();
         setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
         setContentView(R.layout.activity_taglist);
-//        ((LinearLayout)findViewById(R.id.taglist_linearlayout)).setBackgroundColor((app.is_night_shift_on)
-//                ? getResources().getColor(R.color.dark_mainBackgroundColor)
-//                : getResources().getColor(R.color.light_mainBackgroundColor));
         final DSingleTag dt = DTagList.getNewsById(tagId);
 
         if (tagId > 12 && dt.news_list.size() == 0) {
             dt.enlarge((String)DTagList.lstImageitem.get(tagId).get("ItemText"));
         }
-        //ListView lv = (ListView) findViewById(R.id.listViewTag);
-
-        CardView cv = (CardView) this.findViewById(R.id.card);
-
-//        cv.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast toast = Toast.makeText(VTagList.this, "点到了！！", Toast.LENGTH_SHORT);
-//                toast.show();
-//            }
-//        });
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.taglist);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -89,8 +73,6 @@ public class VTagList extends Activity {
                     e.printStackTrace();
                 }
                 VTagList.this.startActivity(intent);
-                //Toast toast = Toast.makeText(VTagList.this, "点到了" + position + "！！", Toast.LENGTH_SHORT);
-                //toast.show();
             }
 
             @Override
@@ -100,14 +82,8 @@ public class VTagList extends Activity {
         });
 
         recyclerView.setAdapter(adapter);
-
-
-
-
         super.onResume();
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +92,6 @@ public class VTagList extends Activity {
         setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
         setContentView(R.layout.activity_taglist);
 
-
         Intent intent = getIntent();
         tagId = intent.getIntExtra("tag_id", -1);
         if (tagId > 0 && tagId <= 12) DTagList.build(tagId);
@@ -124,16 +99,11 @@ public class VTagList extends Activity {
     }
 }
 
-
-
 class CardAdapter extends RecyclerView.Adapter<CardAdapter.InnerViewHolder>{
-
-
     private Activity activity;
     private int sourceLayout;
     private int[] itemsId;
     private List<DSingleNews> newsList;
-    //private VRecyclerView recyclerView;
     private OnItemClickListener mOnItemClickListener;
     private Data app;
 
@@ -143,11 +113,6 @@ class CardAdapter extends RecyclerView.Adapter<CardAdapter.InnerViewHolder>{
         this.sourceLayout = source;
         this.itemsId = itemsId;
         this.newsList = tag.news_list;
-//        this.recyclerView = view;
-//        this.activity = this.recyclerView.activity;
-//        this.sourceLayout = this.recyclerView.sourceLayout;
-//        this.itemsId = this.recyclerView.itemsId;
-//        this.newsList = this.recyclerView.newsList;
         this.app = (Data)activity.getApplication();
     }
     // set click reflection
@@ -185,10 +150,6 @@ class CardAdapter extends RecyclerView.Adapter<CardAdapter.InnerViewHolder>{
                 @Override
                 public void onClick(View v)
                 {
-//                    VRecents.v = holder.itemView;
-//                    VRecents.d = holder.itemView.getBackground();
-//                    holder.itemView.setBackgroundColor(activity.getResources().getColor(R.color.pressedBackground));
-
                     int pos = holder.getLayoutPosition();
                     mOnItemClickListener.onItemClick(holder.itemView, pos);
 

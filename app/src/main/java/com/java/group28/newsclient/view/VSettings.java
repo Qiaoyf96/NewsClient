@@ -27,7 +27,6 @@ import java.util.HashMap;
 
 public class VSettings extends Activity{
     VSingleItemSelected adapter;
-    LinearLayout layout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -106,8 +105,6 @@ public class VSettings extends Activity{
         setContentView(R.layout.activity_settings);
         // color setting fix
         colorFix(app);
-
-        //.
 
         Switch switch1 = (Switch)findViewById(R.id.settings_switch1);
         final Switch switch2 = (Switch)findViewById(R.id.settings_switch2);
@@ -266,39 +263,6 @@ public class VSettings extends Activity{
                 try {
                     f.save("globalload.ser", g);
                 } catch (Exception e) {}
-//                try {
-//                    f.delete("newslist.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("newssize.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("lstImageitem.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("lstItem.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("lstdetail.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("readedlist.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("isinitialized.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("page.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("readtime.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("totaltime.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("anothernewslist.ser");
-//                } catch (Exception e) {}
                 Toast.makeText(VSettings.this, "Cleared!", Toast.LENGTH_SHORT).show();
             }
         });

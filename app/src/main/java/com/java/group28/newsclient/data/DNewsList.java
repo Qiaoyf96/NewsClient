@@ -123,12 +123,3 @@ public class DNewsList {
         super.finalize();
     }
 }
-
-//class NewsSort implements Comparator {
-//    @Override
-//    public int compare(Object A, Object B){
-//        DSingleNews _A = (DSingleNews) A;
-//        DSingleNews _B = (DSingleNews) B;
-//        return _A.news_id.compareTo(_B.news_id);
-//    }
-//}

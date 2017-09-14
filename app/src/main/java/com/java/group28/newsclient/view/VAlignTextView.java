@@ -95,9 +95,6 @@ public class VAlignTextView extends AppCompatTextView{
 
     public void setKeyword(String keyword){
         this.keyword = keyword;
-
-
-
     }
 
     public void setTextHighlightedColor(int id){
@@ -160,12 +157,11 @@ public class VAlignTextView extends AppCompatTextView{
 
     @Override
     protected void onDraw(Canvas canvas) {
-//		super.onDraw(canvas);
         View view=(View)this.getParent();
         textShowWidth=view.getMeasuredWidth() - paddingLeft - paddingRight - marginLeft - marginRight;
         int lineCount = 0;
 
-        text = this.getText().toString();//.replaceAll("\n", "\r\n");
+        text = this.getText().toString();
 
         keywordCheck();
 
@@ -190,12 +186,6 @@ public class VAlignTextView extends AppCompatTextView{
             }
             if (textShowWidth - drawedWidth < charWidth) {
                 // try creating new line
-//                if (lineCount + 1 == maxLineCount){
-//                    char[] temp = "...".toCharArray();
-//                    canvas.drawText(temp, 0, 3, paddingLeft + drawedWidth,
-//                            (lineCount + 1) * textSize * LineSpacing, choosePaint(i));
-//                    break;
-//                }
                 lineCount++;
                 drawedWidth = 0;
             }
@@ -243,9 +233,6 @@ public class VAlignTextView extends AppCompatTextView{
     public void setTextColor(int color){
         this.textColor = color;
         paint1.setColor(color);
-        //this.setText(this.text);
     }
-
-
 }
 

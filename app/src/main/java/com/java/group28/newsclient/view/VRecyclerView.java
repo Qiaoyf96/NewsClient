@@ -19,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.java.group28.newsclient.R;
@@ -59,9 +58,6 @@ public class VRecyclerView {
                 : activity.getResources().getColor(R.color.light_mainBackgroundColor));
         mLayoutManager = new LinearLayoutManager(activity);
 
-        //mLayoutManager = new RecyclerLayoutManager();
-        //mLayoutManager = new GridLayoutManager(activity, 2);
-
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new RecyclerAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
@@ -90,10 +86,6 @@ public class VRecyclerView {
         mAdapter.setOnItemClickLitener(new RecyclerAdapter.OnItemClickLitener() {
             @Override
             public void onItemClick(View view, int position) {
-                //Toast.makeText(activity,  position + " click", Toast.LENGTH_SHORT).show();
-
-
-
                 Intent intent = new Intent(activity, VDetails.class);
                 try {
                     intent.putExtra("news_id", newsList.get(position).news_id);
@@ -127,9 +119,6 @@ public class VRecyclerView {
         void bindValue(int index){
             Data app = (Data) VRecyclerView.this.activity.getApplication();
             DSingleNews news = newsList.get(index);
-//            ((LinearLayout)activity.findViewById(R.id.recentItemLayout)).setBackgroundColor((app.is_night_shift_on)
-//                    ? activity.getResources().getColor(R.color.dark_mainBackgroundColor)
-//                    : activity.getResources().getColor(R.color.light_mainBackgroundColor));
             title.setBackgroundColor((app.is_night_shift_on)
                     ? activity.getResources().getColor(R.color.dark_mainBackgroundColor)
                     : activity.getResources().getColor(R.color.light_mainBackgroundColor));
@@ -139,8 +128,6 @@ public class VRecyclerView {
             title.setText(news.displayTitle());
             if (news.readed){
                 title.setTextColor(activity.getResources().getColor(R.color.recentTitleVisitedColor));
-                //title.setTextColor(Color.BLUE);
-                //Toast.makeText(activity, "safsa", Toast.LENGTH_SHORT).show();
             }
             source.setTextColor((app.is_night_shift_on)
                     ? activity.getResources().getColor(R.color.dark_sourceTextColor)
@@ -168,12 +155,7 @@ public class VRecyclerView {
                     }
                 }
             }
-
-
-
-
         }
-
     }
 
     RecyclerShowItemGroup getGroup(View[] args){
@@ -226,17 +208,10 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
 
     @Override
     public void onBindViewHolder(final InnerViewHolder holder, final int position) {
-
-//        if (isChangingImageMode){
-//            holder.item.changeImageMode();
-//            return;
-//        }
-
         holder.item.bindValue(position);
         holder.itemView.setBackgroundColor((app.is_night_shift_on)
                 ? activity.getResources().getColor(R.color.dark_mainBackgroundColor)
                 : activity.getResources().getColor(R.color.light_mainBackgroundColor));
-
 
         if (mOnItemClickLitener != null)
         {
@@ -253,7 +228,6 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
 
                     int pos = holder.getLayoutPosition();
                     mOnItemClickLitener.onItemClick(holder.itemView, pos);
-
                 }
             });
 
@@ -327,16 +301,12 @@ class DividerItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent) {
-        //Log.v("recyclerview - itemdecoration", "onDraw()");
-
         if (mOrientation == VERTICAL_LIST) {
             drawVertical(c, parent);
         } else {
             drawHorizontal(c, parent);
         }
-
     }
-
 
     public void drawVertical(Canvas c, RecyclerView parent) {
         final int left = parent.getPaddingLeft();

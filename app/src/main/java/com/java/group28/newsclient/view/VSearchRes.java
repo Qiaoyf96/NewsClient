@@ -80,8 +80,6 @@ public class VSearchRes extends Activity {
         loadNewView();
         last_index = 0;
         total_index = 0;
-
-
     }
 
     public void loadNewView(){

@@ -79,7 +79,6 @@ public class VRecents extends FragmentActivity {
 
         if (vRecyclerView != null){
             setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
-            //getResources().getLayout(R.layout.item_recycler_view_item);
             vRecyclerView.generate();
             ((LinearLayout)findViewById(R.id.recentlist_linearlayout)).setBackgroundColor((app.is_night_shift_on)
                     ? getResources().getColor(R.color.dark_mainBackgroundColor)
