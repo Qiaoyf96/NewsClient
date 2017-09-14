@@ -54,8 +54,6 @@ public class DSingleNews implements java.io.Serializable{
         }
         else {
             news_pictures = "";
-//            String Url = ImageFinder.findImageByKeyword(news_title);
-//            news_pictures = Url;
         }
     }
     public DSingleNews(String id) {
@@ -79,13 +77,13 @@ public class DSingleNews implements java.io.Serializable{
             HashSet<String> neededkeyst = new HashSet<String>();
             for(int i = 0; i < discretekeyst.length; i++){
                 if (discretekeyst[i].length() < 7) continue;
-                if (discretekeyst[i].indexOf("/ORG") != -1)
+                if (discretekeyst[i].contains("/ORG"))
                     neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 5));
-                if (discretekeyst[i].indexOf("/PER") != -1)
+                if (discretekeyst[i].contains("/PER"))
                     neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 5));
-                if (discretekeyst[i].indexOf("/LOC") != -1)
+                if (discretekeyst[i].contains("/LOC"))
                     neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 5));
-                if (discretekeyst[i].indexOf("/nx") != -1)
+                if (discretekeyst[i].contains("/nx"))
                     neededkeyst.add(discretekeyst[i].substring(0, discretekeyst[i].length() - 4));
             }
             readable_content = content;

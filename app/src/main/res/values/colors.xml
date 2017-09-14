@@ -27,12 +27,12 @@
     <color name="light_titleTextColor">#000000</color>
     <color name="light_titleVisitedTextColor">#666666</color>
     <color name="light_sourceTextColor">#444444</color>
-    <color name="light_contentTextColor">#000000</color>
-    <color name="light_mainBackgroundColor">#ffffff</color>
+    <color name="light_contentTextColor">#222222</color>
+    <color name="light_mainBackgroundColor">#f0f0f0</color>
     <color name="light_barBackgroundColor">#3f51b5</color>
-    <color name="light_buttonBackgroundColor">#ffffff</color>
-    <color name="light_buttonTextColor">#000000</color>
-    <color name="light_barTextColor">#ffffff</color>
+    <color name="light_buttonBackgroundColor">#c0c0c0</color>
+    <color name="light_buttonTextColor">#303030</color>
+    <color name="light_barTextColor">#c0c0c0</color>
     <color name="light_warmBackgroundColor">#ffffff</color>
 
 
@@ -40,14 +40,15 @@
     <color name="dark_titleTextColor">#cccccc</color>
     <color name="dark_titleVisitedTextColor">#888888</color>
     <color name="dark_sourceTextColor">#888888</color>
-    <color name="dark_contentTextColor">#cccccc</color>
+    <color name="dark_contentTextColor">#aaaaaa</color>
     <color name="dark_mainBackgroundColor">#112222</color>
     <color name="dark_barBackgroundColor">#303f9f</color>
     <color name="dark_buttonBackgroundColor">#222222</color>
     <color name="dark_buttonTextColor">#cccccc</color>
     <color name="dark_barTextColor">#cccccc</color>
     <color name="dark_warmBackgroundColor">#e5d2ab</color>
-    <!--<color name="test">#ff3333</color>-->
+
+
 
 
 </resources>

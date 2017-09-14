@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -33,12 +34,77 @@ public class VSettings extends Activity{
         setDisplay();
     }
 
+    void colorFixButton(final Data app, int[] id){
+        for (int i : id){
+            ((Button)findViewById(i)).setTextColor((app.is_night_shift_on)
+                    ? getResources().getColor(R.color.dark_buttonTextColor)
+                    : getResources().getColor(R.color.light_buttonTextColor));
+            ((Button)findViewById(i)).setBackgroundColor((app.is_night_shift_on)
+                    ? getResources().getColor(R.color.dark_buttonBackgroundColor)
+                    : getResources().getColor(R.color.light_buttonBackgroundColor));
+        }
+
+    }
+
+    void colorFixTextView(final Data app, int[] id, boolean[] isTitle){
+        for (int i = 0; i < id.length; i++){
+            ((TextView)findViewById(id[i])).setTextColor((app.is_night_shift_on)
+                    ? getResources().getColor(isTitle[i]
+                        ? R.color.dark_titleTextColor
+                        : R.color.dark_contentTextColor)
+                    : getResources().getColor(isTitle[i]
+                        ? R.color.light_titleTextColor
+                        : R.color.light_contentTextColor));
+        }
+    }
+
+    void colorFix(final Data app){
+        ((LinearLayout)findViewById(R.id.settingsLayout)).setBackgroundColor((app.is_night_shift_on)
+                ? getResources().getColor(R.color.dark_mainBackgroundColor)
+                : getResources().getColor(R.color.light_mainBackgroundColor));
+        colorFixTextView(app, new int[]{
+                R.id.textView12,
+                R.id.textView11,
+                R.id.textView,
+                R.id.textView10,
+                R.id.textView5,
+                R.id.textView7,
+        },new boolean[]{
+                true,
+                false,
+                false,
+                false,
+                true,
+                true
+        });
+
+        ((Switch)findViewById(R.id.settings_switch1)).setTextColor((app.is_night_shift_on)
+                ? getResources().getColor(R.color.dark_titleTextColor)
+                : getResources().getColor(R.color.light_titleTextColor));
+        ((Switch)findViewById(R.id.settings_switch2)).setTextColor((app.is_night_shift_on)
+                ? getResources().getColor(R.color.dark_titleTextColor)
+                : getResources().getColor(R.color.light_titleTextColor));
+        ((EditText)findViewById(R.id.Settings_textinput)).setTextColor((app.is_night_shift_on)
+                ? getResources().getColor(R.color.dark_contentTextColor)
+                : getResources().getColor(R.color.light_contentTextColor));
+        ((EditText)findViewById(R.id.Settings_textinput)).setHintTextColor((app.is_night_shift_on)
+                ? getResources().getColor(R.color.dark_contentTextColor)
+                : getResources().getColor(R.color.light_contentTextColor));
+        colorFixButton(app, new int[] {
+                R.id.Settings_addbutton,
+                R.id.Settings_deletebutton,
+                R.id.settings_about,
+                R.id.settings_delete
+        });
+
+    }
+
     void setDisplay(){
         final Data app = (Data)getApplication();
         setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
-        //setTheme(R.style.DarkTheme);
         setContentView(R.layout.activity_settings);
-
+        // color setting fix
+        colorFix(app);
 
         Switch switch1 = (Switch)findViewById(R.id.settings_switch1);
         final Switch switch2 = (Switch)findViewById(R.id.settings_switch2);
@@ -69,6 +135,8 @@ public class VSettings extends Activity{
                     app.is_night_shift_on = false;
                 }
                 setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+
+
                 VNavigation.tabhost.setBackgroundColor(VSettings.this.getResources().getColor(
                         (app.is_night_shift_on)
                                 ? R.color.dark_mainBackgroundColor
@@ -195,39 +263,6 @@ public class VSettings extends Activity{
                 try {
                     f.save("globalload.ser", g);
                 } catch (Exception e) {}
-//                try {
-//                    f.delete("newslist.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("newssize.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("lstImageitem.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("lstItem.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("lstdetail.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("readedlist.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("isinitialized.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("page.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("readtime.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("totaltime.ser");
-//                } catch (Exception e) {}
-//                try {
-//                    f.delete("anothernewslist.ser");
-//                } catch (Exception e) {}
                 Toast.makeText(VSettings.this, "Cleared!", Toast.LENGTH_SHORT).show();
             }
         });
