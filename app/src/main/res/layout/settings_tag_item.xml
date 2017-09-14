@@ -8,8 +8,8 @@
         android:id="@+id/outpatient_check_hospital"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12.599976dip"
-        android:layout_marginRight="12.599976dip"
+        android:layout_marginLeft="@dimen/settingsTagsHorizontalMargin"
+        android:layout_marginRight="@dimen/settingsTagsHorizontalMargin"
         android:gravity="center_vertical">
 
         <LinearLayout
@@ -21,20 +21,20 @@
 
             <TextView
                 android:id="@+id/tv_device_name"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_width="@dimen/settingsTagsViewWidth"
+                android:layout_height="@dimen/settingsTagsViewHeight"
                 android:layout_weight="3"
                 android:text="名称"
                 android:gravity="left|center"
-                android:layout_marginLeft="10dp"
-                android:paddingLeft="30dp"
+                android:layout_marginLeft="@dimen/settingsTagsViewHorizontalMargin"
+                android:paddingLeft="@dimen/settingsTagsViewHorizontalPadding"
                 android:textColor="#ff323232"
-                android:textSize="16.0sp"
+                android:textSize="@dimen/settingsTagsTextSize"
                 android:typeface="monospace" />
 
             <CheckBox
                 android:id="@+id/checkBox1"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/settingsTagsCheckWidth"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_height="fill_parent"

@@ -4,9 +4,10 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
+    android:paddingTop="@dimen/recentVerticalPadding"
+    android:paddingBottom="@dimen/recentVerticalPadding"
 
+    android:id="@+id/recentItemLayout"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
@@ -15,25 +16,19 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="@dimen/recentImageWidth"
+        android:layout_height="@dimen/recentImageHeight"
         android:layout_gravity="start"
         android:scaleType="centerCrop"
         android:layout_marginLeft="@dimen/recentTextHorizontalMargin"
-
         />
 
     <RelativeLayout
-
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-
+        android:layout_height="@dimen/recentTextHeight"
         android:layout_marginLeft="@dimen/recentTextHorizontalMargin"
         android:layout_marginRight="@dimen/recentTextHorizontalMargin"
-
     >
-
-
         <com.java.group28.newsclient.view.VAlignTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -41,14 +36,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             setLineSpacing="1.6"
-            app:textSize="20sp"
+            app:textSize="@dimen/recentTitleTextSize"
             app:maxDisplayLineCount="1"
             app:textColor="?attr/titleTextColor"
-
             android:id="@+id/item_title">
-
         </com.java.group28.newsclient.view.VAlignTextView>
-
 
         <TextView
             android:id="@+id/item_source"
@@ -56,9 +48,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="@dimen/recentSourceVerticalMargin"
             android:textColor="?attr/sourceTextColor"
-            android:textSize="16sp">
+            android:textSize="@dimen/recentSourceTextSize">
 
         </TextView>
 
@@ -68,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="3dp"
+            android:layout_marginBottom="@dimen/recentSourceVerticalMargin"
             android:textColor="?attr/sourceTextColor"
             android:textSize="@dimen/recentTimeTextSize">
 

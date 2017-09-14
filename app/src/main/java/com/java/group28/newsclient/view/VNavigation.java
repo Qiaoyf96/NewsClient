@@ -25,7 +25,7 @@ public class VNavigation extends TabActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-            //从TabActivity上面获取放置Tab的TabHost
+        //从TabActivity上面获取放置Tab的TabHost
         tabhost = getTabHost();
 
 
@@ -39,24 +39,13 @@ public class VNavigation extends TabActivity {
         tabhost.addTab(tabhost.newTabSpec("two").setIndicator("Tags").setContent(new Intent(this, VTags.class)));
         tabhost.addTab(tabhost.newTabSpec("three").setIndicator("Settings").setContent(new Intent(this, VSettings.class)));
 
-        for (int i = 0; i < tabhost.getTabWidget().getChildCount(); i++){
+        for (int i = 0; i < tabhost.getTabWidget().getChildCount(); i++) {
 
-            TextView view = (TextView)tabhost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
+            TextView view = (TextView) tabhost.getTabWidget().getChildAt(i).findViewById(android.R.id.title);
 
             view.setTextColor((app.is_night_shift_on)
                     ? getResources().getColor(R.color.dark_buttonTextColor)
                     : getResources().getColor(R.color.light_buttonTextColor));
         }
     }
-
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        //setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
-//        //setContentView(R.layout.activity_navigation);
-//        //TabHost h = findViewById(R.layout.activity_navigation);
-//        tabhost.setBackgroundColor((app.is_night_shift_on)
-//            ? getResources().getColor(R.color.dark_mainBackgroundColor)
-//            : getResources().getColor(R.color.light_mainBackgroundColor));
-//    }
 }

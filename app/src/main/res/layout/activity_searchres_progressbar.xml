@@ -3,25 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="?attr/mainBackgroundColor">
 
     <ProgressBar
         android:id="@+id/progress"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="@dimen/searchBarWidth"
+        android:layout_height="@dimen/searchBarHeight"
+        android:layout_marginBottom="@dimen/searchBarVerticalMargin"
+        android:layout_marginTop="@dimen/searchVerticalMargin"
         android:indeterminateDrawable="@drawable/progressbar" />
 
     <TextView
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginStart="7dp"
+        android:layout_marginStart="@dimen/searchBarHorizontalMargin"
+        android:layout_marginLeft="@dimen/searchBarHorizontalMargin"
         android:gravity="center_vertical"
         android:text="Loading..."
         android:textAlignment="viewEnd"
         android:textAllCaps="false"
         android:textColor="#888888"
-        android:textSize="14sp" />
+        android:textSize="@dimen/searchBarTextSize" />
 </LinearLayout>

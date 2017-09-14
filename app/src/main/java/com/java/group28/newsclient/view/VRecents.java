@@ -13,8 +13,13 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.java.group28.newsclient.R;
 import com.java.group28.newsclient.data.DNewsList;
@@ -44,6 +49,9 @@ class SaveData extends Thread {
                 f.save("readtime.ser", DNewsList.readtime);
                 f.save("totaltime.ser", DNewsList.totaltime);
                 f.save("anothernewslist.ser", DNewsList.news_list);
+                f.save("4gmode.ser", Data.is_4G_mode_on);
+                f.save("nightshift.ser", Data.is_night_shift_on);
+                f.save("block.ser", Data.blockwordlist);
                 sleep(10000);
             } catch (Exception e1) {
                 String str = e1.toString();
@@ -62,6 +70,7 @@ public class VRecents extends FragmentActivity {
     static boolean stop = false;
     int totaldy = 0;
     int firstposition;
+    SearchView searchview;
     VRecyclerView vRecyclerView;
 
     @Override
@@ -69,10 +78,32 @@ public class VRecents extends FragmentActivity {
         super.onResume();
 
         if (vRecyclerView != null){
-            vRecyclerView.refresh();
+            setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+            vRecyclerView.generate();
+            ((LinearLayout)findViewById(R.id.recentlist_linearlayout)).setBackgroundColor((app.is_night_shift_on)
+                    ? getResources().getColor(R.color.dark_mainBackgroundColor)
+                    : getResources().getColor(R.color.light_mainBackgroundColor));
         }
+
         vRecyclerView.mRecyclerView.scrollToPosition(firstposition);
-        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+
+        searchview.setBackgroundColor((app.is_night_shift_on)
+                ? getResources().getColor(R.color.dark_mainBackgroundColor)
+                : getResources().getColor(R.color.light_mainBackgroundColor));
+        TextView tv = (TextView) searchview.findViewById(searchview.getResources().getIdentifier("android:id/search_src_text", null, null));
+        tv.setTextColor((app.is_night_shift_on)
+                ? getResources().getColor(R.color.dark_contentTextColor)
+                : getResources().getColor(R.color.light_contentTextColor));
+
+        SpannableString spanText = new SpannableString("Search News");
+        spanText.setSpan(new ForegroundColorSpan(
+                (app.is_night_shift_on)
+                        ? getResources().getColor(R.color.dark_contentTextColor)
+                        : getResources().getColor(R.color.light_contentTextColor)),
+                0,
+                spanText.length(),
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        searchview.setQueryHint(spanText);
     }
 
     private NotificationHelper noti;
@@ -138,7 +169,8 @@ public class VRecents extends FragmentActivity {
             pushthread.start();
         }
 
-        SearchView searchview = (SearchView)findViewById(R.id.recentlist_searchview);
+        searchview = (SearchView)findViewById(R.id.recentlist_searchview);
+
 
         searchview.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override

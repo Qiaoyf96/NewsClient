@@ -1,8 +1,6 @@
 package com.java.group28.newsclient.data;
 
-import com.java.group28.newsclient.tools.FileHelper;
 import com.java.group28.newsclient.tools.Network;
-import com.java.group28.newsclient.view.VRecents;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +22,7 @@ public class DNewsList {
     public static int totaltime;
 
     public static void enlargeRecent() {
+        if (!Network.isConnected()) return;
         int size = 0;
         Random r = new Random();
         while (true) {
@@ -106,28 +105,11 @@ public class DNewsList {
     }
 
     public static DSingleNews getRandomNews() {
-        Collections.shuffle(_news_list);
-        _news_list.get(0).load();
-        return _news_list.get(0);
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        FileHelper f = new FileHelper(VRecents.context);
-        try {
-            f.save("/tmp/newslist.ser", DNewsList._news_list);
-            f.save("/tmp/newssize.ser", DNewsList._size);
-        } catch (Exception e) {
-        }
-        super.finalize();
+        int length = _news_list.size();
+        Random r = new Random();
+        int term = r.nextInt(length);
+        _news_list.get(term).load();
+        return _news_list.get(term);
     }
 }
 
-//class NewsSort implements Comparator {
-//    @Override
-//    public int compare(Object A, Object B){
-//        DSingleNews _A = (DSingleNews) A;
-//        DSingleNews _B = (DSingleNews) B;
-//        return _A.news_id.compareTo(_B.news_id);
-//    }
-//}

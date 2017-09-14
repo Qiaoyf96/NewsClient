@@ -12,6 +12,7 @@ import com.java.group28.newsclient.R;
 import com.java.group28.newsclient.data.DNewsList;
 import com.java.group28.newsclient.data.DSingleNews;
 import com.java.group28.newsclient.data.DTagList;
+import com.java.group28.newsclient.data.Data;
 import com.java.group28.newsclient.tools.FileHelper;
 import com.java.group28.newsclient.tools.Network;
 
@@ -49,10 +50,20 @@ class MyThread extends Thread {
             DNewsList.load();
         }
         try {
+            Data.is_4G_mode_on = (boolean) f.read("4gmode.ser");
+        } catch (Exception e) {}
+        try {
+            Data.is_night_shift_on = (boolean) f.read("nightshift.ser");
+        } catch (Exception e) {}
+        try {
+            Data.blockwordlist = (ArrayList<String>) f.read("block.ser");
+        } catch (Exception e) {}
+        try {
             DNewsList.readtime = (int[]) f.read("readtime.ser");
+        } catch (Exception e) {}
+        try {
             DNewsList.totaltime = (int) f.read("totaltime.ser");
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
         try {
             DTagList.lstImageitem = (ArrayList<HashMap<String, Object>>) f.read("lstImageitem.ser");
             DTagList.lstItem = (ArrayList<String>) f.read("lstItem.ser");
