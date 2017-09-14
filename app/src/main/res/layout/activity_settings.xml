@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:background="?attr/mainBackgroundColor"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:id="@+id/settingsLayout">
 
 
     <ScrollView

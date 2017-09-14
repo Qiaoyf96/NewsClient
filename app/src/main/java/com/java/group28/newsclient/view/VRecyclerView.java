@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.java.group28.newsclient.R;
@@ -53,6 +54,9 @@ public class VRecyclerView {
 
     public void generate(){
         mRecyclerView = (RecyclerView) activity.findViewById(targetLayout);
+        mRecyclerView.setBackgroundColor((app.is_night_shift_on)
+                ? activity.getResources().getColor(R.color.dark_mainBackgroundColor)
+                : activity.getResources().getColor(R.color.light_mainBackgroundColor));
         mLayoutManager = new LinearLayoutManager(activity);
 
         //mLayoutManager = new RecyclerLayoutManager();
@@ -121,17 +125,32 @@ public class VRecyclerView {
         }
 
         void bindValue(int index){
+            Data app = (Data) VRecyclerView.this.activity.getApplication();
             DSingleNews news = newsList.get(index);
+//            ((LinearLayout)activity.findViewById(R.id.recentItemLayout)).setBackgroundColor((app.is_night_shift_on)
+//                    ? activity.getResources().getColor(R.color.dark_mainBackgroundColor)
+//                    : activity.getResources().getColor(R.color.light_mainBackgroundColor));
+            title.setBackgroundColor((app.is_night_shift_on)
+                    ? activity.getResources().getColor(R.color.dark_mainBackgroundColor)
+                    : activity.getResources().getColor(R.color.light_mainBackgroundColor));
+            title.setTextColor((app.is_night_shift_on)
+                    ? activity.getResources().getColor(R.color.dark_titleTextColor)
+                    : activity.getResources().getColor(R.color.light_titleTextColor));
             title.setText(news.displayTitle());
             if (news.readed){
                 title.setTextColor(activity.getResources().getColor(R.color.recentTitleVisitedColor));
                 //title.setTextColor(Color.BLUE);
                 //Toast.makeText(activity, "safsa", Toast.LENGTH_SHORT).show();
             }
+            source.setTextColor((app.is_night_shift_on)
+                    ? activity.getResources().getColor(R.color.dark_sourceTextColor)
+                    : activity.getResources().getColor(R.color.light_sourceTextColor));
             source.setText(news.displaySource());
+            time.setTextColor((app.is_night_shift_on)
+                    ? activity.getResources().getColor(R.color.dark_sourceTextColor)
+                    : activity.getResources().getColor(R.color.light_sourceTextColor));
             time.setText(news.displayTime());
 
-            Data app = (Data) VRecyclerView.this.activity.getApplication();
             if (app.is_4G_mode_on){
                 img.setVisibility(View.GONE);
             }
@@ -171,7 +190,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
     private VRecyclerView recyclerView;
     private OnItemClickLitener mOnItemClickLitener;
     static int lastvisibleposition;
-
+    Data app;
 
     // constructor
     RecyclerAdapter(VRecyclerView view){
@@ -180,7 +199,7 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
         this.sourceLayout = this.recyclerView.sourceLayout;
         this.itemsId = this.recyclerView.itemsId;
         this.newsList = this.recyclerView.newsList;
-
+        this.app = (Data)this.activity.getApplication();
     }
     // set click reflection
     public interface OnItemClickLitener
@@ -214,6 +233,9 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.InnerViewHold
 //        }
 
         holder.item.bindValue(position);
+        holder.itemView.setBackgroundColor((app.is_night_shift_on)
+                ? activity.getResources().getColor(R.color.dark_mainBackgroundColor)
+                : activity.getResources().getColor(R.color.light_mainBackgroundColor));
 
 
         if (mOnItemClickLitener != null)

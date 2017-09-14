@@ -7,6 +7,7 @@
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
 
+    android:id="@+id/recentItemLayout"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"

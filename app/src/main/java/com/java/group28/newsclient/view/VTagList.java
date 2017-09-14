@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.java.group28.newsclient.R;
@@ -32,6 +33,9 @@ public class VTagList extends Activity {
         super.onResume();
         setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
         setContentView(R.layout.activity_taglist);
+//        ((LinearLayout)findViewById(R.id.taglist_linearlayout)).setBackgroundColor((app.is_night_shift_on)
+//                ? getResources().getColor(R.color.dark_mainBackgroundColor)
+//                : getResources().getColor(R.color.light_mainBackgroundColor));
         final DSingleTag dt = DTagList.getNewsById(tagId);
 
         if (tagId > 12 && dt.news_list.size() == 0) {

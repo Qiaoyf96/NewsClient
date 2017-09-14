@@ -10,7 +10,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.java.group28.newsclient.R;
 import com.java.group28.newsclient.data.DTagList;
@@ -38,6 +40,12 @@ public class VTags extends Activity {
         super.onResume();
         setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
         setContentView(R.layout.activity_tags);
+        ((LinearLayout)findViewById(R.id.tags_linearlayout)).setBackgroundColor((app.is_night_shift_on)
+                ? getResources().getColor(R.color.dark_mainBackgroundColor)
+                : getResources().getColor(R.color.light_mainBackgroundColor));
+        ((TextView)findViewById(R.id.tags_textView)).setTextColor((app.is_night_shift_on)
+                ? getResources().getColor(R.color.dark_titleTextColor)
+                : getResources().getColor(R.color.light_titleTextColor));
 
         GridView tags_gridview = (GridView) findViewById(R.id.activity_tags_Gridview);
 

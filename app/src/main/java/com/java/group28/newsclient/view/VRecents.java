@@ -17,6 +17,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -77,10 +78,15 @@ public class VRecents extends FragmentActivity {
         super.onResume();
 
         if (vRecyclerView != null){
-            vRecyclerView.refresh();
+            setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
+            //getResources().getLayout(R.layout.item_recycler_view_item);
+            vRecyclerView.generate();
+            ((LinearLayout)findViewById(R.id.recentlist_linearlayout)).setBackgroundColor((app.is_night_shift_on)
+                    ? getResources().getColor(R.color.dark_mainBackgroundColor)
+                    : getResources().getColor(R.color.light_mainBackgroundColor));
         }
+
         vRecyclerView.mRecyclerView.scrollToPosition(firstposition);
-        setTheme((app.is_night_shift_on) ? R.style.DarkTheme : R.style.LightTheme);
 
         searchview.setBackgroundColor((app.is_night_shift_on)
                 ? getResources().getColor(R.color.dark_mainBackgroundColor)

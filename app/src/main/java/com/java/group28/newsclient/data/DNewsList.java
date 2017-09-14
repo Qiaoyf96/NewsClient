@@ -24,6 +24,7 @@ public class DNewsList {
     public static int totaltime;
 
     public static void enlargeRecent() {
+        if (!Network.isConnected()) return;
         int size = 0;
         Random r = new Random();
         while (true) {
